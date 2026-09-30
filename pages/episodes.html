@@ -12,18 +12,14 @@
 <style>
   .page-head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--space-4); padding: 40px 0 28px; border-bottom: var(--rule) solid var(--color-rule); }
   .page-head p { max-width: 52ch; color: var(--color-navy); font-size: 17px; margin-top: 14px; }
-  .toolbar { display: grid; grid-template-columns: minmax(220px, 320px) 1fr auto; gap: var(--space-3); align-items: center; padding: 22px 0; border-bottom: var(--rule) solid var(--color-divider); }
-  .toolbar .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .toolbar { justify-content: space-between; display: grid; grid-template-columns: minmax(220px, 420px) auto; gap: var(--space-3); align-items: center; padding: 22px 0; border-bottom: var(--rule) solid var(--color-divider); }
   .view-toggle { display: flex; }
   .view-toggle button { font: 600 13px var(--font-text); padding: 0 16px; height: 44px; border: 0; background: transparent; color: var(--color-navy); box-shadow: inset 0 0 0 2px var(--color-navy); cursor: pointer; margin-inline-start: -2px; }
   .view-toggle button[aria-pressed="true"] { background: var(--color-navy); color: var(--color-bg); }
   @media (max-width: 899px) {
     .page-head { grid-template-columns: 1fr; }
     .toolbar { grid-template-columns: 1fr auto; }
-    .toolbar .chips { grid-column: 1 / -1; grid-row: 2; }
   }
-  .season { display: flex; align-items: baseline; gap: 16px; padding: 40px 0 14px; }
-  .season h2 { font: 800 22px var(--font-display); }
   .row--next { opacity: .85; }
   .row--next .tile__sym { font-size: 18px; }
   .ptable--big { grid-template-columns: repeat(6, 1fr); gap: 8px; padding-block: 32px; }
@@ -56,7 +52,7 @@
     <div>
       <span class="kicker">آرشیو — ۹ اپیزود، هر سه‌شنبه یکی تازه</span>
       <h1 class="h1" style="margin-top:12px">همهٔ اپیزودها</h1>
-      <p>هر اپیزود یک خانه از جدول است: شماره‌اش، نمادش، و گروهی که به آن تعلق دارد.</p>
+      <p>هر اپیزود یک خانه از جدول است: یک شماره، یک نماد، یک سؤال. هر سه‌شنبه یک خانهٔ تازه.</p>
     </div>
     <div class="view-toggle" role="group" aria-label="نمایش">
       <button aria-pressed="true" data-view-btn="list">فهرست</button>
@@ -66,7 +62,6 @@
 
   <div class="toolbar">
     <label class="search"><span class="sr-only">جست‌وجو</span><input class="input" type="search" placeholder="جست‌وجو در اپیزودها…" id="q"></label>
-    <div class="chips" id="chips" role="group" aria-label="فیلترِ گروه"></div>
     <select class="select" aria-label="ترتیب" id="sort" style="width:auto">
       <option value="new">جدیدترین</option><option value="old">قدیمی‌ترین</option>
     </select>
@@ -79,8 +74,8 @@
   <div class="empty" id="empty">
     <div class="tile tile--dashed"><div class="tile__top"><span>??</span><span></span></div><div class="tile__sym">∅</div><div class="tile__name">خانهٔ خالی</div></div>
     <h2 class="h3">این خانه هنوز خالی است.</h2>
-    <p class="caption">با این فیلترها اپیزودی پیدا نشد. شاید اپیزودِ بعدی دربارهٔ همین باشد؟</p>
-    <div class="btn-row"><button class="btn btn--navy btn--sm" id="reset">پاک‌کردنِ فیلترها</button><a class="btn btn--ghost btn--sm" href="contact.html">پیشنهادِ موضوع</a></div>
+    <p class="caption">با این جست‌وجو اپیزودی پیدا نشد. شاید اپیزودِ بعدی دربارهٔ همین باشد؟</p>
+    <div class="btn-row"><button class="btn btn--navy btn--sm" id="reset">پاک‌کردنِ جست‌وجو</button><a class="btn btn--ghost btn--sm" href="contact.html">پیشنهادِ موضوع</a></div>
   </div>
 
   <nav class="pager" aria-label="صفحه‌ها">
@@ -94,14 +89,7 @@
 (function () {
   var J = window.Jadval, E = J.EPISODES.slice().reverse();
   var main = document.getElementById('main');
-  var filter = { g: '', sort: 'new', q: '' };
-
-  var counts = {};
-  E.forEach(function (e) { counts[e.g] = (counts[e.g] || 0) + 1; });
-  document.getElementById('chips').innerHTML = '<button class="chip" aria-pressed="true" data-g="">همه <small>' + J.fa(E.length) + '</small></button>' +
-    Object.keys(J.GROUPS).map(function (k) {
-      return '<button class="chip" aria-pressed="false" data-g="' + k + '">' + J.GROUPS[k].name.replace('گروه ', '') + ' <small>' + J.fa(counts[k] || 0) + '</small></button>';
-    }).join('');
+  var filter = { sort: 'new', q: '' };
 
   function row(e) {
     return '<div class="row row--full">' +
@@ -113,21 +101,16 @@
 
   function render() {
     var list = E.filter(function (e) {
-      return (!filter.g || e.g === filter.g) && (!filter.q || (e.title + e.desc).indexOf(filter.q) > -1);
+      return !filter.q || (e.title + e.desc).indexOf(filter.q) > -1;
     });
     if (filter.sort === 'old') list = list.slice().reverse();
-    // Continuous run, no seasons: group by month of release.
-    var html = '', order = [];
-    list.forEach(function (e) { if (order.indexOf(e.month) < 0) order.push(e.month); });
-    if (filter.sort === 'new' && !filter.g && !filter.q) {
-      html += '<div class="season"><h2>اپیزودِ بعدی</h2><span class="meta">' + J.NEXT.day + ' ' + J.NEXT.date + '</span></div>' +
-        '<div class="rows"><div class="row row--full row--next"><span class="row__num latin">' + J.epNum(J.NEXT.n) + '</span>' + J.emptyTile(J.NEXT.n).replace('class="tile tile--empty"', 'class="tile tile--empty tile-sm"') +
-        '<div class="stack"><span class="row__title">خانهٔ بعدیِ جدول</span><span class="caption">هر سه‌شنبه یک اپیزودِ تازه منتشر می‌شود.</span></div><span class="row__len">' + J.NEXT.day + '</span><span></span></div></div>';
+    // One continuous list: no seasons, no topic groups (parked until the catalogue grows).
+    var html = '<div class="rows" style="margin-top:18px">';
+    if (filter.sort === 'new' && !filter.q) {
+      html += '<div class="row row--full row--next"><span class="row__num latin">' + J.epNum(J.NEXT.n) + '</span>' + J.emptyTile(J.NEXT.n).replace('class="tile tile--empty"', 'class="tile tile--empty tile-sm"') +
+        '<div class="stack"><span class="row__title">خانهٔ بعدیِ جدول</span><span class="caption">هر سه‌شنبه یک اپیزودِ تازه منتشر می‌شود.</span></div><span class="row__len">' + J.NEXT.day + '<br><span style="opacity:.7">' + J.NEXT.date + '</span></span><span></span></div>';
     }
-    order.forEach(function (m) {
-      var inM = list.filter(function (e) { return e.month === m; });
-      html += '<div class="season"><h2>' + J.MONTHS[m] + '</h2><span class="meta">' + J.fa(inM.length) + ' اپیزود</span></div><div class="rows">' + inM.map(row).join('') + '</div>';
-    });
+    html += list.map(row).join('') + '</div>';
     document.getElementById('list-view').innerHTML = html;
 
     var t = '';
@@ -143,17 +126,11 @@
     document.querySelector('.pager').style.display = list.length ? '' : 'none';
   }
 
-  document.getElementById('chips').addEventListener('click', function (ev) {
-    var b = ev.target.closest('[data-g]'); if (!b) return;
-    filter.g = b.getAttribute('data-g');
-    this.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
-    render();
-  });
   document.getElementById('sort').addEventListener('change', function () { filter.sort = this.value; render(); });
   document.getElementById('q').addEventListener('input', function () { filter.q = this.value.trim(); render(); });
   document.getElementById('reset').addEventListener('click', function () {
-    filter = { g: '', sort: 'new', q: '' }; document.getElementById('q').value = ''; document.getElementById('sort').value = 'new';
-    document.querySelector('[data-g=""]').click();
+    filter = { sort: 'new', q: '' }; document.getElementById('q').value = ''; document.getElementById('sort').value = 'new';
+    render();
   });
   document.querySelectorAll('[data-view-btn]').forEach(function (b) {
     b.addEventListener('click', function () {

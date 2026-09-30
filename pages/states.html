@@ -93,7 +93,7 @@
     </div>
 
     <figure style="margin:40px 0 0" class="stack gap-3"><figcaption class="label">07 — مینی‌پلیر، دسکتاپ<small style="display:block;font:400 13px var(--font-text);letter-spacing:0;color:var(--color-navy);margin-top:4px">ثابت در پایینِ صفحه، بین صفحه‌ها قطع نمی‌شود.</small></figcaption>
-      <div class="miniplayer is-static"><div class="miniplayer__in"><button class="pmain"><span class="pause-icon"></span></button><div class="miniplayer__info"><div id="mini-tile"></div><div class="miniplayer__txt"><strong>پیاز چرا اشکمون رو درمیاره؟</strong><span>EP 01 — گروه بدن</span></div></div><div class="miniplayer__bar"><div class="segbar segbar--dark" data-demo="14"></div><div class="player__time"><span>07:42</span><span>26:04</span></div></div><div class="miniplayer__ctrls"><button class="pbtn" data-skip>−۱۵</button><button class="pbtn" data-skip>+۱۵</button><button class="pbtn pbtn--txt">۱×</button><button class="pbtn miniplayer__close">×</button></div></div></div>
+      <div class="miniplayer is-static"><div class="miniplayer__in"><button class="pmain"><span class="pause-icon"></span></button><div class="miniplayer__info"><div id="mini-tile"></div><div class="miniplayer__txt"><strong>پیاز چرا اشکمون رو درمیاره؟</strong><span>EP 01 — سه‌شنبه ۱۳ مرداد</span></div></div><div class="miniplayer__bar"><div class="segbar segbar--dark" data-demo="14"></div><div class="player__time"><span>07:42</span><span>26:04</span></div></div><div class="miniplayer__ctrls"><button class="pbtn" data-skip>−۱۵</button><button class="pbtn" data-skip>+۱۵</button><button class="pbtn pbtn--txt">۱×</button><button class="pbtn miniplayer__close">×</button></div></div></div>
     </figure>
   </section>
 
@@ -104,7 +104,7 @@
       <figure class="stack gap-3" style="margin:0"><figcaption class="label">منوی باز</figcaption>
         <div class="phone" style="height:640px">
           <header class="site-header"><div class="wrap site-header__in" style="height:68px"><span class="logo"><span class="symbol"><i></i><i></i></span><span class="logo__word" style="font-size:26px">جدول</span></span><div class="header-cta"><button class="btn btn--navy btn--sm" style="padding-inline:16px;font-size:14px">اپیزود تازه</button><button class="burger" style="display:block"><span style="background:transparent"></span></button></div></div></header>
-          <div class="mobile-menu" style="height:570px"><a class="mm-link" href="#">خانه<span>01</span></a><a class="mm-link" href="#" style="color:var(--color-burgundy)">اپیزودها<span>02</span></a><a class="mm-link" href="#">گروه‌ها<span>03</span></a><a class="mm-link" href="#">دربارهٔ ما<span>04</span></a><a class="mm-link" href="#">تماس<span>05</span></a><div class="mobile-menu__foot"><span class="label">شنیدن در</span><div class="picons" id="mm-icons"></div></div></div>
+          <div class="mobile-menu" style="height:570px"><a class="mm-link" href="#">خانه<span>01</span></a><a class="mm-link" href="#" style="color:var(--color-burgundy)">اپیزودها<span>02</span></a><a class="mm-link" href="#">دربارهٔ ما<span>03</span></a><a class="mm-link" href="#">تماس<span>04</span></a><div class="mobile-menu__foot"><span class="label">شنیدن در</span><div class="picons" id="mm-icons"></div></div></div>
         </div>
       </figure>
       <figure class="stack gap-3" style="margin:0"><figcaption class="label">مینی‌پلیرِ موبایل</figcaption>
@@ -143,12 +143,12 @@
     b.innerHTML = h;
   });
   var t = [
-    [J.tile(J.ep(3)), 'سرمه‌ای — گروه زندگی'],
-    [J.tile(J.ep(2)), 'کرم — گروه خوراکی'],
-    [J.tile(J.ep(1)), 'زرشکی — گروه بدن'],
-    [J.tile(J.ep(5)), 'مشکی — گروه مکمل'],
+    [J.tile(J.ep(3)), 'سرمه‌ای'],
+    [J.tile(J.ep(2)), 'کرم'],
+    [J.tile(J.ep(1)), 'زرشکی'],
+    [J.tile(J.ep(5)), 'مشکی'],
     [J.emptyTile(10), 'خالی — اپیزودِ بعدی'],
-    ['<div class="tile tile--dashed"><div class="tile__top"><span>07</span><span>۵</span></div><div class="tile__sym">Ef</div><div class="tile__name">دارو</div></div>', 'خط‌چین — فیلترشده']
+    ['<div class="tile tile--dashed"><div class="tile__top"><span>07</span><span></span></div><div class="tile__sym">Ef</div><div class="tile__name">قرصِ جوشان</div></div>', 'خط‌چین — فیلترشده']
   ];
   document.getElementById('tiles').innerHTML = t.map(function (x) { return '<figure>' + x[0] + '<figcaption>' + x[1] + '</figcaption></figure>'; }).join('');
   document.getElementById('mm-icons').innerHTML = J.platformLinks(24);

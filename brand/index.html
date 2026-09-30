@@ -50,10 +50,11 @@
   .anatomy li { counter-increment: a; display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 12px 0; border-bottom: var(--rule) solid var(--color-divider); font-size: 15px; }
   .anatomy li::before { content: '0' counter(a); font: 600 12px var(--font-mono); color: var(--color-burgundy); padding-top: 3px; }
   @media (max-width: 899px) { .anatomy { grid-template-columns: 1fr; } .anatomy .tile { width: 220px; } }
-  .gl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-top: 32px; }
+  .gl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-top: 32px; }
   .gl figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
   .gl .box { aspect-ratio: 1; background: var(--color-bg-2); display: grid; place-items: center; }
-  @media (max-width: 899px) { .gl { grid-template-columns: 1fr 1fr; } }
+  .gl--4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 899px) { .gl, .gl--4 { grid-template-columns: 1fr 1fr; } }
   .covers { display: grid; grid-template-columns: 1fr 1.6fr 1.2fr; gap: 24px; padding-top: 32px; align-items: start; }
   @media (max-width: 899px) { .covers { grid-template-columns: 1fr; } }
   .cover-sq { aspect-ratio: 1; background: var(--color-navy); color: var(--color-bg); padding: 8%; display: flex; flex-direction: column; justify-content: space-between; }
@@ -77,7 +78,7 @@
   <!-- COVER -->
   <section class="bg-cover">
     <div class="bg-cover__txt">
-      <div class="stack gap-1"><span class="meta latin">BRAND GUIDELINES — V2.0</span><span class="meta latin" style="color:var(--color-navy)">PERSIAN SCIENCE PODCAST — FORMERLY ASIDBAZI</span></div>
+      <div class="stack gap-1"><span class="meta latin">BRAND GUIDELINES — V2.1</span><span class="meta latin" style="color:var(--color-navy)">PERSIAN SCIENCE PODCAST — FORMERLY ASIDBAZI</span></div>
       <div class="stack gap-3">
         <h1 class="display">جدول</h1>
         <p class="subtitle" style="max-width:30ch">شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم.</p>
@@ -89,7 +90,7 @@
 
   <div class="changelog">
     <div><span class="kicker">چه چیزی عوض شد (نسبت به نسخهٔ ۱.۰)</span>
-      <ul><li>نام: «اسیدبازی» ← «جدول»؛ لاتین: JADVAL</li><li>معنای نشانه: از «واکنش» به «خانهٔ پر / خانهٔ خالی» در جدول</li><li>قطره و نوارِ pH حذف شدند؛ کاشیِ عنصر جایگزین شد</li><li>«طیف»ها ← «گروه»ها (ستون‌های جدول)</li><li>ورد‌مارک تک‌رنگ شد</li></ul></div>
+      <ul><li>نام: «اسیدبازی» ← «جدول»؛ لاتین: JADVAL</li><li>معنای نشانه: از «واکنش» به «خانهٔ پر / خانهٔ خالی» در جدول</li><li>قطره و نوارِ pH حذف شدند؛ کاشیِ عنصر جایگزین شد</li><li>«طیف»ها حذف شدند؛ گروه‌بندیِ موضوعی فعلاً کنار گذاشته شده (نسخهٔ ۲ در آرشیو)</li><li>بدونِ فصل؛ هر سه‌شنبه یک اپیزود</li><li>ورد‌مارک تک‌رنگ شد</li></ul></div>
     <div><span class="kicker">چه چیزی ثابت ماند</span>
       <ul><li>پالت رنگ، بدونِ تغییر</li><li>تایپوگرافی: Estedad و Vazirmatn</li><li>گرید، فاصله‌ها، شعاعِ صفر، بدونِ سایه</li><li>قواعدِ راست‌به‌چپ</li><li>لحن و شخصیتِ برند</li></ul></div>
   </div>
@@ -142,7 +143,7 @@
     <div><span class="label">فاصلهٔ آزاد</span><div style="padding:18px;box-shadow:inset 0 0 0 1px var(--color-burgundy);background:repeating-linear-gradient(45deg,rgba(122,30,43,.08) 0 4px,transparent 4px 8px);display:inline-flex;align-self:flex-start"><span class="logo" style="background:var(--color-bg)"><span class="symbol"><i></i><i></i></span><span class="logo__word">جدول</span></span></div><p class="caption">در هر طرف = ضلعِ خانهٔ نشانه.</p></div>
     <div><span class="label">حداقل اندازه</span><p class="caption">نشانه: ۱۲ پیکسل. زیرِ ۱۶ پیکسل، ضخامتِ خطِ خانهٔ خالی حداقل ۲ پیکسل می‌ماند.</p></div>
   </div>
-  <div class="gl">
+  <div class="gl gl--4">
     <figure><div class="dont"><span class="symbol" style="flex-direction:row-reverse"><i></i><i></i></span></div><figcaption class="caption">جای دو خانه را عوض نکنید.</figcaption></figure>
     <figure><div class="dont"><span class="symbol"><i style="border-radius:6px"></i><i style="border-radius:6px"></i></span></div><figcaption class="caption">گوشه‌ها را گرد نکنید؛ شعاع صفر است.</figcaption></figure>
     <figure><div class="dont"><span class="logo"><span class="symbol"><i></i><i></i></span><span class="logo__word"><span style="color:var(--color-navy)">جد</span><span style="color:var(--color-burgundy)">ول</span></span></span></div><figcaption class="caption">ورد‌مارک را دورنگ نکنید (این عادتِ نسخهٔ قبل بود).</figcaption></figure>
@@ -202,26 +203,29 @@
     <div id="anatomy-tile"></div>
     <ol>
       <li><span><b>شمارهٔ اپیزود</b> (بالا-راست) — مثلِ عددِ اتمی؛ دو رقم، لاتین.</span></li>
-      <li><span><b>شمارهٔ ستون</b> (بالا-چپ) — گروهِ موضوعی؛ فارسی.</span></li>
       <li><span><b>نماد</b> — دو حرفِ لاتین، حرفِ اول بزرگ، ۳۴٪ عرضِ کاشی.</span></li>
-      <li><span><b>نام</b> — نامِ گروه یا شیء؛ Estedad 800.</span></li>
+      <li><span><b>نام</b> — شیءِ اپیزود (پیاز، قهوه، باران)؛ Estedad 800.</span></li>
       <li><span><b>مدت</b> — مثلِ جرمِ اتمی، پایین؛ mono.</span></li>
     </ol>
   </div>
   <div class="gl">
     <figure><div class="box"><div class="tile tile--empty" style="width:55%;padding:10%"><div class="tile__top"><span>10</span><span></span></div><div class="tile__sym">?</div><div class="tile__name">به‌زودی</div></div></div><figcaption class="caption"><b>خانهٔ خالی</b> — اپیزودِ آینده؛ همیشه خطی، هرگز پُر.</figcaption></figure>
-    <figure><div class="box"><div class="tile tile--dashed" style="width:55%;padding:10%"><div class="tile__top"><span>07</span><span>۵</span></div><div class="tile__sym">Ef</div><div></div></div></div><figcaption class="caption"><b>خانهٔ خط‌چین</b> — فقط برای حالتِ «فیلترشده / غیرفعال» در رابط.</figcaption></figure>
+    <figure><div class="box"><div class="tile tile--dashed" style="width:55%;padding:10%"><div class="tile__top"><span>07</span><span></span></div><div class="tile__sym">Ef</div><div></div></div></div><figcaption class="caption"><b>خانهٔ خط‌چین</b> — فقط برای حالتِ «فیلترشده / غیرفعال» در رابط.</figcaption></figure>
     <figure><div class="box field-grid"></div><figcaption class="caption"><b>میدانِ جدول</b> — شبکهٔ ۴۸ پیکسلی؛ حداکثر ۱۲٪ کنتراست؛ هرگز زیرِ متن.</figcaption></figure>
-    <figure><div class="box" style="gap:10px;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;padding:18%"><div class="gicon gicon--fill"></div><div class="gicon gicon--open"></div><div class="gicon gicon--dot"></div><div class="gicon gicon--steps"></div><div class="gicon gicon--pair"></div></div><figcaption class="caption"><b>آیکونِ گروه‌ها</b> — پنج ستون؛ هندسهٔ ساده، بدونِ رنگِ جدید.</figcaption></figure>
   </div>
 
   <!-- 08 EPISODE SYSTEM -->
   <div class="sh"><h2>سیستمِ اپیزود</h2><span class="meta latin">08 — EPISODE SYSTEM</span></div>
   <div class="split split--even" style="padding-top:32px">
     <div class="stack gap-3">
-      <span class="label">گروه‌ها — ستون‌های جدول</span>
-      <div class="scroll-x"><table class="tok"><thead><tr><th>ستون</th><th>گروه</th><th>آیکون</th><th>رنگِ کاشی</th></tr></thead><tbody id="groups-table"></tbody></table></div>
-      <p class="caption">«گروه» جای «طیف» را می‌گیرد. گروهِ هر اپیزود از کلیدواژه‌های Acast خوانده می‌شود (یا جدولِ نگاشتِ سایت).</p>
+      <span class="label">رنگِ کاشی — انتخابِ سردبیری</span>
+      <dl class="facts" style="margin:0">
+        <div><dt>سرمه‌ای</dt><dd>پیش‌فرض؛ بیشترِ اپیزودها</dd></div>
+        <div><dt>زرشکی</dt><dd>تأکید؛ اپیزودِ برگزیده یا خاص</dd></div>
+        <div><dt>کرم</dt><dd>تنوع؛ موضوع‌های خوراکی و روشن</dd></div>
+        <div><dt>مشکی</dt><dd>کم‌کاربرد؛ حداکثر یکی در هر ردیف</dd></div>
+      </dl>
+      <p class="caption">فعلاً گروه‌بندیِ موضوعی نداریم؛ رنگ فقط برای تنوعِ بصریِ جدول است و معنای دسته‌بندی ندارد. وقتی اپیزودها زیاد شد، گروه‌ها از نسخهٔ ۲ (آرشیو) برمی‌گردند و رنگ به گروه گره می‌خورد.</p>
     </div>
     <div class="stack gap-3">
       <span class="label">قاعدهٔ نماد</span>
@@ -236,7 +240,7 @@
   </div>
   <div class="covers">
     <figure style="margin:0" class="stack gap-2"><div class="cover-sq"><div style="display:flex;justify-content:space-between"><span class="symbol symbol--light" style="--s:28px"><i></i><i></i></span><span class="latin" style="font:600 12px var(--font-mono);letter-spacing:.3em">JADVAL</span></div><div style="font:900 clamp(56px,9vw,120px)/1 var(--font-display)">جدول</div><span style="font-size:14px;opacity:.8">شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم</span></div><figcaption class="label">کاورِ پادکست — ۳۰۰۰×۳۰۰۰</figcaption></figure>
-    <figure style="margin:0" class="stack gap-2"><div class="cover-og"><div class="stack gap-2"><span class="meta latin">EP 01 — گروه بدن</span><strong style="font:900 clamp(20px,2.4vw,34px)/1.3 var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</strong><span class="logo" style="margin-top:8px"><span class="symbol" style="--s:12px"><i></i><i></i></span><span class="logo__word" style="font-size:18px">جدول</span></span></div><div id="og-tile"></div></div><figcaption class="label">پیش‌نمایشِ لینک — ۱۲۰۰×۶۳۰</figcaption></figure>
+    <figure style="margin:0" class="stack gap-2"><div class="cover-og"><div class="stack gap-2"><span class="meta latin">EP 01</span><strong style="font:900 clamp(20px,2.4vw,34px)/1.3 var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</strong><span class="logo" style="margin-top:8px"><span class="symbol" style="--s:12px"><i></i><i></i></span><span class="logo__word" style="font-size:18px">جدول</span></span></div><div id="og-tile"></div></div><figcaption class="label">پیش‌نمایشِ لینک — ۱۲۰۰×۶۳۰</figcaption></figure>
     <figure style="margin:0" class="stack gap-2"><div id="ep-cover"></div><figcaption class="label">کاورِ اپیزود — ۱:۱، ساخته‌شده از داده‌های Acast</figcaption></figure>
   </div>
 
@@ -279,12 +283,7 @@
   var J = window.Jadval;
   document.getElementById('anatomy-tile').innerHTML = J.tile(J.ep(1), { short: 'پیاز' });
   document.getElementById('og-tile').innerHTML = J.tile(J.ep(1), { name: false });
-  document.getElementById('ep-cover').innerHTML = J.tile(J.ep(3), { short: 'بوی باران' });
-  var names = { navy: 'سرمه‌ای', cream: 'کرم', '': 'زرشکی', black: 'مشکی' };
-  document.getElementById('groups-table').innerHTML = Object.keys(J.GROUPS).map(function (k) {
-    var g = J.GROUPS[k];
-    return '<tr><td>' + J.fa(g.col) + '</td><td>' + g.name + '</td><td><div class="gicon gicon--' + g.icon + '" style="transform:scale(.6);transform-origin:right center"></div></td><td>' + names[g.tile] + '</td></tr>';
-  }).join('');
+  document.getElementById('ep-cover').innerHTML = J.tile(J.ep(3));
 })();
 </script>
 </body>

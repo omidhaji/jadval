@@ -89,12 +89,6 @@
     </div>
   </section>
 
-  <!-- GROUPS -->
-  <section class="wrap" aria-labelledby="groups-h">
-    <div class="section-head"><h2 id="groups-h">گروه‌ها را بگرد</h2><span class="meta">۵ گروه</span></div>
-    <div class="groups" id="groups"></div>
-  </section>
-
   <!-- POPULAR + ABOUT -->
   <section class="wrap">
     <div class="split rule-b">
@@ -154,7 +148,7 @@
 
   // Hero: the podcast as a periodic table — published cells + empty ones to come.
   var h = '';
-  E.forEach(function (e) { h += J.tile(e, { href: 'episode.html', short: '' }); });
+  E.forEach(function (e) { h += J.tile(e, { href: 'episode.html' }); });
   for (var n = E.length + 1; n <= 12; n++) h += J.emptyTile(n);
   document.getElementById('hero-table').innerHTML = h;
 
@@ -163,23 +157,14 @@
   document.getElementById('latest').innerHTML = E.slice(-3).reverse().map(function (e, i) {
     return '<article class="card">' +
       '<div class="card__cover">' + J.tile(e) + '<div class="card__art art ' + arts[i] + '">' + (i === 2 ? '<span>APPLE — MACRO<br>PHOTO</span>' : '') + '</div></div>' +
-      '<div class="card__body"><span class="meta">' + J.epNum(e.n) + ' — ' + J.GROUPS[e.g].name + '</span>' +
+      '<div class="card__body"><span class="meta latin">' + J.epNum(e.n) + '</span>' +
       '<h3><a href="episode.html">' + e.title + '</a></h3><p>' + e.desc + '</p>' +
       '<div class="card__foot"><span class="meta" style="color:var(--color-navy)">' + J.mins(e.len) + ' — ' + e.date + '</span>' +
       '<button class="play-sm" data-play="' + e.n + '"><span class="dot"><span class="play-icon"></span></span>پخش</button></div></div></article>';
   }).join('');
 
   // Featured tile
-  document.getElementById('feat-art').innerHTML = J.tile(J.ep(1), { variant: 'tile--ghost-light', short: 'پیاز — گروه بدن' });
-
-  // Groups
-  var counts = {};
-  E.forEach(function (e) { counts[e.g] = (counts[e.g] || 0) + 1; });
-  document.getElementById('groups').innerHTML = Object.keys(J.GROUPS).map(function (k) {
-    var g = J.GROUPS[k];
-    return '<a class="group" href="group.html"><div class="group__head"><div class="gicon gicon--' + g.icon + '"></div><span class="group__col">ستونِ ' + J.fa(g.col) + '</span></div>' +
-      '<div class="stack gap-1"><span class="group__name">' + g.name + '</span><span class="group__count">' + J.fa(counts[k] || 0) + ' اپیزود</span></div></a>';
-  }).join('');
+  document.getElementById('feat-art').innerHTML = J.tile(J.ep(1), { variant: 'tile--ghost-light' });
 
   document.getElementById('hosts').innerHTML = J.hostsHTML();
   document.getElementById('listen').innerHTML = J.listenHTML();

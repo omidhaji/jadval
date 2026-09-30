@@ -5,7 +5,7 @@
 
 - **دیدنِ نسخهٔ زنده:** `archive/v2-groups/index.html` — روی GitHub Pages: <https://omidhaji.github.io/jadval/archive/v2-groups/>
 - **تصاویرِ کاملِ صفحه‌ها:** [`docs/screenshots/v2-groups/`](screenshots/v2-groups/) (دسکتاپ ۱۴۴۰ و موبایل ۳۹۰)
-- **تگِ گیت:** `design-v2-groups`
+- **commit:** `0fdd062` (آخرین commit پیش از ساده‌سازی)
 
 ---
 

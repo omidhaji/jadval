@@ -62,7 +62,6 @@
     <div class="ep-head">
       <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
         <span class="kicker latin">EP 01</span>
-        <a class="tag" href="group.html">گروه بدن</a>
         <span class="meta" style="color:var(--color-navy)">۲۶ دقیقه — سه‌شنبه ۱۳ مرداد ۱۴۰۵</span>
       </div>
       <h1 class="h1" style="text-wrap:pretty">پیاز چرا اشکمون رو درمیاره؟</h1>
@@ -169,7 +168,7 @@
 (function () {
   var J = window.Jadval;
   document.getElementById('ep-icons').innerHTML = J.platformLinks(26);
-  document.getElementById('cover').innerHTML = J.tile(J.ep(1), { short: 'پیاز — گروه بدن' });
+  document.getElementById('cover').innerHTML = J.tile(J.ep(1));
   document.getElementById('related').innerHTML = [3, 6, 9].map(function (n) {
     var e = J.ep(n);
     return '<a href="episode.html">' + J.tile(e, { name: false }) + '<strong>' + e.title + '</strong></a>';
