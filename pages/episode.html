@@ -69,7 +69,6 @@
 
       <!-- FULL PLAYER -->
       <div class="player" data-fullplayer="1">
-        <button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button>
         <div class="player__main">
           <div class="player__row">
             <span class="player__title">اپیزود ۰۱ — پیاز</span>
@@ -78,14 +77,17 @@
           <div data-segs></div>
           <div class="player__chapters" aria-hidden="true"><span style="flex:4">مقدمه</span><span style="flex:10">بُرش</span><span style="flex:14">چشم</span><span style="flex:20">ترفندها</span></div>
           <div class="player__ctrls">
-            <button class="pbtn" data-skip="-15" aria-label="۱۵ ثانیه عقب">−۱۵</button>
-            <button class="pbtn" data-skip="30" aria-label="۳۰ ثانیه جلو">+۳۰</button>
-            <button class="pbtn pbtn--txt" data-rate aria-label="سرعت پخش">۱×</button>
+            <span class="player__ctrls" dir="ltr">
+              <button class="pbtn" data-skip="-15" aria-label="۱۵ ثانیه عقب">−۱۵</button>
+              <button class="pbtn" data-skip="30" aria-label="۳۰ ثانیه جلو">+۳۰</button>
+              <button class="pbtn pbtn--txt" data-rate aria-label="سرعت پخش">۱×</button>
+            </span>
             <span class="sep"></span>
             <a class="pbtn pbtn--txt" href="#" data-download aria-label="دانلودِ فایلِ صوتی">دانلود</a>
             <button class="pbtn pbtn--txt" type="button" data-share-time aria-label="کپیِ لینک از همین لحظه">لینک از این لحظه</button>
           </div>
         </div>
+        <button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button>
       </div>
       <p class="caption">صدا و اطلاعاتِ اپیزود مستقیم از فیدِ Acast خوانده می‌شود.</p>
     </div>

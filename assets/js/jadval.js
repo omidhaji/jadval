@@ -205,13 +205,15 @@
     el.className = 'miniplayer';
     el.setAttribute('role', 'region');
     el.setAttribute('aria-label', 'پخش‌کننده');
+    // RTL order, right → left: close · episode · back/forward/speed · progress · play.
     el.innerHTML =
       '<div class="miniplayer__in">' +
-      '<button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button>' +
+      '<button class="pbtn miniplayer__close" data-close aria-label="بستن">×</button>' +
       '<div class="miniplayer__info"><div data-mini-tile></div><div class="miniplayer__txt"><strong data-mini-title></strong><span data-mini-meta></span><span class="miniplayer__status" data-status role="status" aria-live="polite"></span></div></div>' +
-      '<div class="miniplayer__bar">' + segs(true) + '<div class="player__time"><span data-elapsed>00:00</span><span data-total>00:00</span></div></div>' +
       '<div class="miniplayer__ctrls"><button class="pbtn hide-sm" data-skip="-' + SKIP_BACK + '" aria-label="۱۵ ثانیه عقب">−۱۵</button><button class="pbtn hide-sm" data-skip="' + SKIP_FWD + '" aria-label="۳۰ ثانیه جلو">+۳۰</button>' +
-      '<button class="pbtn pbtn--txt" data-rate aria-label="سرعت پخش">۱×</button><button class="pbtn miniplayer__close" data-close aria-label="بستن">×</button></div></div>';
+      '<button class="pbtn pbtn--txt" data-rate aria-label="سرعت پخش">۱×</button></div>' +
+      '<div class="miniplayer__bar">' + segs(true) + '<div class="player__time"><span data-elapsed>00:00</span><span data-total>00:00</span></div></div>' +
+      '<button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button></div>';
     document.body.appendChild(el);
     return el;
   }
@@ -449,7 +451,7 @@
   /* ---- clicks, dragging, keyboard ---- */
   function fracAt(bar, x) {
     var r = bar.getBoundingClientRect();
-    return Math.max(0, Math.min(1, (r.right - x) / r.width));   // RTL: progress grows leftwards
+    return Math.max(0, Math.min(1, (x - r.left) / r.width));   // progress runs left → right
   }
   function adopt(el) {   // a full player for another episode takes over the audio
     var own = ownerOf(el);
@@ -500,8 +502,8 @@
     document.addEventListener('keydown', function (ev) {
       var bar = ev.target.closest && ev.target.closest('[data-seek]');
       if (bar && inPlayer(bar)) {
-        // RTL slider: left arrow moves forward in time.
-        var step = { ArrowLeft: 5, ArrowRight: -5, ArrowUp: 5, ArrowDown: -5, PageUp: 30, PageDown: -30 }[ev.key];
+        // The timeline runs left → right, so the right arrow moves forward.
+        var step = { ArrowRight: 5, ArrowLeft: -5, ArrowUp: 5, ArrowDown: -5, PageUp: 30, PageDown: -30 }[ev.key];
         if (step === undefined && ev.key !== 'Home' && ev.key !== 'End') return;
         ev.preventDefault();
         adopt(bar);
