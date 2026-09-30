@@ -578,3 +578,17 @@ a.tile.tile--navy:hover, a.tile.tile--navy:focus-visible { background-color: #2C
 a.tile.tile--cream:hover, a.tile.tile--cream:focus-visible { background-color: #EFEBE1; }
 a.tile.tile--black:hover, a.tile.tile--black:focus-visible { background-color: #2B2B2B; }
 a.tile:focus-visible { box-shadow: inset 0 0 0 3px var(--tile-fg); }
+
+/* Tiles must stay square whatever the font or screen: never let content
+   grow a tile, keep names on one line, and drop secondary text when small. */
+.tile { overflow: hidden; min-width: 0; }
+.tile > div { min-width: 0; }
+.tile__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@container (max-width: 90px) {
+  .tile__mass { display: none; }
+  .tile__name { font-size: 10px; }
+  .tile__top { font-size: 9px; }
+}
+@container (max-width: 46px) {
+  .tile__name { display: none; }
+}
