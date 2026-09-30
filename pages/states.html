@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-base="../" data-page="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اجزا و حالت‌ها — جدول</title>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/css/jadval.css">
+<style>
+  .sec { padding-bottom: 56px; }
+  .spec { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; padding-top: 28px; }
+  .spec--wide { grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); }
+  @media (max-width: 599px) { .spec--wide { grid-template-columns: 1fr; } }
+  .spec figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .spec figcaption { font: 600 11px var(--font-mono); color: var(--color-burgundy); }
+  .spec figcaption small { display: block; font: 400 13px/1.7 var(--font-text); letter-spacing: 0; color: var(--color-navy); margin-top: 4px; }
+  .btn-grid { display: grid; grid-template-columns: 140px repeat(5, 1fr); gap: 12px; align-items: center; padding-top: 28px; }
+  .btn-grid > span { font: 600 11px var(--font-mono); letter-spacing: .12em; color: var(--color-navy); }
+  .btn-grid .btn { width: 100%; padding-inline: 12px; }
+  @media (max-width: 899px) { .btn-grid { grid-template-columns: repeat(3, 1fr); } .btn-grid > span:first-child, .btn-grid > .hd { display: none; } }
+  .ph figure { max-width: 100%; min-width: 0; }
+  .ph { display: flex; gap: 40px; flex-wrap: wrap; padding-top: 28px; align-items: flex-start; }
+</style>
+</head>
+<body>
+<div data-header></div>
+
+<main class="wrap">
+  <nav class="crumbs" aria-label="مسیر"><a href="../index.html">فهرستِ طراحی</a><span aria-hidden="true">/</span><span aria-current="page">اجزا و حالت‌ها</span></nav>
+  <header class="rule-b" style="padding:56px 0 32px">
+    <span class="kicker">مرحلهٔ ۴ — جزئیات و حالت‌ها</span>
+    <h1 class="h1" style="margin-top:12px">اجزا و حالت‌ها</h1>
+    <p class="subtitle" style="max-width:56ch;margin-top:14px">هر جزء در همهٔ حالت‌هایش: پیش‌فرض، هاور، فشرده، فوکوس، غیرفعال، بارگذاری، خالی و خطا.</p>
+  </header>
+
+  <!-- BUTTONS -->
+  <section class="sec">
+    <div class="section-head"><h2>دکمه‌ها</h2><span class="meta">۵ حالت</span></div>
+    <div class="btn-grid">
+      <span class="hd"></span><span class="hd">پیش‌فرض</span><span class="hd">هاور</span><span class="hd">فشرده</span><span class="hd">فوکوس</span><span class="hd">غیرفعال</span>
+      <span>اصلی — زرشکی</span>
+      <button class="btn btn--burgundy">اپیزودها</button>
+      <button class="btn btn--burgundy" style="background:#5E1621">اپیزودها</button>
+      <button class="btn btn--burgundy" style="background:#4A111A">اپیزودها</button>
+      <button class="btn btn--burgundy" style="outline:3px solid #7A1E2B;outline-offset:2px">اپیزودها</button>
+      <button class="btn btn--burgundy" disabled>اپیزودها</button>
+      <span>کنش — سرمه‌ای</span>
+      <button class="btn btn--navy">پخش</button>
+      <button class="btn btn--navy" style="background:#0E1828">پخش</button>
+      <button class="btn btn--navy" style="background:#080F1A">پخش</button>
+      <button class="btn btn--navy" style="outline:3px solid #7A1E2B;outline-offset:2px">پخش</button>
+      <button class="btn btn--navy" disabled>پخش</button>
+      <span>ثانویه — خطی</span>
+      <button class="btn btn--ghost">همه</button>
+      <button class="btn btn--ghost" style="background:#E7E2D5">همه</button>
+      <button class="btn btn--ghost" style="background:#DAD3C2">همه</button>
+      <button class="btn btn--ghost" style="outline:3px solid #7A1E2B;outline-offset:2px">همه</button>
+      <button class="btn btn--ghost" disabled>همه</button>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:28px;align-items:center">
+      <span class="chip">چیپ</span><span class="chip" style="box-shadow:inset 0 0 0 2px #16243C">هاور</span><span class="chip is-active">فعال</span>
+      <span class="tag">برچسب</span>
+      <button class="play-sm"><span class="dot"><span class="play-icon"></span></span>پخش</button>
+      <button class="row__play"><span class="play-icon"></span></button>
+    </div>
+  </section>
+
+  <!-- TILES -->
+  <section class="sec">
+    <div class="section-head"><h2>خانه‌ها (کاشی‌ها)</h2><span class="meta">واحدِ اصلیِ گرافیک</span></div>
+    <div class="spec" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))" id="tiles"></div>
+  </section>
+
+  <!-- PLAYER -->
+  <section class="sec" id="player">
+    <div class="section-head"><h2>پلیر</h2><span class="meta">صدا از Acast RSS</span></div>
+    <div class="spec spec--wide">
+      <figure><figcaption>01 — آماده<small>هنوز پخش نشده؛ نوار خالی.</small></figcaption>
+        <div class="player"><button class="pmain"><span class="play-icon"></span></button><div class="player__main"><div class="player__row"><span class="player__title">اپیزود ۰۱ — پیاز</span><span class="player__time">00:00 / 26:04</span></div><div class="segbar" data-demo="0"></div><div class="player__ctrls"><button class="pbtn" data-skip>−۱۵</button><button class="pbtn" data-skip>+۱۵</button><button class="pbtn pbtn--txt">۱×</button></div></div></div></figure>
+      <figure><figcaption>02 — در حالِ بارگذاری<small>فایل از Acast در حالِ دریافت است؛ خانه‌ها چشمک می‌زنند.</small></figcaption>
+        <div class="player"><button class="pmain" disabled style="opacity:.6"><span class="play-icon"></span></button><div class="player__main"><div class="player__row"><span class="player__title">اپیزود ۰۱ — پیاز</span><span class="player__time">در حالِ بارگذاری…</span></div><div class="segbar is-loading" data-demo="0"></div><div class="player__ctrls"><button class="pbtn" data-skip disabled style="opacity:.45">−۱۵</button><button class="pbtn" data-skip disabled style="opacity:.45">+۱۵</button><button class="pbtn pbtn--txt">۱×</button></div></div></div></figure>
+      <figure><figcaption>03 — در حالِ پخش<small>خانهٔ زرشکی = جای فعلی.</small></figcaption>
+        <div class="player"><button class="pmain"><span class="pause-icon"></span></button><div class="player__main"><div class="player__row"><span class="player__title">اپیزود ۰۱ — پیاز</span><span class="player__time">07:42 / 26:04</span></div><div class="segbar" data-demo="14"></div><div class="player__ctrls"><button class="pbtn" data-skip>−۱۵</button><button class="pbtn" data-skip>+۱۵</button><button class="pbtn pbtn--txt">۱٫۵×</button></div></div></div></figure>
+      <figure><figcaption>04 — خطا<small>فایل دریافت نشد؛ کاربر می‌تواند دوباره تلاش کند یا در پلتفرمِ دیگر بشنود.</small></figcaption>
+        <div class="player" style="box-shadow:inset 0 0 0 2px var(--color-burgundy)"><button class="pmain" style="background:var(--color-burgundy)">↻</button><div class="player__main"><div class="player__row"><span class="player__title">پخش ممکن نشد</span><span class="player__time">—</span></div><p class="caption">فایلِ صوتی از Acast دریافت نشد. اتصال را بررسی کن و دوباره امتحان کن.</p><div class="player__ctrls"><button class="btn btn--burgundy btn--sm">تلاشِ دوباره</button><a class="pbtn pbtn--txt" href="#">شنیدن در اسپاتیفای</a></div></div></div></figure>
+      <figure><figcaption>05 — پایانِ اپیزود<small>پیشنهادِ اپیزودِ بعدی با شمارش معکوس.</small></figcaption>
+        <div class="player"><button class="pmain" style="background:var(--color-burgundy)"><span class="play-icon"></span></button><div class="player__main"><div class="player__row"><span class="player__title">اپیزودِ بعدی تا ۵ ثانیهٔ دیگر</span><span class="player__time">26:04 / 26:04</span></div><div class="segbar" data-demo="48"></div><div class="player__ctrls"><strong style="font:800 17px var(--font-display)">EP 02 — شیمیِ یک فنجان قهوه</strong><span class="sep"></span><button class="pbtn pbtn--txt">لغو</button></div></div></div></figure>
+      <figure><figcaption>06 — ادامه از جای قبلی<small>اگر کاربر قبلاً گوش داده، پیشنهادِ ادامه.</small></figcaption>
+        <div class="notice notice--ok" style="align-items:center;flex-wrap:wrap"><div class="stack" style="flex:1;min-width:200px"><strong style="font:800 17px var(--font-display)">از ۰۷:۴۲ ادامه می‌دهی؟</strong><span class="caption">پیاز چرا اشکمون رو درمیاره؟</span></div><button class="btn btn--navy btn--sm">ادامه</button><button class="btn btn--ghost btn--sm">از اول</button></div></figure>
+    </div>
+
+    <figure style="margin:40px 0 0" class="stack gap-3"><figcaption class="label">07 — مینی‌پلیر، دسکتاپ<small style="display:block;font:400 13px var(--font-text);letter-spacing:0;color:var(--color-navy);margin-top:4px">ثابت در پایینِ صفحه، بین صفحه‌ها قطع نمی‌شود.</small></figcaption>
+      <div class="miniplayer is-static"><div class="miniplayer__in"><button class="pmain"><span class="pause-icon"></span></button><div class="miniplayer__info"><div id="mini-tile"></div><div class="miniplayer__txt"><strong>پیاز چرا اشکمون رو درمیاره؟</strong><span>EP 01 — گروه بدن</span></div></div><div class="miniplayer__bar"><div class="segbar segbar--dark" data-demo="14"></div><div class="player__time"><span>07:42</span><span>26:04</span></div></div><div class="miniplayer__ctrls"><button class="pbtn" data-skip>−۱۵</button><button class="pbtn" data-skip>+۱۵</button><button class="pbtn pbtn--txt">۱×</button><button class="pbtn miniplayer__close">×</button></div></div></div>
+    </figure>
+  </section>
+
+  <!-- MOBILE -->
+  <section class="sec">
+    <div class="section-head"><h2>موبایل</h2><span class="meta latin">390 PX</span></div>
+    <div class="ph">
+      <figure class="stack gap-3" style="margin:0"><figcaption class="label">منوی باز</figcaption>
+        <div class="phone" style="height:640px">
+          <header class="site-header"><div class="wrap site-header__in" style="height:68px"><span class="logo"><span class="symbol"><i></i><i></i></span><span class="logo__word" style="font-size:26px">جدول</span></span><div class="header-cta"><button class="btn btn--navy btn--sm" style="height:52px;padding:0 16px;font-size:14px">اپیزود تازه</button><button class="burger" style="display:block"><span style="background:transparent"></span></button></div></div></header>
+          <div class="mobile-menu" style="height:570px"><a class="mm-link" href="#">خانه<span>01</span></a><a class="mm-link" href="#" style="color:var(--color-burgundy)">اپیزودها<span>02</span></a><a class="mm-link" href="#">گروه‌ها<span>03</span></a><a class="mm-link" href="#">دربارهٔ ما<span>04</span></a><a class="mm-link" href="#">تماس<span>05</span></a><div class="mobile-menu__foot"><span class="label">شنیدن در</span><div class="platforms"><a href="#">SPOTIFY</a><a href="#">APPLE</a><a href="#">CASTBOX</a></div></div></div>
+        </div>
+      </figure>
+      <figure class="stack gap-3" style="margin:0"><figcaption class="label">مینی‌پلیرِ موبایل</figcaption>
+        <div class="phone" style="height:640px;display:flex;flex-direction:column;justify-content:flex-end" id="phone-mini">
+          <div style="padding:20px;flex:1" class="stack gap-3"><div class="skel skel-line" style="width:40%"></div><div class="skel" style="height:180px"></div><div class="skel skel-line"></div><div class="skel skel-line" style="width:70%"></div></div>
+          <div class="miniplayer is-static" style="position:relative"><div class="miniplayer__in" style="height:68px"><button class="pmain" style="width:68px"><span class="pause-icon"></span></button><div class="miniplayer__info" style="flex:1;width:auto;padding-inline:12px"><div class="miniplayer__txt"><strong>پیاز چرا اشکمون رو درمیاره؟</strong><span>EP 01 — 07:42</span></div></div><div class="miniplayer__ctrls" style="padding-inline:8px 12px"><button class="pbtn pbtn--txt">۱×</button><button class="pbtn miniplayer__close">×</button></div></div><div style="position:absolute;top:0;inset-inline:0"><div class="segbar segbar--dark" data-demo="14" style="height:4px;gap:1px"></div></div></div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- LOADING / EMPTY / ERROR -->
+  <section class="sec">
+    <div class="section-head"><h2>بارگذاری، خالی، خطا</h2></div>
+    <div class="spec">
+      <figure><figcaption>اسکلتونِ کارت<small>تا فیدِ Acast برسد.</small></figcaption>
+        <div class="stack gap-3"><div class="skel" style="aspect-ratio:16/10"></div><div class="skel skel-line" style="width:40%"></div><div class="skel" style="height:26px;width:85%"></div><div class="skel skel-line"></div><div class="skel skel-line" style="width:60%"></div></div></figure>
+      <figure><figcaption>خالی — فیلتر بی‌نتیجه</figcaption>
+        <div class="stack gap-3" style="align-items:flex-start;padding:24px;box-shadow:inset 0 0 0 2px var(--color-divider)"><div class="tile tile--dashed" style="width:88px;padding:10px"><div class="tile__top"><span>??</span><span></span></div><div class="tile__sym">∅</div><div></div></div><strong style="font:800 20px var(--font-display)">این خانه هنوز خالی است.</strong><span class="caption">با این فیلترها اپیزودی پیدا نشد.</span><button class="btn btn--navy btn--sm">پاک‌کردنِ فیلترها</button></div></figure>
+      <figure><figcaption>خطا — فید نرسید</figcaption>
+        <div class="notice" style="flex-direction:column"><strong style="font:800 20px var(--font-display)">فهرستِ اپیزودها بارگذاری نشد.</strong><span class="caption">ارتباط با Acast برقرار نشد. آخرین نسخهٔ ذخیره‌شده نمایش داده می‌شود.</span><button class="btn btn--burgundy btn--sm">تلاشِ دوباره</button></div></figure>
+      <figure><figcaption>فرم — خطا و موفقیت</figcaption>
+        <div class="stack gap-3"><div class="field is-error"><label>ایمیل</label><input class="input" value="name@example" dir="ltr" style="text-align:right"><span class="field__msg">نشانیِ ایمیل درست نیست.</span></div><div class="notice notice--ok"><span class="caption" style="color:var(--color-text)">عضو شدی. اولین ایمیل، پنجشنبهٔ بعد.</span></div></div></figure>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+<script src="../assets/js/jadval.js"></script>
+<script>
+(function () {
+  var J = window.Jadval;
+  document.querySelectorAll('[data-demo]').forEach(function (b) {
+    var on = +b.getAttribute('data-demo'), h = '';
+    for (var i = 0; i < 48; i++) h += '<i class="' + (i < on ? 'on' : (i === on && on > 0 && on < 48 ? 'head' : '')) + '"></i>';
+    b.innerHTML = h;
+  });
+  var t = [
+    [J.tile(J.ep(3)), 'سرمه‌ای — گروه زندگی'],
+    [J.tile(J.ep(2)), 'کرم — گروه خوراکی'],
+    [J.tile(J.ep(1)), 'زرشکی — گروه بدن'],
+    [J.tile(J.ep(5)), 'مشکی — گروه مکمل'],
+    [J.emptyTile(10), 'خالی — اپیزودِ بعدی'],
+    ['<div class="tile tile--dashed"><div class="tile__top"><span>07</span><span>۵</span></div><div class="tile__sym">Ef</div><div class="tile__name">دارو</div></div>', 'خط‌چین — فیلترشده']
+  ];
+  document.getElementById('tiles').innerHTML = t.map(function (x) { return '<figure>' + x[0] + '<figcaption>' + x[1] + '</figcaption></figure>'; }).join('');
+  document.getElementById('mini-tile').innerHTML = J.tile(J.ep(1), { name: false, cls: 'tile-sm' });
+})();
+</script>
+</body>
+</html>

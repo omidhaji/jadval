@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-base="/jadval/" data-page="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>خانهٔ خالی — جدول</title>
+<link rel="icon" href="/jadval/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="/jadval/assets/css/jadval.css">
+<style>
+  .nf { min-height: calc(100vh - 78px - 180px); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: center; padding-block: 72px; }
+  .nf__cells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 420px; }
+  .nf__cells .tile { padding: 10%; }
+  @media (max-width: 899px) { .nf { grid-template-columns: 1fr; padding-block: 48px; } .nf__cells { max-width: 320px; } }
+</style>
+</head>
+<body>
+<div data-header></div>
+<main class="wrap nf">
+  <div class="stack gap-4">
+    <span class="kicker latin">ERROR 404</span>
+    <h1 class="h1">این خانه هنوز خالی است.</h1>
+    <p class="subtitle" style="max-width:40ch">صفحه‌ای که دنبالش بودی اینجا نیست؛ شاید جابه‌جا شده، شاید هنوز کشف نشده.</p>
+    <div class="btn-row"><a class="btn btn--navy" href="/jadval/pages/home.html">برگشت به خانه</a><a class="btn btn--ghost" href="/jadval/pages/episodes.html">همهٔ اپیزودها</a></div>
+  </div>
+  <div class="nf__cells" aria-hidden="true">
+    <div class="tile tile--navy"><div class="tile__top"><span>03</span><span>۱</span></div><div class="tile__sym">Rn</div><div class="tile__name">زندگی</div></div>
+    <div class="tile tile--empty"><div class="tile__top"><span>404</span><span></span></div><div class="tile__sym">?</div><div class="tile__name">پیدا نشد</div></div>
+    <div class="tile tile--cream"><div class="tile__top"><span>02</span><span>۲</span></div><div class="tile__sym">Cf</div><div class="tile__name">خوراکی</div></div>
+    <div class="tile tile--dashed"><div class="tile__top"><span></span><span></span></div><div class="tile__sym"></div><div></div></div>
+    <div class="tile"><div class="tile__top"><span>01</span><span>۳</span></div><div class="tile__sym">On</div><div class="tile__name">بدن</div></div>
+    <div class="tile tile--dashed"><div class="tile__top"><span></span><span></span></div><div class="tile__sym"></div><div></div></div>
+  </div>
+</main>
+<div data-footer></div>
+<script src="/jadval/assets/js/jadval.js"></script>
+</body>
+</html>

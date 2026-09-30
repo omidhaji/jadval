@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-base="../" data-page="episodes">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>همهٔ اپیزودها — جدول</title>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/css/jadval.css">
+<style>
+  .page-head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--space-4); padding: 56px 0 32px; border-bottom: var(--rule) solid var(--color-rule); }
+  .page-head p { max-width: 52ch; color: var(--color-navy); font-size: 17px; margin-top: 14px; }
+  .toolbar { display: grid; grid-template-columns: minmax(220px, 320px) 1fr auto; gap: var(--space-3); align-items: center; padding: 22px 0; border-bottom: var(--rule) solid var(--color-divider); }
+  .toolbar .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .view-toggle { display: flex; }
+  .view-toggle button { font: 600 12px var(--font-mono); padding: 0 16px; height: 44px; border: 0; background: transparent; color: var(--color-navy); box-shadow: inset 0 0 0 2px var(--color-navy); cursor: pointer; margin-inline-start: -2px; }
+  .view-toggle button[aria-pressed="true"] { background: var(--color-navy); color: var(--color-bg); }
+  @media (max-width: 899px) {
+    .page-head { grid-template-columns: 1fr; }
+    .toolbar { grid-template-columns: 1fr auto; }
+    .toolbar .chips { grid-column: 1 / -1; grid-row: 2; }
+  }
+  .season { display: flex; align-items: baseline; gap: 16px; padding: 40px 0 14px; }
+  .season h2 { font: 800 26px var(--font-display); }
+  .ptable--big { grid-template-columns: repeat(6, 1fr); gap: 8px; padding-block: 32px; }
+  @media (max-width: 899px) { .ptable--big { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 479px) { .ptable--big { grid-template-columns: repeat(3, 1fr); } }
+  .ptable--big .tile__name { font-size: max(10px, 9cqi); }
+  .results { font: 500 12px var(--font-mono); color: var(--color-navy); padding-top: 18px; }
+  .empty { padding: 72px 0; display: none; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+  .empty .tile { width: 120px; }
+  .row--full { grid-template-columns: 64px 56px 1fr auto 44px; }
+  .row--full .row__len { line-height: 1.8; }
+  @media (max-width: 599px) {
+    .row--full { grid-template-columns: 48px 1fr 40px; align-items: start; }
+    .row--full .row__num { display: none; }
+    .row--full .tile-sm { width: 48px; grid-row: 1 / span 2; }
+    .row--full .row__len { grid-column: 2; grid-row: 2; margin-top: 0; }
+    .row--full .row__play { grid-column: 3; grid-row: 1 / span 2; }
+  }
+  [data-view="table"] #list-view, [data-view="list"] #table-view { display: none; }
+</style>
+</head>
+<body>
+<a class="sr-only" href="#main">رفتن به محتوا</a>
+<div data-header></div>
+
+<main id="main" class="wrap" data-view="list">
+  <nav class="crumbs" aria-label="مسیر"><a href="home.html">خانه</a><span aria-hidden="true">/</span><span aria-current="page">اپیزودها</span></nav>
+
+  <header class="page-head">
+    <div>
+      <span class="kicker">آرشیو — ۹ اپیزود، ۲ فصل</span>
+      <h1 class="h1" style="margin-top:12px">همهٔ اپیزودها</h1>
+      <p>هر اپیزود یک خانه از جدول است: شماره‌اش، نمادش، و گروهی که به آن تعلق دارد.</p>
+    </div>
+    <div class="view-toggle" role="group" aria-label="نمایش">
+      <button aria-pressed="true" data-view-btn="list">فهرست</button>
+      <button aria-pressed="false" data-view-btn="table">جدول</button>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <label class="search"><span class="sr-only">جست‌وجو</span><input class="input" type="search" placeholder="جست‌وجو در اپیزودها…" id="q"></label>
+    <div class="chips" id="chips" role="group" aria-label="فیلترِ گروه"></div>
+    <select class="select" aria-label="فصل" id="season" style="width:auto">
+      <option value="">همهٔ فصل‌ها</option><option value="2">فصلِ ۲</option><option value="1">فصلِ ۱</option>
+    </select>
+  </div>
+  <div class="results" id="results"></div>
+
+  <div id="list-view"></div>
+  <div id="table-view"><div class="ptable ptable--big" id="ptable"></div></div>
+
+  <div class="empty" id="empty">
+    <div class="tile tile--dashed"><div class="tile__top"><span>??</span><span></span></div><div class="tile__sym">∅</div><div class="tile__name">خانهٔ خالی</div></div>
+    <h2 class="h3">این خانه هنوز خالی است.</h2>
+    <p class="caption">با این فیلترها اپیزودی پیدا نشد. شاید اپیزودِ بعدی دربارهٔ همین باشد؟</p>
+    <div class="btn-row"><button class="btn btn--navy btn--sm" id="reset">پاک‌کردنِ فیلترها</button><a class="btn btn--ghost btn--sm" href="contact.html">پیشنهادِ موضوع</a></div>
+  </div>
+
+  <nav class="pager" aria-label="صفحه‌ها">
+    <span class="is-disabled">→</span><span aria-current="page">۱</span><a href="#">۲</a><a href="#">۳</a><a href="#">←</a>
+  </nav>
+</main>
+
+<div data-footer></div>
+<script src="../assets/js/jadval.js"></script>
+<script>
+(function () {
+  var J = window.Jadval, E = J.EPISODES.slice().reverse();
+  var main = document.getElementById('main');
+  var filter = { g: '', s: '', q: '' };
+
+  var counts = {};
+  E.forEach(function (e) { counts[e.g] = (counts[e.g] || 0) + 1; });
+  document.getElementById('chips').innerHTML = '<button class="chip" aria-pressed="true" data-g="">همه <small>' + J.fa(E.length) + '</small></button>' +
+    Object.keys(J.GROUPS).map(function (k) {
+      return '<button class="chip" aria-pressed="false" data-g="' + k + '">' + J.GROUPS[k].name.replace('گروه ', '') + ' <small>' + J.fa(counts[k] || 0) + '</small></button>';
+    }).join('');
+
+  function row(e) {
+    return '<div class="row row--full">' +
+      '<span class="row__num latin">' + J.epNum(e.n) + '</span>' + J.tile(e, { name: false, cls: 'tile-sm' }) +
+      '<div class="stack"><a class="row__title" href="episode.html" style="color:inherit">' + e.title + '</a><span class="caption">' + e.desc + '</span></div>' +
+      '<span class="row__len">' + J.mins(e.len) + '<br><span style="opacity:.7">' + e.date + '</span></span>' +
+      '<button class="row__play" data-play="' + e.n + '" aria-label="پخش"><span class="play-icon"></span></button></div>';
+  }
+
+  function render() {
+    var list = E.filter(function (e) {
+      return (!filter.g || e.g === filter.g) && (!filter.s || e.s === +filter.s) && (!filter.q || (e.title + e.desc).indexOf(filter.q) > -1);
+    });
+    var html = '';
+    [2, 1].forEach(function (s) {
+      var inS = list.filter(function (e) { return e.s === s; });
+      if (!inS.length) return;
+      html += '<div class="season"><h2>فصلِ ' + J.fa(s) + '</h2><span class="meta">' + J.fa(inS.length) + ' اپیزود</span></div><div class="rows">' + inS.map(row).join('') + '</div>';
+    });
+    document.getElementById('list-view').innerHTML = html;
+
+    var t = '';
+    J.EPISODES.forEach(function (e) {
+      var on = list.indexOf(e) > -1;
+      t += on ? J.tile(e, { href: 'episode.html' }) : J.tile(e, { variant: 'tile--dashed' });
+    });
+    for (var n = J.EPISODES.length + 1; n <= 12; n++) t += J.emptyTile(n);
+    document.getElementById('ptable').innerHTML = t;
+
+    document.getElementById('results').textContent = J.fa(list.length) + ' اپیزود';
+    document.getElementById('empty').style.display = list.length ? 'none' : 'flex';
+    document.querySelector('.pager').style.display = list.length ? '' : 'none';
+  }
+
+  document.getElementById('chips').addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-g]'); if (!b) return;
+    filter.g = b.getAttribute('data-g');
+    this.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
+    render();
+  });
+  document.getElementById('season').addEventListener('change', function () { filter.s = this.value; render(); });
+  document.getElementById('q').addEventListener('input', function () { filter.q = this.value.trim(); render(); });
+  document.getElementById('reset').addEventListener('click', function () {
+    filter = { g: '', s: '', q: '' }; document.getElementById('q').value = ''; document.getElementById('season').value = '';
+    document.querySelector('[data-g=""]').click();
+  });
+  document.querySelectorAll('[data-view-btn]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      main.setAttribute('data-view', b.getAttribute('data-view-btn'));
+      document.querySelectorAll('[data-view-btn]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    });
+  });
+  if (location.hash === '#table') document.querySelector('[data-view-btn="table"]').click();
+  render();
+})();
+</script>
+</body>
+</html>

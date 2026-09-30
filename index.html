@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-base="" data-page="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>جدول — طراحی سایت</title>
+<meta name="description" content="فهرستِ صفحه‌های طراحیِ سایتِ پادکستِ جدول.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="assets/css/jadval.css">
+<style>
+  .hub-head { padding: 64px 0 40px; border-bottom: var(--rule) solid var(--color-rule); display: grid; grid-template-columns: 1fr auto; gap: var(--space-5); align-items: end; }
+  @media (max-width: 767px) { .hub-head { grid-template-columns: 1fr; padding: 40px 0 32px; } }
+  .phase { display: grid; grid-template-columns: 180px 1fr; gap: var(--space-4); padding: 32px 0; border-bottom: var(--rule) solid var(--color-divider); }
+  @media (max-width: 767px) { .phase { grid-template-columns: 1fr; gap: 16px; } }
+  .phase__n { display: flex; flex-direction: column; gap: 6px; }
+  .phase__n b { font: 700 40px/1 var(--font-mono); color: var(--color-navy); }
+  .links { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0; }
+  .plink { display: flex; flex-direction: column; gap: 8px; padding: 20px; box-shadow: inset 0 0 0 2px var(--color-navy); margin: 0 0 -2px -2px; color: var(--color-text); min-height: 150px; }
+  .plink:hover { background: var(--color-bg-2); color: var(--color-text); }
+  .plink strong { font: 800 20px/1.4 var(--font-display); }
+  .plink span:last-child { font-size: 14px; line-height: 1.8; color: var(--color-navy); }
+  .plink .meta::after { content: ' ←'; }
+  .plink--muted { box-shadow: inset 0 0 0 2px var(--color-divider); }
+  .status { font: 600 11px var(--font-mono); letter-spacing: .14em; padding: 5px 10px; background: var(--color-navy); color: var(--color-bg); align-self: flex-start; }
+  .status--skip { background: transparent; color: var(--color-navy); box-shadow: inset 0 0 0 2px var(--color-divider); }
+  .assume { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .assume > div { padding: 20px 0; padding-inline-end: 24px; border-bottom: var(--rule) solid var(--color-divider); display: grid; grid-template-columns: 32px 1fr; gap: 12px; }
+  .assume b { font: 600 12px var(--font-mono); color: var(--color-burgundy); padding-top: 4px; }
+  .assume p { font-size: 15px; line-height: 1.9; }
+  @media (max-width: 767px) { .assume { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hub-head">
+    <div class="stack gap-3">
+      <span class="kicker">طراحیِ ظاهریِ سایت — نسخهٔ کاری</span>
+      <span class="logo"><span class="symbol" style="--s:34px;gap:6px"><i></i><i></i></span><span class="logo__word" style="font-size:64px">جدول</span></span>
+      <p class="subtitle" style="max-width:52ch">همهٔ صفحه‌های طراحی‌شده برای بازبینی. پلیر نمایشی است؛ در نسخهٔ نهایی صدا و اطلاعاتِ اپیزودها از فیدِ Acast می‌آید.</p>
+    </div>
+    <a class="btn btn--burgundy" href="pages/home.html">دیدنِ سایت ←</a>
+  </header>
+
+  <section class="phase">
+    <div class="phase__n"><b class="latin">00</b><span class="label">هویتِ «جدول»</span><span class="status">انجام شد</span></div>
+    <div class="links">
+      <a class="plink" href="brand/index.html"><span class="meta">راهنمای برند ۲٫۰</span><strong>راهنمای برندِ جدول</strong><span>نشانهٔ «خانهٔ پُر / خانهٔ خالی»، لوگو، کاشیِ عنصر، گروه‌ها، کاورها و توکن‌ها.</span></a>
+      <div class="plink plink--muted"><span class="meta">موشن</span><strong>موشن لوگو</strong><span class="status status--skip">فعلاً کنار گذاشته شد</span></div>
+    </div>
+  </section>
+
+  <section class="phase">
+    <div class="phase__n"><b class="latin">01</b><span class="label">صفحهٔ اصلی</span><span class="status">انجام شد</span></div>
+    <div class="links">
+      <a class="plink" href="pages/home.html"><span class="meta">خانه</span><strong>صفحهٔ اصلی</strong><span>جدولِ اپیزودها در بالای صفحه، تازه‌ترین‌ها، برگزیده، گروه‌ها، پرشنیده‌ها و خبرنامه. منوی موبایل اضافه شد.</span></a>
+    </div>
+  </section>
+
+  <section class="phase">
+    <div class="phase__n"><b class="latin">02</b><span class="label">پلیر</span><span class="status">انجام شد</span></div>
+    <div class="links">
+      <a class="plink" href="pages/episode.html"><span class="meta">پلیرِ کامل</span><strong>پلیر در صفحهٔ اپیزود</strong><span>نوارِ خانه‌خانه، ۱۵ ثانیه جلو/عقب، سرعت، بخش‌های اپیزود و لینک از همان لحظه.</span></a>
+      <a class="plink" href="pages/home.html"><span class="meta">مینی‌پلیر</span><strong>پلیرِ ثابتِ پایین</strong><span>روی هر دکمهٔ «پخش» بزن؛ بینِ صفحه‌ها می‌ماند و از جای قبلی ادامه می‌دهد.</span></a>
+      <a class="plink" href="pages/states.html#player"><span class="meta">حالت‌ها</span><strong>حالت‌های پلیر</strong><span>بارگذاری، خطا، پایانِ اپیزود، ادامه از جای قبلی.</span></a>
+    </div>
+  </section>
+
+  <section class="phase">
+    <div class="phase__n"><b class="latin">03</b><span class="label">صفحه‌های داخلی</span><span class="status">انجام شد</span></div>
+    <div class="links">
+      <a class="plink" href="pages/episode.html"><span class="meta">اپیزود</span><strong>صفحهٔ اپیزود</strong><span>کاور، پلیر، توضیح، بخش‌ها، متنِ کامل، اپیزودهای مرتبط.</span></a>
+      <a class="plink" href="pages/episodes.html"><span class="meta">آرشیو</span><strong>همهٔ اپیزودها</strong><span>نمای فهرست و نمای جدول، فیلترِ گروه و فصل، جست‌وجو.</span></a>
+      <a class="plink" href="pages/group.html"><span class="meta">گروه</span><strong>صفحهٔ گروه</strong><span>یک ستونِ جدول: اپیزودهایش و خانهٔ خالیِ بعدی.</span></a>
+      <a class="plink" href="pages/about.html"><span class="meta">درباره</span><strong>دربارهٔ ما</strong><span>چرا «جدول»، گویندگان، آمار، پلتفرم‌ها.</span></a>
+      <a class="plink" href="pages/contact.html"><span class="meta">تماس</span><strong>تماس</strong><span>فرمِ پیشنهادِ سؤال با حالتِ خطا و ارسال‌شده.</span></a>
+      <a class="plink" href="404.html"><span class="meta">۴۰۴</span><strong>صفحهٔ پیدا نشد</strong><span>«این خانه هنوز خالی است.»</span></a>
+    </div>
+  </section>
+
+  <section class="phase">
+    <div class="phase__n"><b class="latin">04</b><span class="label">جزئیات و حالت‌ها</span><span class="status">انجام شد</span></div>
+    <div class="links">
+      <a class="plink" href="pages/states.html"><span class="meta">اجزا</span><strong>اجزا و حالت‌ها</strong><span>دکمه‌ها، کاشی‌ها، پلیر، منوی موبایل، اسکلتون، خالی و خطا.</span></a>
+    </div>
+  </section>
+
+  <section style="padding-block:40px">
+    <div class="section-head" style="padding-top:16px"><h2>فرض‌هایی که کردم</h2><span class="meta">قابلِ تغییر</span></div>
+    <div class="assume">
+      <div><b>۱</b><p>«جدول» یعنی جدولِ تناوبی؛ موضوع و شعار همان «شیمیِ زندگیِ روزمره» ماند.</p></div>
+      <div><b>۲</b><p>نشانهٔ دو مربعی حفظ شد؛ معنایش شد «خانهٔ پُر / خانهٔ خالی».</p></div>
+      <div><b>۳</b><p>«طیف»ها شدند «گروه» (ستون‌های جدول) و گروهِ هر اپیزود از کلیدواژه‌های Acast خوانده می‌شود.</p></div>
+      <div><b>۴</b><p>کاورِ اپیزودها را سایت از داده‌های Acast می‌سازد (کاشیِ عنصر)؛ تصویرِ Acast فقط برای پلتفرم‌هاست.</p></div>
+      <div><b>۵</b><p>نمادِ دو حرفیِ هر اپیزود (On، Rn، …) دستی انتخاب می‌شود.</p></div>
+      <div><b>۶</b><p>اسامی، ایمیل و شبکه‌های اجتماعی و گویندگان نمونه‌اند.</p></div>
+    </div>
+  </section>
+
+  <section style="padding-bottom:64px">
+    <div class="section-head" style="padding-top:16px"><h2>آرشیو — اسیدبازی</h2><span class="meta">نسخهٔ ۱</span></div>
+    <div class="links" style="padding-top:24px">
+      <a class="plink plink--muted" href="design/asidbazi-website.html"><span class="meta">v1</span><strong>سایتِ اسیدبازی</strong><span>طراحیِ اولیه.</span></a>
+      <a class="plink plink--muted" href="design/asidbazi-brand-guidelines.html"><span class="meta">v1</span><strong>راهنمای برندِ اسیدبازی</strong><span>نسخهٔ ۱٫۰.</span></a>
+      <a class="plink plink--muted" href="design/asidbazi-motion-ident.html"><span class="meta">v1</span><strong>موشنِ اسیدبازی</strong><span>قطره ← واکنش ← ورد‌مارک.</span></a>
+    </div>
+  </section>
+</main>
+</body>
+</html>
