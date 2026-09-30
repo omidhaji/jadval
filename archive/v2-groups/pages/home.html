@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-base="../" data-page="home">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>جدول — پادکستِ شیمیِ زندگیِ روزمره</title>
+<meta name="description" content="جدول: شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم.">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/jadval.css">
+<style>
+  .hero { display: grid; grid-template-columns: 1.25fr 1fr; border-bottom: var(--rule) solid var(--color-rule); }
+  .hero__txt { padding: 64px 0 56px; padding-inline-end: var(--space-5); border-inline-end: var(--rule) solid var(--color-divider); display: flex; flex-direction: column; gap: 22px; }
+  .hero__tag { font: 800 clamp(20px, 2vw, 28px)/1.5 var(--font-display); max-width: 22ch; text-wrap: pretty; }
+  .hero__lead { max-width: 44ch; font-size: 16px; line-height: 1.95; color: var(--color-navy); }
+  .hero__table { background: var(--color-bg-2); margin-inline-end: calc(var(--gutter) * -1); padding: 40px var(--gutter) 32px 40px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+  .hero__table .ptable { max-width: 360px; width: 100%; margin-inline: auto; }
+  .hero__legend { max-width: 360px; width: 100%; margin-inline: auto; display: flex; justify-content: space-between; gap: 12px; font: 500 12px var(--font-text); color: var(--color-navy); }
+  .hero__legend b { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; margin-inline-end: 6px; }
+  @media (max-width: 899px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero__txt { padding: 48px 0 40px; padding-inline-end: 0; border: 0; gap: 22px; }
+    .hero__table { margin-inline: calc(var(--gutter) * -1); padding: 32px var(--gutter); }
+  }
+  .featured { display: grid; grid-template-columns: 1fr 1fr; }
+  .featured__txt { padding: 56px 0; padding-inline-end: var(--space-5); display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+  .featured__art { padding: 56px 0; padding-inline-start: 56px; display: flex; align-items: center; }
+  .featured__art .tile { width: 100%; max-width: 340px; margin-inline-start: auto; padding: 8%; }
+  @media (max-width: 899px) {
+    .featured { grid-template-columns: 1fr; }
+    .featured__txt { padding: 48px 0 24px; padding-inline-end: 0; }
+    .featured__art { padding: 0 0 48px; }
+    .featured__art .tile { max-width: none; }
+  }
+  .next-up { display: inline-flex; align-items: center; gap: 12px; align-self: flex-start; padding: 10px 16px; box-shadow: inset 0 0 0 2px var(--color-divider); font-size: 14px; color: var(--color-navy); }
+  .next-up strong { font: 800 15px var(--font-display); color: var(--color-text); }
+  .next-up__dot { width: 10px; height: 10px; background: var(--color-burgundy); animation: nu-blink 1.6s ease-in-out infinite; }
+  @keyframes nu-blink { 50% { opacity: .25; } }
+  .card__cover .card__art { display: flex; align-items: flex-end; padding: 16px; }
+</style>
+</head>
+<body>
+<a class="sr-only" href="#main">رفتن به محتوا</a>
+<div data-header></div>
+
+<main id="main">
+  <!-- HERO -->
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero__txt">
+        <span class="kicker">پادکستِ شیمیِ زندگیِ روزمره</span>
+        <h1 class="display">جدول</h1>
+        <p class="hero__tag">شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم.</p>
+        <p class="hero__lead">اتفاقات معمولی زندگی، معمولاً یه داستان شیمیایی عجیب پشتشون دارن. هر سه‌شنبه، یک خانهٔ تازه از این جدول پر می‌شود.</p>
+        <div class="next-up"><span class="next-up__dot" aria-hidden="true"></span><span>اپیزودِ بعدی</span><strong>سه‌شنبه ۱۴ مهر</strong><span class="latin meta">EP 10</span></div>
+        <div class="btn-row">
+          <button class="btn btn--burgundy" data-play="9"><span class="play-icon"></span> پخشِ تازه‌ترین اپیزود</button>
+          <a class="btn btn--ghost" href="episodes.html">همهٔ اپیزودها</a>
+        </div>
+      </div>
+      <div class="hero__table">
+        <div class="ptable" id="hero-table" aria-label="جدولِ اپیزودها"></div>
+        <div class="hero__legend"><span><b style="background:var(--color-navy)"></b>منتشرشده</span><span><b style="box-shadow:inset 0 0 0 2px var(--color-navy)"></b>سه‌شنبه‌های بعد</span></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- LATEST -->
+  <section class="wrap" aria-labelledby="latest-h">
+    <div class="section-head"><h2 id="latest-h">تازه‌ترین اپیزودها</h2><a href="episodes.html">همه ←</a></div>
+    <div class="cards" id="latest"></div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="band band--navy mt-5" aria-labelledby="feat-h">
+    <div class="wrap featured">
+      <div class="featured__txt">
+        <span class="kicker" style="color:var(--color-bg);opacity:.7">اپیزودِ برگزیده — پرشنیده‌ترین تا امروز</span>
+        <h2 id="feat-h" style="font:900 clamp(26px,3vw,40px)/1.3 var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</h2>
+        <p style="max-width:46ch;font-size:16px;line-height:1.95;opacity:.86">یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.</p>
+        <div class="btn-row">
+          <button class="btn btn--light" data-play="1"><span class="play-icon"></span> پخشِ اپیزود</button>
+          <a class="btn btn--ghost-light" href="episode.html">صفحه و متنِ اپیزود</a>
+        </div>
+      </div>
+      <div class="featured__art" id="feat-art"></div>
+    </div>
+  </section>
+
+  <!-- GROUPS -->
+  <section class="wrap" aria-labelledby="groups-h">
+    <div class="section-head"><h2 id="groups-h">گروه‌ها را بگرد</h2><span class="meta">۵ گروه</span></div>
+    <div class="groups" id="groups"></div>
+  </section>
+
+  <!-- POPULAR + ABOUT -->
+  <section class="wrap">
+    <div class="split rule-b">
+      <div style="padding-block:44px">
+        <h2 class="h3" style="margin-bottom:22px">پرشنیده‌ها</h2>
+        <div class="rows" id="popular"></div>
+      </div>
+      <div class="stack gap-3" style="padding-block:44px">
+        <h2 class="h3">دربارهٔ پادکست</h2>
+        <p style="font-size:16px;line-height:2">جدول سراغِ چیزهایی می‌رود که هر روز از کنارشان می‌گذریم: یک فنجان قهوه، بوی باران، یک قرص، یک برگ. هر اپیزود یکی از این‌ها را برمی‌دارد و داستانِ شیمیایی‌اش را تعریف می‌کند؛ دقیق، اما بدون کلاسِ درس.</p>
+        <dl class="facts" style="margin:0">
+          <div><dt>انتشار</dt><dd>هر هفته، سه‌شنبه</dd></div>
+          <div><dt>میانگینِ زمان</dt><dd>۲۷ دقیقه</dd></div>
+          <div><dt>اپیزودِ بعدی</dt><dd>سه‌شنبه ۱۴ مهر</dd></div>
+        </dl>
+        <a href="about.html" style="font-weight:500">بیشتر دربارهٔ جدول ←</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOSTS -->
+  <section class="wrap" aria-labelledby="hosts-h">
+    <div class="section-head"><h2 id="hosts-h">میزبان‌ها</h2><a href="about.html">دربارهٔ ما ←</a></div>
+    <div id="hosts"></div>
+  </section>
+
+  <!-- LISTEN -->
+  <section class="wrap" aria-labelledby="listen-h" style="padding-bottom:56px">
+    <div class="section-head"><h2 id="listen-h">کجا بشنویم؟</h2><span class="meta">اپیزودِ تازه: هر سه‌شنبه</span></div>
+    <div id="listen"></div>
+  </section>
+
+  <!-- SUBSCRIBE -->
+  <section class="band band--burgundy" aria-labelledby="sub-h">
+    <div class="wrap split split--even split--noline">
+      <div class="stack gap-3" style="padding-block:44px;justify-content:center">
+        <h2 id="sub-h" style="font:900 clamp(24px,2.6vw,34px)/1.3 var(--font-display)">اپیزودِ تازه را از دست نده</h2>
+        <p style="max-width:40ch;font-size:15px;line-height:1.9;opacity:.85">هر سه‌شنبه یک ایمیل: اپیزودِ تازه و یک نکتهٔ کوچکِ شیمیایی.</p>
+      </div>
+      <div class="stack gap-3" style="padding-block:44px;justify-content:center">
+        <form class="inline-form" onsubmit="event.preventDefault()">
+          <label class="sr-only" for="email">نشانیِ ایمیل</label>
+          <input class="input input--light" id="email" type="email" placeholder="نشانیِ ایمیل" dir="ltr" style="text-align:right">
+          <button class="btn btn--light" type="submit">عضویت</button>
+        </form>
+        <div class="picons picons--light" id="sub-icons" style="padding-top:8px"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+<script src="../assets/js/jadval.js"></script>
+<script>
+(function () {
+  var J = window.Jadval, E = J.EPISODES;
+
+  // Hero: the podcast as a periodic table — published cells + empty ones to come.
+  var h = '';
+  E.forEach(function (e) { h += J.tile(e, { href: 'episode.html', short: '' }); });
+  for (var n = E.length + 1; n <= 12; n++) h += J.emptyTile(n);
+  document.getElementById('hero-table').innerHTML = h;
+
+  // Latest three
+  var arts = ['art--grid field-grid', 'art--navy-lines', 'art--photo'];
+  document.getElementById('latest').innerHTML = E.slice(-3).reverse().map(function (e, i) {
+    return '<article class="card">' +
+      '<div class="card__cover">' + J.tile(e) + '<div class="card__art art ' + arts[i] + '">' + (i === 2 ? '<span>APPLE — MACRO<br>PHOTO</span>' : '') + '</div></div>' +
+      '<div class="card__body"><span class="meta">' + J.epNum(e.n) + ' — ' + J.GROUPS[e.g].name + '</span>' +
+      '<h3><a href="episode.html">' + e.title + '</a></h3><p>' + e.desc + '</p>' +
+      '<div class="card__foot"><span class="meta" style="color:var(--color-navy)">' + J.mins(e.len) + ' — ' + e.date + '</span>' +
+      '<button class="play-sm" data-play="' + e.n + '"><span class="dot"><span class="play-icon"></span></span>پخش</button></div></div></article>';
+  }).join('');
+
+  // Featured tile
+  document.getElementById('feat-art').innerHTML = J.tile(J.ep(1), { variant: 'tile--ghost-light', short: 'پیاز — گروه بدن' });
+
+  // Groups
+  var counts = {};
+  E.forEach(function (e) { counts[e.g] = (counts[e.g] || 0) + 1; });
+  document.getElementById('groups').innerHTML = Object.keys(J.GROUPS).map(function (k) {
+    var g = J.GROUPS[k];
+    return '<a class="group" href="group.html"><div class="group__head"><div class="gicon gicon--' + g.icon + '"></div><span class="group__col">ستونِ ' + J.fa(g.col) + '</span></div>' +
+      '<div class="stack gap-1"><span class="group__name">' + g.name + '</span><span class="group__count">' + J.fa(counts[k] || 0) + ' اپیزود</span></div></a>';
+  }).join('');
+
+  document.getElementById('hosts').innerHTML = J.hostsHTML();
+  document.getElementById('listen').innerHTML = J.listenHTML();
+  document.getElementById('sub-icons').innerHTML = J.platformLinks(22);
+
+  // Popular
+  document.getElementById('popular').innerHTML = [1, 2, 3, 6, 9].map(function (n) {
+    var e = J.ep(n);
+    return '<div class="row"><span class="row__num latin">' + J.epNum(n) + '</span><a class="row__title" href="episode.html" style="color:inherit">' + e.title + '</a>' +
+      '<span class="row__len latin">' + e.len + '</span><button class="row__play" data-play="' + n + '" aria-label="پخشِ ' + e.title + '"><span class="play-icon"></span></button></div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

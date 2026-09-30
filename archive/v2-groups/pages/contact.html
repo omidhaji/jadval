@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-base="../" data-page="contact">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تماس — جدول</title>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/jadval.css">
+<style>
+  .c-grid { display: grid; grid-template-columns: 1.3fr 1fr; border-bottom: var(--rule) solid var(--color-rule); }
+  .c-form { padding: 56px 0; padding-inline-end: var(--space-5); border-inline-end: var(--rule) solid var(--color-divider); display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .c-form .full { grid-column: 1 / -1; }
+  .c-side { padding: 56px 0; padding-inline-start: var(--space-5); display: flex; flex-direction: column; gap: 32px; }
+  .topics { display: flex; flex-wrap: wrap; gap: 8px; }
+  .c-link { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: var(--rule) solid var(--color-divider); color: var(--color-text); }
+  .c-link:hover { background: var(--color-bg-2); color: var(--color-text); }
+  .c-link span:last-child { font: 500 12px var(--font-mono); color: var(--color-burgundy); direction: ltr; }
+  @media (max-width: 899px) {
+    .c-grid { grid-template-columns: 1fr; }
+    .c-form { grid-template-columns: 1fr; padding-inline-end: 0; border: 0; padding-bottom: 32px; }
+    .c-side { padding-inline-start: 0; padding-top: 32px; border-top: var(--rule) solid var(--color-divider); }
+  }
+  .sent { display: none; }
+  .is-sent .c-form > :not(.sent) { display: none; }
+  .is-sent .sent { display: flex; }
+</style>
+</head>
+<body>
+<a class="sr-only" href="#main">رفتن به محتوا</a>
+<div data-header></div>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="مسیر"><a href="home.html">خانه</a><span aria-hidden="true">/</span><span aria-current="page">تماس</span></nav>
+  <header class="rule-b" style="padding:40px 0 28px">
+    <span class="kicker">تماس</span>
+    <h1 class="h1" style="margin-top:12px">یک سؤال، یک خانهٔ خالی.</h1>
+    <p class="subtitle" style="max-width:52ch;margin-top:14px">سؤالی داری که جوابش شیمی است؟ پیشنهادِ همکاری یا اسپانسری؟ یا فقط می‌خواهی سلام کنی؟</p>
+  </header>
+
+  <div class="c-grid" id="c-grid">
+    <form class="c-form" novalidate id="form">
+      <div class="field full">
+        <label>موضوعِ پیام</label>
+        <div class="topics" role="group" aria-label="موضوع">
+          <button type="button" class="chip" aria-pressed="true">پیشنهادِ سؤال</button>
+          <button type="button" class="chip" aria-pressed="false">همکاری و اسپانسر</button>
+          <button type="button" class="chip" aria-pressed="false">اصلاحِ یک نکتهٔ علمی</button>
+          <button type="button" class="chip" aria-pressed="false">موضوعِ دیگر</button>
+        </div>
+      </div>
+      <div class="field"><label for="n">نام</label><input class="input" id="n" placeholder="نامِ شما"></div>
+      <div class="field" id="f-email"><label for="e">ایمیل</label><input class="input" id="e" type="email" placeholder="name@example.com" dir="ltr" style="text-align:right"><span class="field__msg" hidden>نشانیِ ایمیل درست نیست.</span></div>
+      <div class="field full"><label for="m">پیام</label><textarea class="textarea" id="m" placeholder="مثلاً: چرا نانِ مانده سفت می‌شود؟"></textarea></div>
+      <div class="full" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+        <span class="caption">معمولاً ظرفِ یک هفته جواب می‌دهیم.</span>
+        <button class="btn btn--burgundy" type="submit">فرستادنِ پیام</button>
+      </div>
+      <div class="sent full stack gap-4" role="status">
+        <div style="display:flex;gap:4px"><div class="tile" style="width:96px;padding:10px"><div class="tile__top"><span>10</span><span></span></div><div class="tile__sym">✓</div><div class="tile__name">رسید</div></div></div>
+        <h2 class="h3">پیامت رسید. یک خانه پر شد.</h2>
+        <p class="caption" style="font-size:16px">اگر سؤالت به اپیزود برسد، اسمت را در همان اپیزود می‌آوریم.</p>
+        <div><a class="btn btn--ghost btn--sm" href="episodes.html">برگشت به اپیزودها</a></div>
+      </div>
+    </form>
+    <aside class="c-side">
+      <div class="stack gap-2">
+        <span class="kicker">ایمیل</span>
+        <a href="#" class="latin" style="font:700 20px var(--font-mono);color:var(--color-navy);text-align:right">hello@jadval.fm</a>
+      </div>
+      <div class="stack">
+        <span class="kicker" style="margin-bottom:8px">شبکه‌ها</span>
+        <a class="c-link" href="#"><span>اینستاگرام</span><span>@jadval.fm</span></a>
+        <a class="c-link" href="#"><span>تلگرام</span><span>@jadvalfm</span></a>
+        <a class="c-link" href="#"><span>یوتیوب</span><span>/jadval</span></a>
+        <a class="c-link" href="#"><span>ایکس</span><span>@jadvalfm</span></a>
+      </div>
+      <div class="notice"><div class="symbol" style="--s:12px;margin-top:8px"><i></i><i></i></div><p class="caption" style="font-size:15px">برای همکاری‌های تجاری، کیتِ رسانه‌ای را هم می‌توانیم بفرستیم.</p></div>
+    </aside>
+  </div>
+  <div style="height:40px"></div>
+</main>
+
+<div data-footer></div>
+<script src="../assets/js/jadval.js"></script>
+<script>
+(function () {
+  var topics = document.querySelector('.topics');
+  topics.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.chip'); if (!b) return;
+    topics.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
+  });
+  document.getElementById('form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var e = document.getElementById('e'), f = document.getElementById('f-email');
+    var ok = /.+@.+\..+/.test(e.value);
+    f.classList.toggle('is-error', !ok);
+    f.querySelector('.field__msg').hidden = ok;
+    if (ok) document.getElementById('c-grid').classList.add('is-sent');
+  });
+})();
+</script>
+</body>
+</html>

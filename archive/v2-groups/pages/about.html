@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-base="../" data-page="about">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دربارهٔ جدول</title>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/jadval.css">
+<style>
+  .a-hero { padding: 56px 0 44px; border-bottom: var(--rule) solid var(--color-rule); display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-5); align-items: end; }
+  .a-hero .symbol { --s: clamp(64px, 9vw, 120px); gap: 8px; justify-self: end; }
+  @media (max-width: 899px) { .a-hero { grid-template-columns: 1fr; padding: 48px 0 40px; } .a-hero .symbol { justify-self: start; } }
+  .story { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
+  .story > div { padding: 32px 28px; border-inline-start: var(--rule) solid var(--color-divider); display: flex; flex-direction: column; gap: 14px; }
+  .story > div:first-child { border: 0; padding-inline-start: 0; }
+  .story h3 { font: 800 19px/1.5 var(--font-display); }
+  @media (max-width: 899px) { .story { grid-template-columns: 1fr; } .story > div { border-inline-start: 0; border-top: var(--rule) solid var(--color-divider); padding-inline: 0; } .story > div:first-child { border-top: 0; } }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stats > div { padding: 32px 24px; border-inline-start: 2px solid rgba(244,240,230,.2); }
+  .stats > div:first-child { border: 0; padding-inline-start: 0; }
+  .stats b { display: block; font: 900 clamp(32px, 3.6vw, 48px)/1 var(--font-display); }
+  .stats span { font-size: 15px; opacity: .8; }
+  @media (max-width: 767px) { .stats { grid-template-columns: 1fr 1fr; } .stats > div { padding: 28px 16px; } .stats > div:nth-child(3) { border: 0; padding-inline-start: 0; } }
+</style>
+</head>
+<body>
+<a class="sr-only" href="#main">رفتن به محتوا</a>
+<div data-header></div>
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="مسیر"><a href="home.html">خانه</a><span aria-hidden="true">/</span><span aria-current="page">دربارهٔ ما</span></nav>
+    <section class="a-hero">
+      <div class="stack gap-4">
+        <span class="kicker">دربارهٔ جدول</span>
+        <h1 class="h1">یک دوستِ کنجکاو که شیمی می‌داند.</h1>
+        <p class="subtitle" style="max-width:46ch">جدول یک برندِ رسانه‌ای است، نه کلاسِ درس. موضوعش شیمیِ پنهان در زندگیِ روزمره است؛ لحنش، لحنِ کسی که وسطِ آشپزی یک‌دفعه می‌پرسد «این دیگه چه ربطی به شیمی داره؟!»</p>
+      </div>
+      <span class="symbol" aria-hidden="true"><i></i><i></i></span>
+    </section>
+
+    <section aria-labelledby="why-h">
+      <div class="section-head"><h2 id="why-h">چرا «جدول»؟</h2></div>
+      <div class="story">
+        <div><span class="meta latin">01 — THE TABLE</span><h3>همه‌چیز یک خانه در جدول دارد.</h3><p class="caption" style="font-size:16px">قهوه، باران، صابون: هرچه را باز کنی، به چند خانهٔ آشنا از جدولِ تناوبی می‌رسی.</p></div>
+        <div><span class="meta latin">02 — THE EMPTY CELL</span><h3>مندلیف جای خالی گذاشت.</h3><p class="caption" style="font-size:16px">او خانه‌هایی را خالی گذاشت برای عنصرهایی که هنوز کشف نشده بودند. مربعِ خالیِ نشانهٔ ما همان جاست: سؤالی که هنوز جوابش را پیدا نکرده‌ایم.</p></div>
+        <div><span class="meta latin">03 — THE EPISODE</span><h3>هر اپیزود یک خانه را پر می‌کند.</h3><p class="caption" style="font-size:16px">هر اپیزود شماره، نماد و ستونِ خودش را دارد؛ جدولِ ما با هر انتشار کامل‌تر می‌شود.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="hosts-h">
+      <div class="section-head"><h2 id="hosts-h">میزبان‌ها</h2><span class="meta">یک متخصص، یک کنجکاو</span></div>
+      <div id="hosts"></div>
+    </section>
+  </div>
+
+  <section class="band band--navy">
+    <div class="wrap stats">
+      <div><b>۹</b><span>اپیزودِ منتشرشده</span></div>
+      <div><b>هفتگی</b><span>هر سه‌شنبه</span></div>
+      <div><b>۵</b><span>گروهِ موضوعی</span></div>
+      <div><b>۲۷′</b><span>میانگینِ هر اپیزود</span></div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="listen-h">
+    <div class="section-head"><h2 id="listen-h">کجا بشنویم؟</h2><span class="meta">فیدِ اصلی روی Acast</span></div>
+    <div id="listen"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="rule-b stack gap-3" style="padding-block:44px">
+      <h2 class="h3">همکاری و پیشنهاد</h2>
+      <p class="caption" style="font-size:16px;max-width:60ch">سؤالی داری که جوابش در آشپزخانه یا حمام یا داروخانه است؟ برای ما بفرست؛ شاید اپیزودِ بعدی باشد.</p>
+      <div><a class="btn btn--burgundy btn--sm" href="contact.html">پیشنهادِ یک سؤال</a></div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+<script src="../assets/js/jadval.js"></script>
+<script>
+  document.getElementById('hosts').innerHTML = Jadval.hostsHTML();
+  document.getElementById('listen').innerHTML = Jadval.listenHTML();
+</script>
+</body>
+</html>

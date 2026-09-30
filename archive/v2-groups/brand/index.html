@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-base="../" data-page="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>راهنمای برند جدول</title>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/jadval.css">
+<style>
+  .bg-cover { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; border-bottom: var(--rule) solid var(--color-rule); }
+  .bg-cover__txt { padding: 48px 0; padding-inline-end: var(--space-5); display: flex; flex-direction: column; justify-content: space-between; gap: 40px; border-inline-end: var(--rule) solid var(--color-rule); }
+  .bg-cover__sym { display: grid; place-items: center; padding: 48px 0; }
+  .bg-cover__sym .symbol { --s: clamp(110px, 14vw, 190px); gap: 12px; }
+  @media (max-width: 899px) { .bg-cover { grid-template-columns: 1fr; min-height: 0; } .bg-cover__txt { border: 0; padding-inline-end: 0; } }
+  .sh { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 48px 0 14px; border-bottom: var(--rule) solid var(--color-rule); }
+  .sh h2 { font: 800 clamp(28px, 3vw, 40px)/1.2 var(--font-display); }
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .cols > * { padding: 28px; border-inline-start: var(--rule) solid var(--color-divider); }
+  .cols > :first-child { border: 0; padding-inline-start: 0; }
+  @media (max-width: 899px) { .cols { grid-template-columns: 1fr; } .cols > * { border-inline-start: 0; padding-inline: 0; border-top: var(--rule) solid var(--color-divider); } .cols > :first-child { border-top: 0; } }
+  .pers div { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: var(--rule) solid var(--color-divider); font-size: 15px; }
+  .pers div span:last-child { color: var(--color-burgundy); }
+  .sym-demo { background: var(--color-bg-2); display: grid; place-items: center; padding: 56px; }
+  .sym-demo .inner { position: relative; padding: 24px; background-image: linear-gradient(to right, rgba(22,36,60,.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(22,36,60,.12) 1px, transparent 1px); background-size: 24px 24px; }
+  .sym-demo .symbol { --s: min(144px, 26vw); gap: 12px; }
+  @media (max-width: 599px) { .sym-demo { padding: 24px; } .sym-demo .inner { padding: 12px; } }
+  .lock { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
+  .lock > div { min-width: 0; padding: 28px 24px; border-inline-start: var(--rule) solid var(--color-divider); display: flex; flex-direction: column; gap: 22px; min-height: 180px; justify-content: space-between; }
+  .lock > div:first-child { border: 0; }
+  @media (max-width: 899px) { .lock { grid-template-columns: 1fr 1fr; } .lock > div:nth-child(3) { border-inline-start: 0; } }
+  .dont { position: relative; background: var(--color-bg-2); padding: 28px; display: grid; place-items: center; min-height: 140px; }
+  .dont::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top left, transparent calc(50% - 1px), var(--color-burgundy) 50%, transparent calc(50% + 1px)); }
+  .swatches { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
+  .swatch { display: flex; flex-direction: column; }
+  .swatch > div:first-child { height: 160px; }
+  .swatch > div:last-child { padding: 14px 16px 20px 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+  .swatch code { font: 500 12px var(--font-mono); color: var(--color-navy); }
+  @media (max-width: 767px) { .swatches { grid-template-columns: 1fr 1fr; } }
+  table.tok { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.tok th { text-align: right; font: 600 11px var(--font-mono); letter-spacing: .16em; color: var(--color-burgundy); padding: 14px 12px 14px 0; border-bottom: var(--rule) solid var(--color-rule); }
+  table.tok td { padding: 14px 12px 14px 0; border-bottom: var(--rule) solid var(--color-divider); vertical-align: middle; }
+  table.tok code { font: 500 12px var(--font-mono); direction: ltr; unicode-bidi: isolate; }
+  .scroll-x { overflow-x: auto; }
+  .anatomy { display: grid; grid-template-columns: 300px 1fr; gap: var(--space-5); align-items: center; padding-top: 32px; }
+  .anatomy .tile { width: 300px; }
+  .anatomy ol { margin: 0; padding: 0; list-style: none; counter-reset: a; }
+  .anatomy li { counter-increment: a; display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 12px 0; border-bottom: var(--rule) solid var(--color-divider); font-size: 15px; }
+  .anatomy li::before { content: '0' counter(a); font: 600 12px var(--font-mono); color: var(--color-burgundy); padding-top: 3px; }
+  @media (max-width: 899px) { .anatomy { grid-template-columns: 1fr; } .anatomy .tile { width: 220px; } }
+  .gl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-top: 32px; }
+  .gl figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .gl .box { aspect-ratio: 1; background: var(--color-bg-2); display: grid; place-items: center; }
+  @media (max-width: 899px) { .gl { grid-template-columns: 1fr 1fr; } }
+  .covers { display: grid; grid-template-columns: 1fr 1.6fr 1.2fr; gap: 24px; padding-top: 32px; align-items: start; }
+  @media (max-width: 899px) { .covers { grid-template-columns: 1fr; } }
+  .cover-sq { aspect-ratio: 1; background: var(--color-navy); color: var(--color-bg); padding: 8%; display: flex; flex-direction: column; justify-content: space-between; }
+  .cover-og { aspect-ratio: 1200/630; background: var(--color-bg); box-shadow: inset 0 0 0 2px var(--color-navy); display: grid; grid-template-columns: 1fr auto; gap: 6%; padding: 6%; align-items: center; }
+  .cover-og .tile { width: clamp(90px, 14vw, 180px); }
+  .changelog { background: var(--color-bg-2); padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 32px; }
+  .changelog ul { margin: 0; padding-inline-start: 18px; font-size: 15px; line-height: 2; }
+  @media (max-width: 767px) { .changelog { grid-template-columns: 1fr; } }
+  .rtl-rules { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .rtl-rules > div { padding: 24px; border-inline-start: var(--rule) solid var(--color-divider); border-bottom: var(--rule) solid var(--color-divider); }
+  .rtl-rules > div:nth-child(4n+1) { border-inline-start: 0; padding-inline-start: 0; }
+  @media (max-width: 899px) { .rtl-rules { grid-template-columns: 1fr 1fr; } .rtl-rules > div:nth-child(odd) { border-inline-start: 0; padding-inline-start: 0; } .rtl-rules > div:nth-child(4n+1) { border-inline-start: 0; } }
+  .rtl-rules h3 { font: 600 11px var(--font-mono); letter-spacing: .16em; color: var(--color-burgundy); margin-bottom: 8px; }
+  .rtl-rules p { font-size: 15px; line-height: 1.9; }
+</style>
+</head>
+<body>
+<div data-header></div>
+
+<main class="wrap">
+  <!-- COVER -->
+  <section class="bg-cover">
+    <div class="bg-cover__txt">
+      <div class="stack gap-1"><span class="meta latin">BRAND GUIDELINES — V2.0</span><span class="meta latin" style="color:var(--color-navy)">PERSIAN SCIENCE PODCAST — FORMERLY ASIDBAZI</span></div>
+      <div class="stack gap-3">
+        <h1 class="display">جدول</h1>
+        <p class="subtitle" style="max-width:30ch">شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم.</p>
+      </div>
+      <span class="logo-latin latin" style="color:var(--color-navy)">JADVAL</span>
+    </div>
+    <div class="bg-cover__sym"><span class="symbol" aria-hidden="true"><i></i><i></i></span></div>
+  </section>
+
+  <div class="changelog">
+    <div><span class="kicker">چه چیزی عوض شد (نسبت به نسخهٔ ۱.۰)</span>
+      <ul><li>نام: «اسیدبازی» ← «جدول»؛ لاتین: JADVAL</li><li>معنای نشانه: از «واکنش» به «خانهٔ پر / خانهٔ خالی» در جدول</li><li>قطره و نوارِ pH حذف شدند؛ کاشیِ عنصر جایگزین شد</li><li>«طیف»ها ← «گروه»ها (ستون‌های جدول)</li><li>ورد‌مارک تک‌رنگ شد</li></ul></div>
+    <div><span class="kicker">چه چیزی ثابت ماند</span>
+      <ul><li>پالت رنگ، بدونِ تغییر</li><li>تایپوگرافی: Estedad و Vazirmatn</li><li>گرید، فاصله‌ها، شعاعِ صفر، بدونِ سایه</li><li>قواعدِ راست‌به‌چپ</li><li>لحن و شخصیتِ برند</li></ul></div>
+  </div>
+
+  <!-- 01 ESSENCE -->
+  <div class="sh"><h2>جوهرِ برند</h2><span class="meta latin">01 — BRAND ESSENCE</span></div>
+  <div class="cols">
+    <div class="stack gap-3"><p style="font:800 clamp(22px,2.2vw,30px)/1.5 var(--font-display);color:var(--color-navy)">اتفاقات معمولی زندگی، معمولاً یه داستان شیمیایی عجیب پشتشون دارن.</p></div>
+    <div class="stack gap-3"><span class="label">جایگاه</span><p style="font-size:15px;line-height:1.95">جدول یک برندِ رسانه‌ای است، نه یک برندِ علمی-آموزشی. موضوع، شیمیِ پنهان در زندگیِ روزمره است؛ لحن، لحنِ یک دوستِ کنجکاو که شیمی می‌داند.</p><p style="font-size:15px;line-height:1.95">«جدول» اشاره به جدولِ تناوبی است؛ جایی که همه‌چیز، از قهوه تا باران، یک خانه دارد. اما مثلِ نامِ قبلی، این اشاره باید <b>زیرپوستی</b> بماند: جدول دربارهٔ عنصرها نیست، دربارهٔ زندگی است.</p></div>
+    <div class="pers"><span class="label">شخصیت</span>
+      <div><span>علمی</span><span>اما محاوره‌ای</span></div><div><span>باهوش</span><span>اما بی‌تکلف</span></div><div><span>بازیگوش</span><span>اما نه کودکانه</span></div><div><span>مینیمال</span><span>اما نه خنثی</span></div><div><span>منظم</span><span>اما نه خشک</span></div></div>
+  </div>
+
+  <!-- 02 SYMBOL -->
+  <div class="sh"><h2>نشانه</h2><span class="meta latin">02 — THE SYMBOL</span></div>
+  <div class="split split--even" style="padding-top:32px">
+    <div class="sym-demo"><div class="inner"><span class="symbol"><i></i><i></i></span></div></div>
+    <div class="stack gap-4">
+      <p class="body">نشانه از دو خانهٔ مجاورِ یک جدول ساخته شده: <b>خانهٔ پُر</b> (زرشکی) چیزی است که می‌دانیم؛ <b>خانهٔ خالی</b> (سرمه‌ای، خطی) جایی است که مندلیف برای عنصرهای کشف‌نشده باز گذاشت. نشانه یعنی کنجکاوی: کنارِ هر چیزِ آشنا، یک سؤالِ بی‌جواب هست.</p>
+      <dl class="facts" style="margin:0">
+        <div><dt>خانهٔ پُر — راست</dt><dd>وضعیتِ آشنا و روزمره</dd></div>
+        <div><dt>خانهٔ خالی — چپ</dt><dd>سؤالی که هنوز جوابش را نمی‌دانیم</dd></div>
+        <div><dt>فاصله</dt><dd>یک‌هشتمِ ضلعِ خانه</dd></div>
+        <div><dt>ضخامتِ خط</dt><dd>یک‌نهمِ ضلعِ خانه</dd></div>
+      </dl>
+      <p class="caption">ترتیبِ راست‌به‌چپ مهم است: اول خانهٔ پُر خوانده می‌شود، بعد خانهٔ خالی. نشانه هرگز قرینه نمی‌شود.</p>
+    </div>
+  </div>
+
+  <!-- 03 LOCKUPS -->
+  <div class="sh"><h2>قفل‌های لوگو</h2><span class="meta latin">03 — LOGO LOCKUPS</span></div>
+  <div class="split split--even rule-b">
+    <div class="stack gap-3" style="padding-block:32px;align-items:flex-start"><span class="label">اصلی — عمودی</span>
+      <div class="stack gap-3" style="align-items:flex-start"><span class="symbol" style="--s:56px;gap:6px"><i></i><i></i></span><span style="font:900 88px/1 var(--font-display);color:var(--color-navy)">جدول</span><span class="logo-latin latin" style="color:var(--color-navy)">JADVAL</span></div></div>
+    <div class="stack gap-5" style="padding-block:32px">
+      <div class="stack gap-3"><span class="label">افقی</span><span class="logo"><span class="symbol" style="--s:30px;gap:5px"><i></i><i></i></span><span class="logo__word" style="font-size:52px">جدول</span></span></div>
+      <div class="stack gap-3"><span class="label">اندازهٔ کوچک — ۲۴ پیکسل</span><span class="logo"><span class="symbol" style="--s:14px;gap:3px"><i></i><i></i></span><span class="logo__word" style="font-size:24px">جدول</span></span></div>
+      <p class="caption">ورد‌مارک همیشه تک‌رنگ است (سرمه‌ای روی کرم، کرم روی تیره). رنگِ تأکیدی فقط در خانهٔ پُرِ نشانه می‌نشیند.</p>
+    </div>
+  </div>
+  <div class="lock">
+    <div><span class="label">سرمه‌ای / کرم</span><span class="logo"><span class="symbol"><i></i><i></i></span><span class="logo__word">جدول</span></span></div>
+    <div style="background:var(--color-burgundy)"><span class="label" style="color:var(--color-bg)">زرشکی</span><span class="logo logo--light"><span class="symbol symbol--light"><i></i><i></i></span><span class="logo__word">جدول</span></span></div>
+    <div style="background:var(--color-navy)"><span class="label" style="color:var(--color-bg)">معکوس</span><span class="logo logo--light"><span class="symbol"><i></i><i style="border-color:var(--color-bg)"></i></span><span class="logo__word">جدول</span></span></div>
+    <div style="background:var(--color-black)"><span class="label" style="color:var(--color-bg)">مشکی</span><span class="logo logo--light"><span class="symbol symbol--light"><i></i><i></i></span><span class="logo__word">جدول</span></span></div>
+  </div>
+  <div class="lock">
+    <div><span class="label">آواتار — ۱:۱</span><div style="width:120px;aspect-ratio:1;background:var(--color-navy);display:grid;place-items:center"><span class="symbol"><i></i><i style="border-color:var(--color-bg)"></i></span></div></div>
+    <div><span class="label">فاوآیکن — ۳۲ / ۱۶</span><div style="display:flex;gap:16px;align-items:end;flex-wrap:wrap"><img src="../assets/img/favicon.svg" width="64" height="64" alt=""><img src="../assets/img/favicon.svg" width="32" height="32" alt=""><img src="../assets/img/favicon.svg" width="16" height="16" alt=""></div></div>
+    <div><span class="label">فاصلهٔ آزاد</span><div style="padding:18px;box-shadow:inset 0 0 0 1px var(--color-burgundy);background:repeating-linear-gradient(45deg,rgba(122,30,43,.08) 0 4px,transparent 4px 8px);display:inline-flex;align-self:flex-start"><span class="logo" style="background:var(--color-bg)"><span class="symbol"><i></i><i></i></span><span class="logo__word">جدول</span></span></div><p class="caption">در هر طرف = ضلعِ خانهٔ نشانه.</p></div>
+    <div><span class="label">حداقل اندازه</span><p class="caption">نشانه: ۱۲ پیکسل. زیرِ ۱۶ پیکسل، ضخامتِ خطِ خانهٔ خالی حداقل ۲ پیکسل می‌ماند.</p></div>
+  </div>
+  <div class="gl">
+    <figure><div class="dont"><span class="symbol" style="flex-direction:row-reverse"><i></i><i></i></span></div><figcaption class="caption">جای دو خانه را عوض نکنید.</figcaption></figure>
+    <figure><div class="dont"><span class="symbol"><i style="border-radius:6px"></i><i style="border-radius:6px"></i></span></div><figcaption class="caption">گوشه‌ها را گرد نکنید؛ شعاع صفر است.</figcaption></figure>
+    <figure><div class="dont"><span class="logo"><span class="symbol"><i></i><i></i></span><span class="logo__word"><span style="color:var(--color-navy)">جد</span><span style="color:var(--color-burgundy)">ول</span></span></span></div><figcaption class="caption">ورد‌مارک را دورنگ نکنید (این عادتِ نسخهٔ قبل بود).</figcaption></figure>
+    <figure><div class="dont"><span class="symbol"><i></i><i></i><i style="background:var(--color-navy)"></i></span></div><figcaption class="caption">خانهٔ سوم اضافه نکنید.</figcaption></figure>
+  </div>
+
+  <!-- 04 COLOR -->
+  <div class="sh"><h2>رنگ</h2><span class="meta latin">04 — COLOR SYSTEM — UNCHANGED</span></div>
+  <div class="swatches" style="padding-top:32px">
+    <div class="swatch"><div style="background:#F4F0E6;box-shadow:inset 0 0 0 2px var(--color-divider)"></div><div><strong>سفیدِ گرم</strong><code>#F4F0E6</code><span class="caption">زمینهٔ اصلی</span></div></div>
+    <div class="swatch"><div style="background:#E7E2D5"></div><div><strong>خاکستریِ گرم</strong><code>#E7E2D5</code><span class="caption">زمینهٔ ثانویه</span></div></div>
+    <div class="swatch"><div style="background:#16243C"></div><div><strong>سرمه‌ای</strong><code>#16243C</code><span class="caption">تأکیدِ اول، خانهٔ خالی</span></div></div>
+    <div class="swatch"><div style="background:#7A1E2B"></div><div><strong>زرشکی</strong><code>#7A1E2B</code><span class="caption">تأکیدِ دوم، خانهٔ پُر</span></div></div>
+    <div class="swatch"><div style="background:#111111"></div><div><strong>مشکی</strong><code>#111111</code><span class="caption">متنِ اصلی</span></div></div>
+  </div>
+  <p class="caption" style="padding-top:20px;max-width:80ch">هر ترکیب حداکثر دو رنگِ برند به‌همراه زمینه دارد. سرمه‌ای و زرشکی هرگز دو سطحِ بزرگِ کنارِ هم نیستند. <b>طیفِ رنگیِ pH دیگر جزوِ زبانِ برند نیست</b>؛ سبز، فیروزه‌ای، زرد، نارنجی، صورتی و بنفش مجاز نیستند.</p>
+
+  <!-- 05 TYPE -->
+  <div class="sh"><h2>تایپوگرافی</h2><span class="meta latin">05 — TYPOGRAPHY — UNCHANGED</span></div>
+  <div class="split split--even" style="padding-top:32px">
+    <div class="stack gap-3"><span class="label latin">DISPLAY — ESTEDAD 800/900</span><p style="font:900 52px/1.2 var(--font-display);color:var(--color-navy)">شیمیِ زندگیِ روزمره</p><p style="font:800 18px/2 var(--font-display);color:var(--color-navy)">آ ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ه ی ۰۱۲۳۴۵۶۷۸۹</p></div>
+    <div class="stack gap-3"><span class="label latin">TEXT — VAZIRMATN 300/400/500/700</span><p class="body">وقتی پیاز را می‌بُری، سلول‌ها پاره می‌شوند و آنزیمی آزاد می‌شود که ترکیبی فرّار می‌سازد؛ همان چیزی که چند ثانیه بعد به چشم می‌رسد و اشک را راه می‌اندازد.</p><span class="label latin">MONO — IBM PLEX MONO 500/600 (LATIN ONLY)</span><p style="font:600 28px var(--font-mono);direction:ltr;text-align:right">EP 01 — On — 26:04</p></div>
+  </div>
+  <div class="scroll-x" style="padding-top:24px"><table class="tok">
+    <thead><tr><th>توکن</th><th>نمونه</th><th>فونت / وزن</th><th>دسکتاپ</th><th>موبایل</th></tr></thead>
+    <tbody>
+      <tr><td><code>display</code></td><td style="font:900 32px var(--font-display);color:var(--color-navy)">جدول</td><td>Estedad 900</td><td><code>76 / 1.05</code></td><td><code>40 / 1.1</code></td></tr>
+      <tr><td><code>h1</code></td><td style="font:900 24px var(--font-display)">تیترِ اصلی صفحه</td><td>Estedad 900</td><td><code>50 / 1.25</code></td><td><code>30 / 1.3</code></td></tr>
+      <tr><td><code>h2</code></td><td style="font:800 20px var(--font-display)">عنوانِ بخش</td><td>Estedad 800</td><td><code>36 / 1.3</code></td><td><code>24 / 1.35</code></td></tr>
+      <tr><td><code>episode-title</code></td><td style="font:900 18px var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</td><td>Estedad 900</td><td><code>26 / 1.4</code></td><td><code>20 / 1.45</code></td></tr>
+      <tr><td><code>body</code></td><td>متنِ اصلی، خوانا در طول‌های بلند.</td><td>Vazirmatn 400</td><td><code>17 / 1.9</code></td><td><code>16 / 1.85</code></td></tr>
+      <tr><td><code>tile-symbol</code></td><td style="font:700 22px var(--font-mono)">On</td><td>IBM Plex Mono 700</td><td><code>34% of tile</code></td><td><code>34% of tile</code></td></tr>
+      <tr><td><code>meta</code></td><td><span class="meta latin">EP 04 — 28′</span></td><td>IBM Plex Mono 500</td><td><code>12 / .14em</code></td><td><code>11 / .14em</code></td></tr>
+      <tr><td><code>button</code></td><td style="font-weight:700">اپیزودها را ببین</td><td>Vazirmatn 700</td><td><code>15 / 1</code></td><td><code>15 / 1</code></td></tr>
+    </tbody></table></div>
+
+  <!-- 06 GRID -->
+  <div class="sh"><h2>گرید و فاصله</h2><span class="meta latin">06 — GRID & SPACING — UNCHANGED</span></div>
+  <div class="cols" style="padding-top:8px">
+    <div class="stack gap-2"><span class="label">دسکتاپ ≥ ۱۲۸۰</span><p class="caption">۱۲ ستون / فاصله ۲۴ / حاشیه ۴۰</p></div>
+    <div class="stack gap-2"><span class="label">تبلت ۷۶۸–۱۲۷۹</span><p class="caption">۸ ستون / فاصله ۲۰ / حاشیه ۳۲</p></div>
+    <div class="stack gap-2"><span class="label">موبایل &lt; ۷۶۸</span><p class="caption">۴ ستون / فاصله ۱۶ / حاشیه ۲۰</p></div>
+  </div>
+  <div style="display:flex;gap:24px;align-items:flex-end;flex-wrap:wrap;padding-top:24px" class="rule-t">
+    <div class="stack gap-2" style="padding-top:24px"><div style="width:4px;height:4px;background:var(--color-navy)"></div><span class="meta latin">4 xs</span></div>
+    <div class="stack gap-2"><div style="width:8px;height:8px;background:var(--color-navy)"></div><span class="meta latin">8 sm</span></div>
+    <div class="stack gap-2"><div style="width:16px;height:16px;background:var(--color-navy)"></div><span class="meta latin">16 md</span></div>
+    <div class="stack gap-2"><div style="width:24px;height:24px;background:var(--color-navy)"></div><span class="meta latin">24 lg</span></div>
+    <div class="stack gap-2"><div style="width:40px;height:40px;background:var(--color-navy)"></div><span class="meta latin">40 xl</span></div>
+    <div class="stack gap-2"><div style="width:80px;height:80px;background:var(--color-navy)"></div><span class="meta latin">80 2xl</span></div>
+    <p class="caption" style="flex:1;min-width:240px">شعاعِ گوشه در تمامِ سیستم صفر است. سایه استفاده نمی‌شود؛ سطح‌ها با خطِ ۲ پیکسلیِ سرمه‌ای جدا می‌شوند.</p>
+  </div>
+
+  <!-- 07 GRAPHIC LANGUAGE -->
+  <div class="sh"><h2>زبانِ گرافیکی</h2><span class="meta latin">07 — GRAPHIC LANGUAGE — NEW</span></div>
+  <div class="anatomy">
+    <div id="anatomy-tile"></div>
+    <ol>
+      <li><span><b>شمارهٔ اپیزود</b> (بالا-راست) — مثلِ عددِ اتمی؛ دو رقم، لاتین.</span></li>
+      <li><span><b>شمارهٔ ستون</b> (بالا-چپ) — گروهِ موضوعی؛ فارسی.</span></li>
+      <li><span><b>نماد</b> — دو حرفِ لاتین، حرفِ اول بزرگ، ۳۴٪ عرضِ کاشی.</span></li>
+      <li><span><b>نام</b> — نامِ گروه یا شیء؛ Estedad 800.</span></li>
+      <li><span><b>مدت</b> — مثلِ جرمِ اتمی، پایین؛ mono.</span></li>
+    </ol>
+  </div>
+  <div class="gl">
+    <figure><div class="box"><div class="tile tile--empty" style="width:55%;padding:10%"><div class="tile__top"><span>10</span><span></span></div><div class="tile__sym">?</div><div class="tile__name">به‌زودی</div></div></div><figcaption class="caption"><b>خانهٔ خالی</b> — اپیزودِ آینده؛ همیشه خطی، هرگز پُر.</figcaption></figure>
+    <figure><div class="box"><div class="tile tile--dashed" style="width:55%;padding:10%"><div class="tile__top"><span>07</span><span>۵</span></div><div class="tile__sym">Ef</div><div></div></div></div><figcaption class="caption"><b>خانهٔ خط‌چین</b> — فقط برای حالتِ «فیلترشده / غیرفعال» در رابط.</figcaption></figure>
+    <figure><div class="box field-grid"></div><figcaption class="caption"><b>میدانِ جدول</b> — شبکهٔ ۴۸ پیکسلی؛ حداکثر ۱۲٪ کنتراست؛ هرگز زیرِ متن.</figcaption></figure>
+    <figure><div class="box" style="gap:10px;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;padding:18%"><div class="gicon gicon--fill"></div><div class="gicon gicon--open"></div><div class="gicon gicon--dot"></div><div class="gicon gicon--steps"></div><div class="gicon gicon--pair"></div></div><figcaption class="caption"><b>آیکونِ گروه‌ها</b> — پنج ستون؛ هندسهٔ ساده، بدونِ رنگِ جدید.</figcaption></figure>
+  </div>
+
+  <!-- 08 EPISODE SYSTEM -->
+  <div class="sh"><h2>سیستمِ اپیزود</h2><span class="meta latin">08 — EPISODE SYSTEM</span></div>
+  <div class="split split--even" style="padding-top:32px">
+    <div class="stack gap-3">
+      <span class="label">گروه‌ها — ستون‌های جدول</span>
+      <div class="scroll-x"><table class="tok"><thead><tr><th>ستون</th><th>گروه</th><th>آیکون</th><th>رنگِ کاشی</th></tr></thead><tbody id="groups-table"></tbody></table></div>
+      <p class="caption">«گروه» جای «طیف» را می‌گیرد. گروهِ هر اپیزود از کلیدواژه‌های Acast خوانده می‌شود (یا جدولِ نگاشتِ سایت).</p>
+    </div>
+    <div class="stack gap-3">
+      <span class="label">قاعدهٔ نماد</span>
+      <dl class="facts" style="margin:0">
+        <div><dt>ساختار</dt><dd class="latin">Xx — دو حرف، اولی بزرگ</dd></div>
+        <div><dt>منبع</dt><dd>نامِ انگلیسیِ شیءِ اپیزود</dd></div>
+        <div><dt>نمونه</dt><dd class="latin">Onion → On · Rain → Rn · Soap → Sp</dd></div>
+        <div><dt>هم‌نامی با عنصرِ واقعی</dt><dd>مجاز؛ بخشی از بازی است</dd></div>
+        <div><dt>تکرار</dt><dd>مجاز نیست؛ هر نماد یک بار</dd></div>
+      </dl>
+    </div>
+  </div>
+  <div class="covers">
+    <figure style="margin:0" class="stack gap-2"><div class="cover-sq"><div style="display:flex;justify-content:space-between"><span class="symbol symbol--light" style="--s:28px"><i></i><i></i></span><span class="latin" style="font:600 12px var(--font-mono);letter-spacing:.3em">JADVAL</span></div><div style="font:900 clamp(56px,9vw,120px)/1 var(--font-display)">جدول</div><span style="font-size:14px;opacity:.8">شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم</span></div><figcaption class="label">کاورِ پادکست — ۳۰۰۰×۳۰۰۰</figcaption></figure>
+    <figure style="margin:0" class="stack gap-2"><div class="cover-og"><div class="stack gap-2"><span class="meta latin">EP 01 — گروه بدن</span><strong style="font:900 clamp(20px,2.4vw,34px)/1.3 var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</strong><span class="logo" style="margin-top:8px"><span class="symbol" style="--s:12px"><i></i><i></i></span><span class="logo__word" style="font-size:18px">جدول</span></span></div><div id="og-tile"></div></div><figcaption class="label">پیش‌نمایشِ لینک — ۱۲۰۰×۶۳۰</figcaption></figure>
+    <figure style="margin:0" class="stack gap-2"><div id="ep-cover"></div><figcaption class="label">کاورِ اپیزود — ۱:۱، ساخته‌شده از داده‌های Acast</figcaption></figure>
+  </div>
+
+  <!-- 09 RTL -->
+  <div class="sh"><h2>قواعدِ راست‌به‌چپ</h2><span class="meta latin">09 — RTL RULES — UNCHANGED</span></div>
+  <div class="rtl-rules">
+    <div><h3 class="latin">NAVIGATION</h3><p>منو از راست؛ لوگو در راست‌ترین نقطه و کنشِ اصلی در چپ‌ترین.</p></div>
+    <div><h3 class="latin">GRID</h3><p>ستونِ ۱ سمتِ راست. خانهٔ اپیزودِ ۰۱ همیشه بالا-راستِ جدول است.</p></div>
+    <div><h3 class="latin">CARDS</h3><p>شماره بالا-راست، تیتر زیرِ آن، متادیتا پایین-راست، کنش پایین-چپ.</p></div>
+    <div><h3 class="latin">PROGRESS</h3><p>نوارِ پیشرفتِ پلیر از راست پر می‌شود.</p></div>
+    <div><h3 class="latin">ARROWS</h3><p>«بعدی» به چپ، «قبلی» به راست.</p></div>
+    <div><h3 class="latin">TEXT</h3><p>همه‌چیز تراز راست؛ وسط‌چین فقط در کاور.</p></div>
+    <div><h3 class="latin">NUMBERS</h3><p>اعداد در رابط فارسی؛ در نماد، زمان و متادیتای فنی لاتین.</p></div>
+    <div><h3 class="latin">LATIN</h3><p>واژهٔ لاتین درونِ متنِ فارسی، ایزوله و بدونِ تغییرِ جهتِ بند.</p></div>
+  </div>
+
+  <!-- 10 TOKENS -->
+  <div class="sh"><h2>توکن‌ها</h2><span class="meta latin">10 — DESIGN TOKENS</span></div>
+  <div class="scroll-x" style="padding-bottom:64px"><table class="tok">
+    <thead><tr><th>توکن</th><th>مقدار</th><th>توضیح</th></tr></thead>
+    <tbody>
+      <tr><td><code>--color-bg</code></td><td><code>#F4F0E6</code></td><td>زمینهٔ اصلی</td></tr>
+      <tr><td><code>--color-bg-2</code></td><td><code>#E7E2D5</code></td><td>زمینهٔ ثانویه، جداکنندهٔ درونی</td></tr>
+      <tr><td><code>--color-text</code></td><td><code>#111111</code></td><td>متنِ اصلی</td></tr>
+      <tr><td><code>--color-navy</code></td><td><code>#16243C</code></td><td>تأکیدِ اول، خانهٔ خالی، خطِ ۲ پیکسلی</td></tr>
+      <tr><td><code>--color-burgundy</code></td><td><code>#7A1E2B</code></td><td>تأکیدِ دوم، خانهٔ پُر، کیکر</td></tr>
+      <tr><td><code>--color-hover / --color-pressed</code></td><td><code>#5E1621 / #0E1828</code></td><td>حالت‌های دکمه</td></tr>
+      <tr><td><code>--space-1 … 6</code></td><td><code>4 / 8 / 16 / 24 / 40 / 80</code></td><td>پایهٔ ۴</td></tr>
+      <tr><td><code>--radius / --shadow</code></td><td><code>0 / none</code></td><td>بدونِ استثنا</td></tr>
+      <tr><td><code>--rule</code></td><td><code>2px</code></td><td>تنها ضخامتِ خط</td></tr>
+      <tr><td><code>--container</code></td><td><code>1280px</code></td><td>حداکثرِ عرض</td></tr>
+      <tr><td><code>--tile-grid</code></td><td><code>48px</code></td><td>پیمانهٔ میدانِ جدول</td></tr>
+    </tbody></table></div>
+</main>
+
+<div data-footer></div>
+<script src="../assets/js/jadval.js"></script>
+<script>
+(function () {
+  var J = window.Jadval;
+  document.getElementById('anatomy-tile').innerHTML = J.tile(J.ep(1), { short: 'پیاز' });
+  document.getElementById('og-tile').innerHTML = J.tile(J.ep(1), { name: false });
+  document.getElementById('ep-cover').innerHTML = J.tile(J.ep(3), { short: 'بوی باران' });
+  var names = { navy: 'سرمه‌ای', cream: 'کرم', '': 'زرشکی', black: 'مشکی' };
+  document.getElementById('groups-table').innerHTML = Object.keys(J.GROUPS).map(function (k) {
+    var g = J.GROUPS[k];
+    return '<tr><td>' + J.fa(g.col) + '</td><td>' + g.name + '</td><td><div class="gicon gicon--' + g.icon + '" style="transform:scale(.6);transform-origin:right center"></div></td><td>' + names[g.tile] + '</td></tr>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
