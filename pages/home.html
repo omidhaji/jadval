@@ -21,8 +21,10 @@
   .hero__legend b { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; margin-inline-end: 6px; }
   /* Desktop: the whole first section fits the viewport under the header. */
   @media (min-width: 900px) {
-    .hero { height: calc(100svh - 68px); min-height: 480px; max-height: 760px; }  /* 66px header + 2px rule */
-    .hero__txt { justify-content: center; padding-block: clamp(24px, 5vh, 64px); gap: clamp(12px, 2.4vh, 22px); }
+    /* Height follows the content; it only shrinks to stay inside the viewport
+       (66px header + 2px rule), it never stretches to fill it. */
+    .hero { max-height: calc(100svh - 68px); }
+    .hero__txt { justify-content: center; padding-block: clamp(24px, 5vh, 48px); gap: clamp(12px, 2.4vh, 22px); }
     .hero .display { font-size: clamp(40px, min(5.5vw, 9vh), 76px); }
     .hero__table { padding-block: clamp(20px, 4vh, 40px); }
     .hero__table .ptable { max-width: clamp(300px, 52vh, 360px); }
