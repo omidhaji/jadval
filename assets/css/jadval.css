@@ -398,7 +398,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .site-footer nav a { font-size: 15px; color: var(--color-bg); }
 .site-footer nav a:hover { color: var(--color-bg); text-decoration: underline; text-underline-offset: 6px; }
 .site-footer__bar { border-top: var(--rule) solid rgba(244,240,230,.2); }
-.site-footer__bar .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-block: 20px; font: 500 12px var(--font-mono); letter-spacing: .1em; opacity: .6; }
+.site-footer__bar .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-block: 20px; font: 400 13px var(--font-text); opacity: .6; }
 @media (max-width: 767px) { .site-footer__grid { grid-template-columns: 1fr 1fr; } .site-footer__grid > :first-child { grid-column: 1 / -1; } }
 
 /* ---------- Player: segmented progress ---------- */

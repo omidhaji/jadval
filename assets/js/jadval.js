@@ -153,12 +153,12 @@
     if (!el) return;
     el.outerHTML =
       '<footer class="site-footer"><div class="wrap site-footer__grid">' +
-      '<div class="stack gap-3">' + logo(true) + '<span class="logo-latin latin" style="opacity:.6">JADVAL</span>' +
+      '<div class="stack gap-3">' + logo(true) +
       '<p style="max-width:34ch;font-size:15px;line-height:1.9;opacity:.75">شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم.</p></div>' +
       '<nav aria-label="پادکست"><h4>پادکست</h4><a href="' + BASE + 'pages/episodes.html">اپیزودها</a><a href="' + BASE + 'pages/about.html">دربارهٔ ما</a><a href="' + BASE + 'pages/contact.html">تماس</a></nav>' +
       '<nav aria-label="شنیدن"><h4>شنیدن</h4>' + PLATFORMS.map(function (p) { return '<a href="' + p.href + '" class="flink">' + picon(p.id, 16) + p.name + '</a>'; }).join('') + '<a href="#" class="flink latin">RSS</a></nav>' +
       '<nav aria-label="دنبال کنید"><h4>دنبال کنید</h4>' + SOCIALS.map(function (x) { return '<a href="' + x.href + '" class="flink" aria-label="' + x.name + ' ' + x.handle + '">' + picon(x.id, 16) + '<span class="flink__handle latin">' + x.handle + '</span></a>'; }).join('') + '</nav>' +
-      '</div><div class="site-footer__bar"><div class="wrap"><span>© ۱۴۰۵ JADVAL</span><span class="latin">SAAKHTEH SHODEH BA KONJKAVI</span></div></div></footer>';
+      '</div><div class="site-footer__bar"><div class="wrap"><span>© ۱۴۰۵ جدول. همهٔ حقوق محفوظ است.</span><span>ساخته‌شده با کنجکاویِ یک بچه‌شیطون</span></div></div></footer>';
   }
 
   function menu() {
