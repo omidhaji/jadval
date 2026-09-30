@@ -122,7 +122,7 @@
     if (filter.sort === 'new' && !filter.g && !filter.q) {
       html += '<div class="season"><h2>اپیزودِ بعدی</h2><span class="meta">' + J.NEXT.day + ' ' + J.NEXT.date + '</span></div>' +
         '<div class="rows"><div class="row row--full row--next"><span class="row__num latin">' + J.epNum(J.NEXT.n) + '</span>' + J.emptyTile(J.NEXT.n).replace('class="tile tile--empty"', 'class="tile tile--empty tile-sm"') +
-        '<div class="stack"><span class="row__title">خانهٔ بعدیِ جدول</span><span class="caption">هر سه‌شنبه یک اپیزودِ تازه منتشر می‌شود.</span></div><span class="row__len">' + J.NEXT.date + '</span><span></span></div></div>';
+        '<div class="stack"><span class="row__title">خانهٔ بعدیِ جدول</span><span class="caption">هر سه‌شنبه یک اپیزودِ تازه منتشر می‌شود.</span></div><span class="row__len">' + J.NEXT.day + '</span><span></span></div></div>';
     }
     order.forEach(function (m) {
       var inM = list.filter(function (e) { return e.month === m; });
