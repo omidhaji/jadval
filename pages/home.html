@@ -110,6 +110,18 @@
     </div>
   </section>
 
+  <!-- HOSTS -->
+  <section class="wrap" aria-labelledby="hosts-h">
+    <div class="section-head"><h2 id="hosts-h">میزبان‌ها</h2><a href="about.html">دربارهٔ ما ←</a></div>
+    <div id="hosts"></div>
+  </section>
+
+  <!-- LISTEN -->
+  <section class="wrap" aria-labelledby="listen-h" style="padding-bottom:56px">
+    <div class="section-head"><h2 id="listen-h">کجا بشنویم؟</h2><span class="meta">هر دو هفته، پنجشنبه</span></div>
+    <div id="listen"></div>
+  </section>
+
   <!-- SUBSCRIBE -->
   <section class="band band--burgundy" aria-labelledby="sub-h">
     <div class="wrap split split--even split--noline">
@@ -123,7 +135,7 @@
           <input class="input input--light" id="email" type="email" placeholder="نشانیِ ایمیل" dir="ltr" style="text-align:right">
           <button class="btn btn--light" type="submit">عضویت</button>
         </form>
-        <div class="platforms" style="padding-top:8px"><a href="#">SPOTIFY</a><a href="#">APPLE</a><a href="#">CASTBOX</a><a href="#">YOUTUBE</a><a href="#">RSS</a></div>
+        <div class="picons picons--light" id="sub-icons" style="padding-top:8px"></div>
       </div>
     </div>
   </section>
@@ -163,6 +175,10 @@
     return '<a class="group" href="group.html"><div class="group__head"><div class="gicon gicon--' + g.icon + '"></div><span class="group__col">ستونِ ' + J.fa(g.col) + '</span></div>' +
       '<div class="stack gap-1"><span class="group__name">' + g.name + '</span><span class="group__count">' + J.fa(counts[k] || 0) + ' اپیزود</span></div></a>';
   }).join('');
+
+  document.getElementById('hosts').innerHTML = J.hostsHTML();
+  document.getElementById('listen').innerHTML = J.listenHTML();
+  document.getElementById('sub-icons').innerHTML = J.platformLinks(22);
 
   // Popular
   document.getElementById('popular').innerHTML = [1, 2, 3, 6, 9].map(function (n) {

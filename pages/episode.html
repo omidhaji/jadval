@@ -93,10 +93,9 @@
 
     <aside class="ep-side">
       <div id="cover"></div>
-      <div class="btn-row">
-        <a class="btn btn--navy btn--sm" href="#" style="flex:1">شنیدن در اسپاتیفای</a>
-        <a class="btn btn--ghost btn--sm" href="#">اپل</a>
-        <a class="btn btn--ghost btn--sm" href="#" style="margin-inline-start:-2px">یوتیوب</a>
+      <div class="stack gap-2" style="max-width:320px">
+        <span class="kicker">این اپیزود را در این‌ها هم بشنو</span>
+        <div class="picons" id="ep-icons" style="padding-block:6px"></div>
       </div>
     </aside>
   </section>
@@ -169,6 +168,7 @@
 <script>
 (function () {
   var J = window.Jadval;
+  document.getElementById('ep-icons').innerHTML = J.platformLinks(26);
   document.getElementById('cover').innerHTML = J.tile(J.ep(1), { short: 'پیاز — گروه بدن' });
   document.getElementById('related').innerHTML = [3, 6, 9].map(function (n) {
     var e = J.ep(n);

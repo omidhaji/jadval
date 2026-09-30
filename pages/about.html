@@ -18,10 +18,6 @@
   .story > div:first-child { border: 0; padding-inline-start: 0; }
   .story h3 { font: 800 19px/1.5 var(--font-display); }
   @media (max-width: 899px) { .story { grid-template-columns: 1fr; } .story > div { border-inline-start: 0; border-top: var(--rule) solid var(--color-divider); padding-inline: 0; } .story > div:first-child { border-top: 0; } }
-  .hosts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); padding-block: 32px 56px; }
-  .host { display: grid; grid-template-columns: 160px 1fr; gap: var(--space-4); }
-  .host__img { aspect-ratio: 1; background: repeating-linear-gradient(135deg, rgba(22,36,60,.12) 0 8px, transparent 8px 16px), var(--color-bg-2); display: grid; place-items: center; font: 500 10px/1.8 var(--font-mono); letter-spacing: .14em; color: var(--color-navy); text-align: center; }
-  @media (max-width: 899px) { .hosts { grid-template-columns: 1fr; } .host { grid-template-columns: 110px 1fr; } }
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); }
   .stats > div { padding: 32px 24px; border-inline-start: 2px solid rgba(244,240,230,.2); }
   .stats > div:first-child { border: 0; padding-inline-start: 0; }
@@ -56,11 +52,8 @@
     </section>
 
     <section aria-labelledby="hosts-h">
-      <div class="section-head"><h2 id="hosts-h">گویندگان</h2></div>
-      <div class="hosts">
-        <div class="host"><div class="host__img">PORTRAIT<br>1:1 / GRAYSCALE</div><div class="stack gap-2"><h3 class="h3">نامِ گوینده</h3><span class="meta">شیمیدان — نویسنده</span><p class="caption" style="font-size:16px">یک یا دو خط دربارهٔ گوینده: چه می‌خواند، چرا جدول را شروع کرد، و کدام اپیزود را بیشتر دوست دارد.</p></div></div>
-        <div class="host"><div class="host__img">PORTRAIT<br>1:1 / GRAYSCALE</div><div class="stack gap-2"><h3 class="h3">نامِ گوینده</h3><span class="meta">تهیه‌کننده — صدا</span><p class="caption" style="font-size:16px">یک یا دو خط دربارهٔ گوینده: نقشش در پادکست و چیزی که او را کنجکاو نگه می‌دارد.</p></div></div>
-      </div>
+      <div class="section-head"><h2 id="hosts-h">میزبان‌ها</h2><span class="meta">یک متخصص، یک کنجکاو</span></div>
+      <div id="hosts"></div>
     </section>
   </div>
 
@@ -73,29 +66,25 @@
     </div>
   </section>
 
+  <section class="wrap" aria-labelledby="listen-h">
+    <div class="section-head"><h2 id="listen-h">کجا بشنویم؟</h2><span class="meta">فیدِ اصلی روی Acast</span></div>
+    <div id="listen"></div>
+  </section>
+
   <section class="wrap">
-    <div class="split rule-b">
-      <div class="stack gap-3" style="padding-block:44px">
-        <h2 class="h3">کجا بشنویم؟</h2>
-        <p class="caption" style="font-size:16px">جدول روی همهٔ پلتفرم‌های اصلی منتشر می‌شود. فیدِ اصلی روی Acast است.</p>
-        <div class="btn-row" style="gap:0">
-          <a class="btn btn--navy btn--sm" href="#">اسپاتیفای</a>
-          <a class="btn btn--ghost btn--sm" href="#">اپل پادکست</a>
-          <a class="btn btn--ghost btn--sm" href="#" style="margin-inline-start:-2px">کست‌باکس</a>
-          <a class="btn btn--ghost btn--sm" href="#" style="margin-inline-start:-2px">یوتیوب</a>
-          <a class="btn btn--ghost btn--sm latin" href="#" style="margin-inline-start:-2px">RSS</a>
-        </div>
-      </div>
-      <div class="stack gap-3" style="padding-block:44px">
-        <h2 class="h3">همکاری و پیشنهاد</h2>
-        <p class="caption" style="font-size:16px">سؤالی داری که جوابش در آشپزخانه یا حمام یا داروخانه است؟ برای ما بفرست؛ شاید اپیزودِ بعدی باشد.</p>
-        <div><a class="btn btn--burgundy btn--sm" href="contact.html">پیشنهادِ یک سؤال</a></div>
-      </div>
+    <div class="rule-b stack gap-3" style="padding-block:44px">
+      <h2 class="h3">همکاری و پیشنهاد</h2>
+      <p class="caption" style="font-size:16px;max-width:60ch">سؤالی داری که جوابش در آشپزخانه یا حمام یا داروخانه است؟ برای ما بفرست؛ شاید اپیزودِ بعدی باشد.</p>
+      <div><a class="btn btn--burgundy btn--sm" href="contact.html">پیشنهادِ یک سؤال</a></div>
     </div>
   </section>
 </main>
 
 <div data-footer></div>
 <script src="../assets/js/jadval.js"></script>
+<script>
+  document.getElementById('hosts').innerHTML = Jadval.hostsHTML();
+  document.getElementById('listen').innerHTML = Jadval.listenHTML();
+</script>
 </body>
 </html>

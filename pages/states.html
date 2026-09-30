@@ -104,7 +104,7 @@
       <figure class="stack gap-3" style="margin:0"><figcaption class="label">منوی باز</figcaption>
         <div class="phone" style="height:640px">
           <header class="site-header"><div class="wrap site-header__in" style="height:68px"><span class="logo"><span class="symbol"><i></i><i></i></span><span class="logo__word" style="font-size:26px">جدول</span></span><div class="header-cta"><button class="btn btn--navy btn--sm" style="padding-inline:16px;font-size:14px">اپیزود تازه</button><button class="burger" style="display:block"><span style="background:transparent"></span></button></div></div></header>
-          <div class="mobile-menu" style="height:570px"><a class="mm-link" href="#">خانه<span>01</span></a><a class="mm-link" href="#" style="color:var(--color-burgundy)">اپیزودها<span>02</span></a><a class="mm-link" href="#">گروه‌ها<span>03</span></a><a class="mm-link" href="#">دربارهٔ ما<span>04</span></a><a class="mm-link" href="#">تماس<span>05</span></a><div class="mobile-menu__foot"><span class="label">شنیدن در</span><div class="platforms"><a href="#">SPOTIFY</a><a href="#">APPLE</a><a href="#">CASTBOX</a></div></div></div>
+          <div class="mobile-menu" style="height:570px"><a class="mm-link" href="#">خانه<span>01</span></a><a class="mm-link" href="#" style="color:var(--color-burgundy)">اپیزودها<span>02</span></a><a class="mm-link" href="#">گروه‌ها<span>03</span></a><a class="mm-link" href="#">دربارهٔ ما<span>04</span></a><a class="mm-link" href="#">تماس<span>05</span></a><div class="mobile-menu__foot"><span class="label">شنیدن در</span><div class="picons" id="mm-icons"></div></div></div>
         </div>
       </figure>
       <figure class="stack gap-3" style="margin:0"><figcaption class="label">مینی‌پلیرِ موبایل</figcaption>
@@ -151,6 +151,7 @@
     ['<div class="tile tile--dashed"><div class="tile__top"><span>07</span><span>۵</span></div><div class="tile__sym">Ef</div><div class="tile__name">دارو</div></div>', 'خط‌چین — فیلترشده']
   ];
   document.getElementById('tiles').innerHTML = t.map(function (x) { return '<figure>' + x[0] + '<figcaption>' + x[1] + '</figcaption></figure>'; }).join('');
+  document.getElementById('mm-icons').innerHTML = J.platformLinks(24);
   document.getElementById('mini-tile').innerHTML = J.tile(J.ep(1), { name: false, cls: 'tile-sm' });
 })();
 </script>
