@@ -212,7 +212,7 @@
       '<div class="miniplayer__info"><div data-mini-tile></div><div class="miniplayer__txt"><strong data-mini-title></strong><span data-mini-meta></span><span class="miniplayer__status" data-status role="status" aria-live="polite"></span></div></div>' +
       '<div class="miniplayer__ctrls"><button class="pbtn hide-sm" data-skip="-' + SKIP_BACK + '" aria-label="۱۵ ثانیه عقب">−۱۵</button><button class="pbtn hide-sm" data-skip="' + SKIP_FWD + '" aria-label="۳۰ ثانیه جلو">+۳۰</button>' +
       '<button class="pbtn pbtn--txt" data-rate aria-label="سرعت پخش">۱×</button></div>' +
-      '<div class="miniplayer__bar">' + segs(true) + '<div class="player__time"><span data-elapsed>00:00</span><span data-total>00:00</span></div></div>' +
+      '<div class="miniplayer__bar"><div class="player__time"><span data-elapsed>00:00</span><span data-total>00:00</span></div>' + segs(true) + '</div>' +
       '<button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button></div>';
     document.body.appendChild(el);
     return el;
