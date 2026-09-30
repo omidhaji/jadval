@@ -522,7 +522,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .picons a:hover { color: var(--color-burgundy); }
 .picons--light a { color: var(--color-bg); }
 .picons--light a:hover { color: var(--color-bg); opacity: .75; }
-.site-footer .flink { display: inline-flex; align-items: center; gap: 10px; }
+.site-footer .flink { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; }
 
 /* Listen section */
 .listen { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
