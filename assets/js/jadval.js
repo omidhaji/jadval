@@ -345,6 +345,22 @@
     fabEl.classList.remove('is-hidden');
     document.documentElement.style.setProperty('--player-h', '0px');
   }
+  // The floating button fades out once the newsletter band (or, on pages
+  // without one, the footer) scrolls into view, and comes back above it.
+  function watchFabStops() {
+    var stops = document.querySelectorAll('[data-fab-stop], .site-footer');
+    if (!stops.length || !('IntersectionObserver' in window)) return;
+    var inView = [];
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var i = inView.indexOf(en.target);
+        if (en.isIntersecting && i < 0) inView.push(en.target);
+        if (!en.isIntersecting && i > -1) inView.splice(i, 1);
+      });
+      fabEl.classList.toggle('is-away', inView.length > 0);
+    }, { rootMargin: '0px 0px -90px 0px' });   // ≈ the button's own height from the bottom edge
+    stops.forEach(function (s) { io.observe(s); });
+  }
   function openFromFab() {
     if (!cur) setEpisode(LATEST.n, true);
     openMini();
@@ -581,7 +597,7 @@
     header(); footer(); menu();
     fullPlayers();
     miniEl = mini();
-    bindAudio(); bindUI(); restore(); render();
+    bindAudio(); bindUI(); restore(); render(); watchFabStops();
     document.dispatchEvent(new CustomEvent('jadval:ready'));
   });
 })();
