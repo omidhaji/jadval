@@ -243,7 +243,6 @@ h1, h2, h3, h4, p { margin: 0; }
 /* Periodic mini-table used in hero & archive */
 .ptable { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; direction: rtl; }
 .ptable .tile { padding: 10%; }
-.ptable a.tile:hover { filter: brightness(1.12); }
 
 /* ---------- Episode card ---------- */
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
@@ -570,3 +569,18 @@ h1, h2, h3, h4, p { margin: 0; }
   .host { grid-template-columns: 96px 1fr; gap: 16px; }
   .host__tile { width: 96px; }
 }
+
+/* Linked tiles: the global a:hover colour (navy) made navy tiles unreadable.
+   Keep each tile's own foreground and mark hover with a detached ring instead,
+   which reads on every tile colour (navy, burgundy, cream, black). */
+a.tile { transition: transform .15s ease, box-shadow .15s ease; }
+a.tile:hover, a.tile:focus-visible {
+  color: var(--tile-fg);
+  transform: translateY(-2px);
+  --ring: var(--color-burgundy);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 5px var(--ring);
+  outline: none;
+}
+/* Burgundy tiles get a navy ring so the ring never matches the tile. */
+a.tile:not(.tile--navy):not(.tile--cream):not(.tile--black):not(.tile--empty):not(.tile--dashed) { --ring: var(--color-navy); }
+a.tile.tile--empty:hover, a.tile.tile--empty:focus-visible { box-shadow: inset 0 0 0 2px var(--color-navy), 0 0 0 2px var(--color-bg), 0 0 0 5px var(--ring); }
