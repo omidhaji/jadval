@@ -84,8 +84,6 @@
   }
   // No seasons: one continuous run, a new episode every Tuesday.
   var MONTHS = { mehr: 'مهر ۱۴۰۵', shahrivar: 'شهریور ۱۴۰۵', mordad: 'مرداد ۱۴۰۵' };
-  var UPCOMING = { 10: '۱۴ مهر', 11: '۲۱ مهر', 12: '۲۸ مهر' };
-  var NEXT = { n: 10, day: 'سه‌شنبه', date: '۱۴ مهر' };
   function ep(n) { for (var i = 0; i < EPISODES.length; i++) if (EPISODES[i].n === +n) return EPISODES[i]; return EPISODES[0]; }
 
   function epNum(n) { return 'EP ' + pad(n); }
@@ -106,10 +104,10 @@
     return '<div class="tile tile--empty" aria-label="اپیزودِ ' + fa(n) + '، به‌زودی">' +
       '<div class="tile__top"><span>' + pad(n) + '</span><span></span></div>' +
       '<div class="tile__sym">?</div>' +
-      '<div><div class="tile__name">' + (label !== undefined ? label : (UPCOMING[n] || 'به‌زودی')) + '</div><div class="tile__mass">' + (UPCOMING[n] ? 'سه‌شنبه' : '—') + '</div></div></div>';
+      '<div><div class="tile__name">' + (label !== undefined ? label : 'به‌زودی') + '</div><div class="tile__mass">—</div></div></div>';
   }
 
-  window.Jadval = { MONTHS: MONTHS, UPCOMING: UPCOMING, NEXT: NEXT, EPISODES: EPISODES, GROUPS: GROUPS, PLATFORMS: PLATFORMS, HOSTS: HOSTS, ep: ep, tile: tile, emptyTile: emptyTile, fa: fa, pad: pad, epNum: epNum, mins: mins, picon: picon, hostsHTML: hostsHTML, listenHTML: listenHTML, platformLinks: platformLinks };
+  window.Jadval = { MONTHS: MONTHS, EPISODES: EPISODES, GROUPS: GROUPS, PLATFORMS: PLATFORMS, HOSTS: HOSTS, ep: ep, tile: tile, emptyTile: emptyTile, fa: fa, pad: pad, epNum: epNum, mins: mins, picon: picon, hostsHTML: hostsHTML, listenHTML: listenHTML, platformLinks: platformLinks };
 
   /* ---------------- Shared chrome ---------------- */
   var NAV = [

@@ -20,8 +20,6 @@
     .page-head { grid-template-columns: 1fr; }
     .toolbar { grid-template-columns: 1fr auto; }
   }
-  .row--next { opacity: .85; }
-  .row--next .tile__sym { font-size: 18px; }
   .ptable--big { grid-template-columns: repeat(6, 1fr); gap: 8px; padding-block: 32px; }
   @media (max-width: 899px) { .ptable--big { grid-template-columns: repeat(4, 1fr); } }
   @media (max-width: 479px) { .ptable--big { grid-template-columns: repeat(3, 1fr); } }
@@ -106,10 +104,6 @@
     if (filter.sort === 'old') list = list.slice().reverse();
     // One continuous list: no seasons, no topic groups (parked until the catalogue grows).
     var html = '<div class="rows" style="margin-top:18px">';
-    if (filter.sort === 'new' && !filter.q) {
-      html += '<div class="row row--full row--next"><span class="row__num latin">' + J.epNum(J.NEXT.n) + '</span>' + J.emptyTile(J.NEXT.n).replace('class="tile tile--empty"', 'class="tile tile--empty tile-sm"') +
-        '<div class="stack"><span class="row__title">خانهٔ بعدیِ جدول</span><span class="caption">هر سه‌شنبه یک اپیزودِ تازه منتشر می‌شود.</span></div><span class="row__len">' + J.NEXT.day + '<br><span style="opacity:.7">' + J.NEXT.date + '</span></span><span></span></div>';
-    }
     html += list.map(row).join('') + '</div>';
     document.getElementById('list-view').innerHTML = html;
 
