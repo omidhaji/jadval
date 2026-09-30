@@ -519,7 +519,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .picons--light a { color: var(--color-bg); }
 .picons--light a:hover { color: var(--color-bg); opacity: .75; }
 .site-footer .flink { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; }
-.site-footer .flink__handle { font: 500 11px var(--font-mono); opacity: .55; margin-inline-start: 2px; }
+.site-footer .flink__handle { font: 500 13px/28px var(--font-mono); }  /* same row height as the text links */
 
 /* Listen section */
 .listen { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
