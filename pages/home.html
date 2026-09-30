@@ -17,7 +17,7 @@
   .hero__lead { max-width: 44ch; font-size: 16px; line-height: 1.95; color: var(--color-navy); }
   .hero__table { background: var(--color-bg-2); margin-inline-end: calc(var(--gutter) * -1); padding: 40px var(--gutter) 32px 40px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
   .hero__table .ptable { max-width: 360px; width: 100%; margin-inline: auto; }
-  .hero__legend { max-width: 360px; width: 100%; margin-inline: auto; display: flex; justify-content: space-between; gap: 12px; font: 500 11px var(--font-mono); letter-spacing: .1em; color: var(--color-navy); }
+  .hero__legend { max-width: 360px; width: 100%; margin-inline: auto; display: flex; justify-content: space-between; gap: 12px; font: 500 12px var(--font-text); color: var(--color-navy); }
   .hero__legend b { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; margin-inline-end: 6px; }
   @media (max-width: 899px) {
     .hero { grid-template-columns: 1fr; }
@@ -34,6 +34,10 @@
     .featured__art { padding: 0 0 48px; }
     .featured__art .tile { max-width: none; }
   }
+  .next-up { display: inline-flex; align-items: center; gap: 12px; align-self: flex-start; padding: 10px 16px; box-shadow: inset 0 0 0 2px var(--color-divider); font-size: 14px; color: var(--color-navy); }
+  .next-up strong { font: 800 15px var(--font-display); color: var(--color-text); }
+  .next-up__dot { width: 10px; height: 10px; background: var(--color-burgundy); animation: nu-blink 1.6s ease-in-out infinite; }
+  @keyframes nu-blink { 50% { opacity: .25; } }
   .card__cover .card__art { display: flex; align-items: flex-end; padding: 16px; }
 </style>
 </head>
@@ -49,7 +53,8 @@
         <span class="kicker">پادکستِ شیمیِ زندگیِ روزمره</span>
         <h1 class="display">جدول</h1>
         <p class="hero__tag">شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم.</p>
-        <p class="hero__lead">اتفاقات معمولی زندگی، معمولاً یه داستان شیمیایی عجیب پشتشون دارن. هر اپیزود، یک خانه از این جدول را پر می‌کند.</p>
+        <p class="hero__lead">اتفاقات معمولی زندگی، معمولاً یه داستان شیمیایی عجیب پشتشون دارن. هر سه‌شنبه، یک خانهٔ تازه از این جدول پر می‌شود.</p>
+        <div class="next-up"><span class="next-up__dot" aria-hidden="true"></span><span>اپیزودِ بعدی</span><strong>سه‌شنبه ۱۴ مهر</strong><span class="latin meta">EP 10</span></div>
         <div class="btn-row">
           <button class="btn btn--burgundy" data-play="9"><span class="play-icon"></span> پخشِ تازه‌ترین اپیزود</button>
           <a class="btn btn--ghost" href="episodes.html">همهٔ اپیزودها</a>
@@ -57,7 +62,7 @@
       </div>
       <div class="hero__table">
         <div class="ptable" id="hero-table" aria-label="جدولِ اپیزودها"></div>
-        <div class="hero__legend"><span><b style="background:var(--color-navy)"></b>منتشرشده</span><span><b style="box-shadow:inset 0 0 0 2px var(--color-navy)"></b>خانهٔ خالی — به‌زودی</span></div>
+        <div class="hero__legend"><span><b style="background:var(--color-navy)"></b>منتشرشده</span><span><b style="box-shadow:inset 0 0 0 2px var(--color-navy)"></b>سه‌شنبه‌های بعد</span></div>
       </div>
     </section>
   </div>
@@ -72,7 +77,7 @@
   <section class="band band--navy mt-5" aria-labelledby="feat-h">
     <div class="wrap featured">
       <div class="featured__txt">
-        <span class="kicker" style="color:var(--color-bg);opacity:.7">اپیزودِ برگزیده — پرشنیده‌ترینِ فصلِ اول</span>
+        <span class="kicker" style="color:var(--color-bg);opacity:.7">اپیزودِ برگزیده — پرشنیده‌ترین تا امروز</span>
         <h2 id="feat-h" style="font:900 clamp(26px,3vw,40px)/1.3 var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</h2>
         <p style="max-width:46ch;font-size:16px;line-height:1.95;opacity:.86">یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.</p>
         <div class="btn-row">
@@ -101,9 +106,9 @@
         <h2 class="h3">دربارهٔ پادکست</h2>
         <p style="font-size:16px;line-height:2">جدول سراغِ چیزهایی می‌رود که هر روز از کنارشان می‌گذریم: یک فنجان قهوه، بوی باران، یک قرص، یک برگ. هر اپیزود یکی از این‌ها را برمی‌دارد و داستانِ شیمیایی‌اش را تعریف می‌کند؛ دقیق، اما بدون کلاسِ درس.</p>
         <dl class="facts" style="margin:0">
-          <div><dt>انتشار</dt><dd>هر دو هفته، پنجشنبه</dd></div>
+          <div><dt>انتشار</dt><dd>هر هفته، سه‌شنبه</dd></div>
           <div><dt>میانگینِ زمان</dt><dd>۲۷ دقیقه</dd></div>
-          <div><dt>فصلِ جاری</dt><dd>فصلِ دوم</dd></div>
+          <div><dt>اپیزودِ بعدی</dt><dd>سه‌شنبه ۱۴ مهر</dd></div>
         </dl>
         <a href="about.html" style="font-weight:500">بیشتر دربارهٔ جدول ←</a>
       </div>
@@ -118,7 +123,7 @@
 
   <!-- LISTEN -->
   <section class="wrap" aria-labelledby="listen-h" style="padding-bottom:56px">
-    <div class="section-head"><h2 id="listen-h">کجا بشنویم؟</h2><span class="meta">هر دو هفته، پنجشنبه</span></div>
+    <div class="section-head"><h2 id="listen-h">کجا بشنویم؟</h2><span class="meta">اپیزودِ تازه: هر سه‌شنبه</span></div>
     <div id="listen"></div>
   </section>
 
@@ -127,7 +132,7 @@
     <div class="wrap split split--even split--noline">
       <div class="stack gap-3" style="padding-block:44px;justify-content:center">
         <h2 id="sub-h" style="font:900 clamp(24px,2.6vw,34px)/1.3 var(--font-display)">اپیزودِ تازه را از دست نده</h2>
-        <p style="max-width:40ch;font-size:15px;line-height:1.9;opacity:.85">هر دو هفته یک ایمیل: اپیزودِ جدید و یک نکتهٔ کوچکِ شیمیایی.</p>
+        <p style="max-width:40ch;font-size:15px;line-height:1.9;opacity:.85">هر سه‌شنبه یک ایمیل: اپیزودِ تازه و یک نکتهٔ کوچکِ شیمیایی.</p>
       </div>
       <div class="stack gap-3" style="padding-block:44px;justify-content:center">
         <form class="inline-form" onsubmit="event.preventDefault()">
@@ -150,7 +155,7 @@
   // Hero: the podcast as a periodic table — published cells + empty ones to come.
   var h = '';
   E.forEach(function (e) { h += J.tile(e, { href: 'episode.html', short: '' }); });
-  for (var n = E.length + 1; n <= 12; n++) h += J.emptyTile(n, '');
+  for (var n = E.length + 1; n <= 12; n++) h += J.emptyTile(n);
   document.getElementById('hero-table').innerHTML = h;
 
   // Latest three
