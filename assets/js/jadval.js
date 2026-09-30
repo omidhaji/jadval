@@ -1,8 +1,7 @@
 /* جدول — design prototype behaviour.
    Renders the shared chrome (header, mobile menu, footer, mini player) and a
-   simulated audio player. In the real build, audio + metadata come from the
-   Acast RSS feed; here the timeline is faked so the design can be reviewed
-   without a feed. */
+   real HTML5 audio player. In the real build, audio + metadata come from the
+   Acast RSS feed; in this prototype every episode plays one short sample. */
 (function () {
   'use strict';
 
@@ -164,23 +163,43 @@
     });
   }
 
-  /* ---------------- Player (simulated) ---------------- */
+  /* ---------------- Player ----------------
+     One HTMLAudioElement drives every player UI on the page (the mini player
+     and any full player). The UI keeps no clock of its own: it renders from
+     the element's state and events, so the controls can't drift out of sync.
+     Acast rules, so every listen is counted and monetised: the enclosure URL
+     is used as-is, nothing is fetched before a click (preload="none"), and
+     nothing starts on its own (no autoplay, no auto-advance). */
   var SEGS = 48;
   var RATES = [1, 1.25, 1.5, 2];
-  var state = { n: null, pos: 0, playing: false, rate: 1 };
-  var timer = null;
+  var SKIP_BACK = 15, SKIP_FWD = 30;
+  // Prototype only: every episode points at one short sample file. The real
+  // build uses each item's <enclosure url> from the Acast feed.
+  var SAMPLE_AUDIO = BASE + 'assets/audio/sample.mp3';
+
+  var audio = new Audio();
+  audio.preload = 'none';
+  var cur = null;           // current episode
+  var status = 'idle';      // idle | loading | playing | paused | ended | error
+  var errorMsg = '';
+  var pendingSeek = null;   // seconds to apply once metadata is known
+  var scrub = null;         // { bar, sec } while a progress bar is dragged
+  var lastSave = 0;
+  var statusKey = '';
+  var miniEl;
+
   var store = {
-    get: function () { try { return JSON.parse(localStorage.getItem('jadval-player') || 'null'); } catch (e) { return null; } },
-    set: function (v) { try { localStorage.setItem('jadval-player', JSON.stringify(v)); } catch (e) {} }
+    read: function () { try { return JSON.parse(localStorage.getItem('jadval-player') || '{}') || {}; } catch (e) { return {}; } },
+    write: function (v) { try { localStorage.setItem('jadval-player', JSON.stringify(v)); } catch (e) {} }
   };
+  var saved = store.read();  // { last, open, rate, pos: { [episode]: seconds } }
+  if (!saved.pos || typeof saved.pos !== 'object') saved.pos = {};
 
   function segs(dark) {
     var h = '';
     for (var i = 0; i < SEGS; i++) h += '<i></i>';
     return '<div class="segbar' + (dark ? ' segbar--dark' : '') + '" data-seek role="slider" aria-label="پیشرفتِ اپیزود" tabindex="0">' + h + '</div>';
   }
-  function icon(playing) { return playing ? '<span class="pause-icon"></span>' : '<span class="play-icon"></span>'; }
-
   function mini() {
     var el = document.createElement('div');
     el.className = 'miniplayer';
@@ -188,123 +207,351 @@
     el.setAttribute('aria-label', 'پخش‌کننده');
     el.innerHTML =
       '<div class="miniplayer__in">' +
-      '<button class="pmain" data-toggle aria-label="پخش / توقف">' + icon(false) + '</button>' +
-      '<div class="miniplayer__info"><div data-mini-tile></div><div class="miniplayer__txt"><strong data-mini-title></strong><span data-mini-meta></span></div></div>' +
+      '<button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button>' +
+      '<div class="miniplayer__info"><div data-mini-tile></div><div class="miniplayer__txt"><strong data-mini-title></strong><span data-mini-meta></span><span class="miniplayer__status" data-status role="status" aria-live="polite"></span></div></div>' +
       '<div class="miniplayer__bar">' + segs(true) + '<div class="player__time"><span data-elapsed>00:00</span><span data-total>00:00</span></div></div>' +
-      '<div class="miniplayer__ctrls"><button class="pbtn hide-sm" data-skip="-15" aria-label="۱۵ ثانیه عقب">−۱۵</button><button class="pbtn hide-sm" data-skip="15" aria-label="۱۵ ثانیه جلو">+۱۵</button>' +
+      '<div class="miniplayer__ctrls"><button class="pbtn hide-sm" data-skip="-' + SKIP_BACK + '" aria-label="۱۵ ثانیه عقب">−۱۵</button><button class="pbtn hide-sm" data-skip="' + SKIP_FWD + '" aria-label="۳۰ ثانیه جلو">+۳۰</button>' +
       '<button class="pbtn pbtn--txt" data-rate aria-label="سرعت پخش">۱×</button><button class="pbtn miniplayer__close" data-close aria-label="بستن">×</button></div></div>';
     document.body.appendChild(el);
     return el;
   }
 
-  var miniEl;
-  function total() { return state.n ? secs(ep(state.n).len) : 0; }
+  /* ---- state helpers ---- */
+  function audioUrl(e) { return e.audio || SAMPLE_AUDIO; }
+  function duration() {
+    if (!cur) return 0;
+    return isFinite(audio.duration) && audio.duration > 0 ? audio.duration : secs(cur.len);
+  }
+  function position() {
+    if (scrub) return scrub.sec;
+    if (pendingSeek !== null) return pendingSeek;
+    return audio.currentTime || 0;
+  }
+  function nextEpisode() {
+    for (var i = 0; cur && i < EPISODES.length; i++) if (EPISODES[i].n === cur.n + 1) return EPISODES[i];
+    return null;
+  }
+  function ownerOf(el) { var o = el.closest('[data-fullplayer]'); return o ? +o.getAttribute('data-fullplayer') : null; }
+  function isMine(el) { var o = ownerOf(el); return !!cur && (o === null || o === cur.n); }
+  function inPlayer(el) { return !!el.closest('.miniplayer:not(.is-static), [data-fullplayer]'); }
+  function rateLabel(r) { return fa(String(r).replace('.', '٫')) + '×'; }
 
-  function render() {
-    var t = total();
-    var frac = t ? state.pos / t : 0;
-    var on = Math.floor(frac * SEGS);
-    document.querySelectorAll('[data-seek]').forEach(function (bar) {
-      var owner = bar.closest('[data-fullplayer]');
-      var mine = !owner || +owner.getAttribute('data-fullplayer') === state.n;
-      bar.querySelectorAll('i').forEach(function (s, i) {
-        s.className = mine && i < on ? 'on' : (mine && i === on && state.n ? 'head' : '');
-      });
-    });
-    document.querySelectorAll('[data-elapsed]').forEach(function (x) {
-      var owner = x.closest('[data-fullplayer]');
-      x.textContent = !owner || +owner.getAttribute('data-fullplayer') === state.n ? clock(state.pos) : '00:00';
-    });
-    document.querySelectorAll('[data-toggle]').forEach(function (b) {
-      var owner = b.closest('[data-fullplayer]');
-      var mine = !owner || +owner.getAttribute('data-fullplayer') === state.n;
-      b.innerHTML = icon(mine && state.playing);
-    });
-    document.querySelectorAll('[data-rate]').forEach(function (b) { b.textContent = fa(state.rate) + '×'; });
-    document.querySelectorAll('[data-play]').forEach(function (b) {
-      b.classList.toggle('is-playing', +b.getAttribute('data-play') === state.n && state.playing);
-    });
+  function persist(force) {
+    if (!cur) return;
+    var now = Date.now();
+    if (!force && now - lastSave < 5000) return;
+    lastSave = now;
+    var p = position(), d = duration();
+    // The last seconds count as finished: next time the episode starts from the top.
+    if (status === 'ended' || (d && p > d - 15)) delete saved.pos[cur.n];
+    else if (p > 5) saved.pos[cur.n] = Math.round(p);
+    saved.last = cur.n;
+    saved.rate = audio.playbackRate;
+    store.write(saved);
   }
 
-  function load(n, keepPos) {
+  /* ---- commands ---- */
+  function setEpisode(n) {
     var e = ep(n);
-    if (state.n !== e.n) { state.n = e.n; state.pos = keepPos || 0; }
+    if (cur && cur.n === e.n) return;
+    if (cur) persist(true);
+    cur = e;
+    status = 'idle';
+    audio.src = audioUrl(e);   // preload="none": nothing is fetched until play()
+    audio.playbackRate = audio.defaultPlaybackRate = saved.rate || 1;
+    pendingSeek = saved.pos[e.n] || null;
     miniEl.querySelector('[data-mini-tile]').innerHTML = tile(e, { name: false, cls: 'tile-sm' });
     miniEl.querySelector('[data-mini-title]').textContent = e.title;
     miniEl.querySelector('[data-mini-meta]').textContent = epNum(e.n) + ' — ' + e.date;
-    miniEl.querySelector('[data-total]').textContent = e.len;
+    openMini();
+    mediaSessionMeta();
+    render();
+  }
+
+  function play(n) {
+    if (n !== undefined && (!cur || cur.n !== +n)) setEpisode(n);
+    if (!cur) return;
+    if (status === 'ended') seek(0);
+    status = 'loading';
+    render();
+    var p = audio.play();
+    if (p && p.catch) p.catch(function (err) {
+      if (err && err.name === 'AbortError') return;   // superseded by a newer play/pause/src
+      fail(err && err.name === 'NotAllowedError' ? 'مرورگر اجازهٔ پخش نداد؛ دوباره بزن.' : 'فایلِ صوتی بارگذاری نشد.');
+    });
+  }
+  function pause() { if (cur && !audio.paused) audio.pause(); }
+  function toggle(n) {
+    if (n !== undefined && (!cur || cur.n !== +n)) return play(n);
+    if (!cur) return;
+    if (status === 'playing' || status === 'loading') pause(); else play();
+  }
+  function seek(sec) {
+    if (!cur) return;
+    sec = Math.max(0, Math.min(duration(), sec || 0));
+    if (audio.readyState >= 1) { audio.currentTime = sec; pendingSeek = null; }
+    else pendingSeek = sec;
+    if (status === 'ended') status = 'paused';
+    persist(true);
+    render();
+  }
+  function skip(d) { seek(position() + d); }
+  function cycleRate() {
+    var i = RATES.indexOf(audio.playbackRate);
+    var r = RATES[(i + 1) % RATES.length];
+    audio.playbackRate = audio.defaultPlaybackRate = r;
+    saved.rate = r; store.write(saved);
+    render();
+  }
+  function retry() {
+    var p = position();
+    errorMsg = '';
+    audio.src = audioUrl(cur);
+    pendingSeek = p || null;
+    play();
+  }
+  function fail(msg) { status = 'error'; errorMsg = msg; render(); }
+
+  function openMini() {
     miniEl.classList.add('is-open');
     document.documentElement.style.setProperty('--player-h', (window.innerWidth < 900 ? 68 : 72) + 'px');
+    saved.open = true; store.write(saved);
+  }
+  function closeMini() {
+    pause(); persist(true);
+    miniEl.classList.remove('is-open');
+    document.documentElement.style.setProperty('--player-h', '0px');
+    saved.open = false; store.write(saved);
   }
 
-  function tick() {
-    state.pos += state.rate;
-    if (state.pos >= total()) { state.pos = total(); pause(); }
-    save(); render();
+  function shareAt(btn) {
+    var own = ownerOf(btn);
+    var t = cur && (own === null || own === cur.n) ? Math.floor(position()) : 0;
+    var url = location.href.split('#')[0].split('?')[0] + '?t=' + t;
+    var label = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', label);
+    function done() { btn.textContent = 'کپی شد'; setTimeout(function () { btn.textContent = label; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function () { window.prompt('لینک:', url); });
+    else window.prompt('لینک:', url);
   }
-  function play(n) {
-    if (n && +n !== state.n) load(n);
-    state.playing = true;
-    clearInterval(timer); timer = setInterval(tick, 1000);
-    save(); render();
-  }
-  function pause() { state.playing = false; clearInterval(timer); save(); render(); }
-  function save() { store.set({ n: state.n, pos: state.pos, rate: state.rate }); }
 
-  function bind() {
+  /* ---- lock screen, headphones, media keys ---- */
+  function mediaSessionMeta() {
+    if (!('mediaSession' in navigator) || !cur) return;
+    try {
+      navigator.mediaSession.metadata = new window.MediaMetadata({
+        title: cur.title, artist: 'جدول', album: 'پادکستِ جدول',
+        artwork: [{ src: new URL(BASE + 'assets/img/favicon.svg', location.href).href, sizes: '512x512', type: 'image/svg+xml' }]
+      });
+    } catch (e) {}
+    var h = {
+      play: function () { play(); }, pause: pause, stop: pause,
+      seekbackward: function (d) { skip(-((d && d.seekOffset) || SKIP_BACK)); },
+      seekforward: function (d) { skip((d && d.seekOffset) || SKIP_FWD); },
+      seekto: function (d) { if (d && d.seekTime !== undefined) seek(d.seekTime); }
+    };
+    Object.keys(h).forEach(function (k) { try { navigator.mediaSession.setActionHandler(k, h[k]); } catch (e) {} });
+  }
+  function mediaSessionPosition() {
+    if (!('mediaSession' in navigator) || !cur) return;
+    try { navigator.mediaSession.playbackState = status === 'playing' ? 'playing' : 'paused'; } catch (e) {}
+    var d = duration();
+    if (!d || !navigator.mediaSession.setPositionState || !isFinite(audio.duration)) return;
+    try { navigator.mediaSession.setPositionState({ duration: d, playbackRate: audio.playbackRate, position: Math.min(position(), d) }); } catch (e) {}
+  }
+
+  /* ---- render: every player UI reflects the single audio element ---- */
+  function render() {
+    var active = status === 'playing' || status === 'loading';
+    var d = duration(), p = position();
+    var on = d ? Math.floor(Math.min(1, p / d) * SEGS) : 0;
+
+    document.querySelectorAll('[data-seek]').forEach(function (bar) {
+      if (!inPlayer(bar)) return;
+      var mine = isMine(bar);
+      var own = ownerOf(bar);
+      var tot = mine ? d : (own ? secs(ep(own).len) : 0);
+      var now = mine ? p : 0;
+      bar.classList.toggle('is-loading', mine && status === 'loading');
+      bar.querySelectorAll('i').forEach(function (s, i) {
+        s.className = mine && i < on ? 'on' : (mine && i === on && p > 0 && on < SEGS ? 'head' : '');
+      });
+      bar.setAttribute('aria-valuemin', '0');
+      bar.setAttribute('aria-valuemax', String(Math.round(tot)));
+      bar.setAttribute('aria-valuenow', String(Math.round(now)));
+      bar.setAttribute('aria-valuetext', fa(clock(now)) + ' از ' + fa(clock(tot)));
+    });
+    document.querySelectorAll('[data-elapsed]').forEach(function (x) { x.textContent = isMine(x) ? clock(p) : '00:00'; });
+    document.querySelectorAll('[data-total]').forEach(function (x) {
+      var own = ownerOf(x);
+      x.textContent = isMine(x) ? clock(d) : (own ? ep(own).len : '00:00');
+    });
+    document.querySelectorAll('[data-toggle]').forEach(function (b) {
+      if (!inPlayer(b)) return;
+      var here = isMine(b) && active;
+      var want = here ? 'pause-icon' : 'play-icon';
+      var ic = b.querySelector('span');
+      if (!ic || ic.className !== want) b.innerHTML = '<span class="' + want + '"></span>';
+      b.setAttribute('aria-label', here ? 'توقف' : 'پخش');
+      b.classList.toggle('is-loading', isMine(b) && status === 'loading');
+    });
+    document.querySelectorAll('[data-play]').forEach(function (b) {
+      var here = !!cur && +b.getAttribute('data-play') === cur.n && active;
+      b.classList.toggle('is-playing', here);
+      b.setAttribute('aria-pressed', here ? 'true' : 'false');
+      var ic = b.querySelector('.play-icon, .pause-icon');
+      if (ic) ic.className = here ? 'pause-icon' : 'play-icon';
+      var lb = b.querySelector('[data-play-label]');
+      if (lb) lb.textContent = here ? 'توقف' : lb.getAttribute('data-play-label');
+    });
+    document.querySelectorAll('[data-rate]').forEach(function (b) { if (inPlayer(b)) b.textContent = rateLabel(audio.playbackRate); });
+
+    if (miniEl && cur) {
+      var nx = nextEpisode();
+      var key = status + '|' + errorMsg + '|' + (nx ? nx.n : '');
+      miniEl.classList.toggle('is-error', status === 'error');
+      miniEl.classList.toggle('is-ended', status === 'ended');
+      if (key !== statusKey) {   // rewrite only on change so buttons keep focus/hover
+        statusKey = key;
+        miniEl.querySelector('[data-status]').innerHTML =
+          status === 'error' ? errorMsg + ' <button class="pnext" data-retry>تلاشِ دوباره</button>' :
+          status === 'ended' ? 'تمام شد.' + (nx ? ' <button class="pnext" data-play="' + nx.n + '">پخشِ اپیزودِ بعدی</button>' : '') : '';
+      }
+    }
+    mediaSessionPosition();
+  }
+
+  /* ---- audio element events ---- */
+  function bindAudio() {
+    audio.addEventListener('loadedmetadata', function () {
+      if (pendingSeek !== null) {
+        var t = pendingSeek;
+        // Prototype only: the sample is shorter than the episode, so map
+        // episode time (chapters, ?t=) proportionally onto it.
+        if (cur && !cur.audio && secs(cur.len) > audio.duration && t > audio.duration) t = t * audio.duration / secs(cur.len);
+        try { audio.currentTime = Math.min(t, audio.duration); } catch (e) {}
+        pendingSeek = null;
+      }
+      render();
+    });
+    audio.addEventListener('play', function () { if (status !== 'playing') status = 'loading'; render(); });
+    audio.addEventListener('playing', function () { status = 'playing'; render(); });
+    audio.addEventListener('waiting', function () { if (!audio.paused) { status = 'loading'; render(); } });
+    audio.addEventListener('pause', function () { if (status !== 'ended' && status !== 'error') status = 'paused'; persist(true); render(); });
+    audio.addEventListener('ended', function () { status = 'ended'; persist(true); render(); });
+    audio.addEventListener('timeupdate', function () { persist(false); render(); });
+    audio.addEventListener('ratechange', render);
+    audio.addEventListener('error', function () { if (audio.getAttribute('src')) fail('فایلِ صوتی بارگذاری نشد.'); });
+    window.addEventListener('pagehide', function () { persist(true); });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) persist(true); });
+  }
+
+  /* ---- clicks, dragging, keyboard ---- */
+  function fracAt(bar, x) {
+    var r = bar.getBoundingClientRect();
+    return Math.max(0, Math.min(1, (r.right - x) / r.width));   // RTL: progress grows leftwards
+  }
+  function adopt(el) {   // a full player for another episode takes over the audio
+    var own = ownerOf(el);
+    if (own !== null && (!cur || cur.n !== own)) setEpisode(own);
+  }
+
+  function bindUI() {
     document.addEventListener('click', function (ev) {
-      var t = ev.target.closest('[data-play],[data-toggle],[data-skip],[data-rate],[data-close],[data-seek]');
+      var t = ev.target.closest('[data-play],[data-toggle],[data-skip],[data-rate],[data-close],[data-retry],[data-share-time]');
       if (!t) return;
-      if (t.hasAttribute('data-play')) {
+      if (t.hasAttribute('data-play')) { ev.preventDefault(); return toggle(+t.getAttribute('data-play')); }
+      if (!inPlayer(t)) return;
+      if (t.hasAttribute('data-toggle')) { var own = ownerOf(t); return own !== null ? toggle(own) : toggle(); }
+      if (t.hasAttribute('data-share-time')) { ev.preventDefault(); return shareAt(t); }
+      if (t.hasAttribute('data-retry')) return retry();
+      if (t.hasAttribute('data-close')) return closeMini();
+      adopt(t);
+      if (t.hasAttribute('data-skip')) return skip(+t.getAttribute('data-skip'));
+      if (t.hasAttribute('data-rate')) return cycleRate();
+    });
+
+    document.addEventListener('pointerdown', function (ev) {
+      var bar = ev.target.closest('[data-seek]');
+      if (!bar || !inPlayer(bar) || ev.button > 0) return;
+      adopt(bar);
+      if (!cur) return;
+      ev.preventDefault();
+      try { bar.setPointerCapture(ev.pointerId); } catch (e) {}
+      scrub = { bar: bar, sec: fracAt(bar, ev.clientX) * duration() };
+      bar.classList.add('is-scrubbing');
+      render();
+    });
+    document.addEventListener('pointermove', function (ev) {
+      if (!scrub) return;
+      scrub.sec = fracAt(scrub.bar, ev.clientX) * duration();
+      render();
+    });
+    function endScrub(commit) {
+      if (!scrub) return;
+      var s = scrub.sec;
+      scrub.bar.classList.remove('is-scrubbing');
+      scrub = null;
+      if (commit) seek(s); else render();
+    }
+    document.addEventListener('pointerup', function () { endScrub(true); });
+    document.addEventListener('pointercancel', function () { endScrub(false); });
+
+    document.addEventListener('keydown', function (ev) {
+      var bar = ev.target.closest && ev.target.closest('[data-seek]');
+      if (bar && inPlayer(bar)) {
+        // RTL slider: left arrow moves forward in time.
+        var step = { ArrowLeft: 5, ArrowRight: -5, ArrowUp: 5, ArrowDown: -5, PageUp: 30, PageDown: -30 }[ev.key];
+        if (step === undefined && ev.key !== 'Home' && ev.key !== 'End') return;
         ev.preventDefault();
-        var n = +t.getAttribute('data-play');
-        if (state.n === n && state.playing) pause(); else play(n);
-      } else if (t.hasAttribute('data-toggle')) {
-        var owner = t.closest('[data-fullplayer]');
-        if (owner && +owner.getAttribute('data-fullplayer') !== state.n) return play(+owner.getAttribute('data-fullplayer'));
-        if (!state.n) return;
-        state.playing ? pause() : play();
-      } else if (t.hasAttribute('data-skip')) {
-        if (!state.n) return;
-        state.pos = Math.min(total(), Math.max(0, state.pos + (+t.getAttribute('data-skip'))));
-        save(); render();
-      } else if (t.hasAttribute('data-rate')) {
-        state.rate = RATES[(RATES.indexOf(state.rate) + 1) % RATES.length];
-        save(); render();
-      } else if (t.hasAttribute('data-close')) {
-        pause(); miniEl.classList.remove('is-open');
-        document.documentElement.style.setProperty('--player-h', '0px');
-      } else if (t.hasAttribute('data-seek')) {
-        var own = t.closest('[data-fullplayer]');
-        if (own && +own.getAttribute('data-fullplayer') !== state.n) load(+own.getAttribute('data-fullplayer'));
-        if (!state.n) return;
-        var r = t.getBoundingClientRect();
-        var frac = (r.right - ev.clientX) / r.width; // RTL: progress grows leftwards
-        state.pos = Math.round(frac * total());
-        save(); render();
+        adopt(bar);
+        if (ev.key === 'Home') seek(0); else if (ev.key === 'End') seek(duration()); else skip(step);
+        return;
+      }
+      // Space toggles playback unless focus is on something that uses it.
+      if (ev.key === ' ' && cur && miniEl.classList.contains('is-open') && !ev.repeat) {
+        var tag = (ev.target.tagName || '').toLowerCase();
+        if (/^(input|textarea|select|button|a|summary)$/.test(tag) || ev.target.isContentEditable) return;
+        ev.preventDefault();
+        toggle();
       }
     });
   }
 
+  /* On load: show the last episode paused where it was left (never auto-plays).
+     ?t=SECONDS on an episode page cues that episode at that time instead. */
   function restore() {
-    var s = store.get();
-    if (s && s.n && s.pos > 0) {
-      state.rate = s.rate || 1;
-      load(s.n, s.pos);
-      state.pos = s.pos;
-    }
+    var full = document.querySelector('[data-fullplayer]');
+    var m = /[?&]t=(\d+)/.exec(location.search);
+    if (full && m) { setEpisode(+full.getAttribute('data-fullplayer')); pendingSeek = +m[1]; render(); return; }
+    if (saved.last && saved.open) setEpisode(saved.last);
   }
 
-  /* Full players on the page get their segment bar injected */
   function fullPlayers() {
     document.querySelectorAll('[data-segs]').forEach(function (x) { x.outerHTML = segs(false); });
+    document.querySelectorAll('[data-fullplayer] [data-download]').forEach(function (a) {
+      a.href = audioUrl(ep(ownerOf(a)));
+      a.setAttribute('download', '');
+    });
   }
+
+  window.Jadval.player = {
+    // Cue an episode at a time; play only when the caller is handling a click.
+    cue: function (n, sec, andPlay) {
+      setEpisode(n);
+      // Prototype only: map episode time onto the shorter sample once it is loaded.
+      if (!cur.audio && isFinite(audio.duration) && secs(cur.len) > audio.duration) sec = sec * audio.duration / secs(cur.len);
+      seek(sec);
+      if (andPlay && status !== 'playing') play();
+    },
+    toggle: toggle
+  };
 
   document.addEventListener('DOMContentLoaded', function () {
     header(); footer(); menu();
     fullPlayers();
     miniEl = mini();
-    bind(); restore(); render();
+    bindAudio(); bindUI(); restore(); render();
     document.dispatchEvent(new CustomEvent('jadval:ready'));
   });
 })();

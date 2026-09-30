@@ -586,3 +586,20 @@ a.tile:focus-visible { box-shadow: inset 0 0 0 3px var(--tile-fg); }
 @container (max-width: 46px) {
   .tile__name { display: none; }
 }
+
+/* ---------- Player states (real audio) ---------- */
+.segbar { touch-action: none; user-select: none; }
+.segbar:focus-visible { outline: 3px solid var(--color-burgundy); outline-offset: 3px; }
+.segbar--dark:focus-visible { outline-color: var(--color-bg); }
+.segbar.is-scrubbing { cursor: grabbing; }
+.pmain.is-loading span { animation: p-pulse 1s ease-in-out infinite; }
+@keyframes p-pulse { 50% { opacity: .35; } }
+.miniplayer__txt > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.miniplayer__status { font-size: 13px; line-height: 1.5; color: var(--color-bg); }
+.miniplayer__status:empty { display: none; }
+.miniplayer.is-error [data-mini-meta], .miniplayer.is-ended [data-mini-meta] { display: none; }
+.miniplayer.is-error .pmain { background: var(--color-hover); }
+.pnext { background: none; border: 0; padding: 0 4px; cursor: pointer; color: var(--color-bg); font: 700 13px var(--font-text); text-decoration: underline; text-underline-offset: 4px; }
+.pnext:hover { opacity: .8; }
+.play-sm.is-playing .dot { background: var(--color-burgundy); }
+.row__play.is-playing { background: var(--color-navy); color: var(--color-bg); }

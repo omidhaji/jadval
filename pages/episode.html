@@ -69,21 +69,21 @@
 
       <!-- FULL PLAYER -->
       <div class="player" data-fullplayer="1">
-        <button class="pmain" data-toggle aria-label="پخش / توقف"><span class="play-icon"></span></button>
+        <button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button>
         <div class="player__main">
           <div class="player__row">
             <span class="player__title">اپیزود ۰۱ — پیاز</span>
-            <span class="player__time"><span data-elapsed>00:00</span> / 26:04</span>
+            <span class="player__time"><span data-elapsed>00:00</span> / <span data-total>26:04</span></span>
           </div>
           <div data-segs></div>
           <div class="player__chapters" aria-hidden="true"><span style="flex:4">مقدمه</span><span style="flex:10">بُرش</span><span style="flex:14">چشم</span><span style="flex:20">ترفندها</span></div>
           <div class="player__ctrls">
             <button class="pbtn" data-skip="-15" aria-label="۱۵ ثانیه عقب">−۱۵</button>
-            <button class="pbtn" data-skip="15" aria-label="۱۵ ثانیه جلو">+۱۵</button>
+            <button class="pbtn" data-skip="30" aria-label="۳۰ ثانیه جلو">+۳۰</button>
             <button class="pbtn pbtn--txt" data-rate aria-label="سرعت پخش">۱×</button>
             <span class="sep"></span>
-            <a class="pbtn pbtn--txt" href="#" aria-label="دانلودِ فایلِ صوتی">دانلود</a>
-            <a class="pbtn pbtn--txt" href="#" aria-label="اشتراک‌گذاری از همین ثانیه">لینک از این لحظه</a>
+            <a class="pbtn pbtn--txt" href="#" data-download aria-label="دانلودِ فایلِ صوتی">دانلود</a>
+            <button class="pbtn pbtn--txt" type="button" data-share-time aria-label="کپیِ لینک از همین لحظه">لینک از این لحظه</button>
           </div>
         </div>
       </div>
@@ -173,16 +173,11 @@
     var e = J.ep(n);
     return '<a href="episode.html">' + J.tile(e, { name: false }) + '<strong>' + e.title + '</strong></a>';
   }).join('');
-  // Chapter buttons seek the full player (loads episode 1 if needed).
+  // Chapters jump to their time and play (a click, so not autoplay).
+  // Note: Acast mid-roll ads are stitched into the file, so real chapter
+  // times must be checked against the delivered audio.
   document.querySelectorAll('[data-chap]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var seg = document.querySelector('[data-fullplayer] [data-seek]');
-      var total = 26 * 60 + 4, r = seg.getBoundingClientRect();
-      var x = r.right - (+b.getAttribute('data-chap') / total) * r.width - 1;
-      seg.dispatchEvent(new MouseEvent('click', { bubbles: true, clientX: x }));
-      var t = document.querySelector('[data-fullplayer] [data-toggle]');
-      if (t.querySelector('.play-icon')) t.click();
-    });
+    b.addEventListener('click', function () { J.player.cue(1, +b.getAttribute('data-chap'), true); });
   });
 })();
 </script>
