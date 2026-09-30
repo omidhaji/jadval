@@ -32,7 +32,8 @@
 
   --font-display: 'Estedad', 'Vazirmatn', system-ui, sans-serif;
   --font-text: 'Vazirmatn', system-ui, sans-serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Roboto Mono', 'DejaVu Sans Mono', 'Liberation Mono', 'Vazirmatn', monospace;
+  /* Latin-only mono first: Persian glyphs fall through to Vazirmatn instead of a system mono font */
+  --font-mono: 'IBM Plex Mono', 'Vazirmatn', monospace;
 
   --player-h: 0px;
 }
@@ -505,7 +506,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .split > *, .cols > * { min-width: 0; }
 
 /* Letter-spacing breaks Persian letter joining: keep tracking for Latin-only labels */
-.kicker:not(.latin), .meta:not(.latin), .label:not(.latin), .group__col, .tag, .pbtn--txt:not(.latin), .group__count, .row__len:not(.latin) { letter-spacing: 0; }
+.kicker:not(.latin), .meta:not(.latin), .label:not(.latin), .group__col, .tag, .pbtn--txt:not(.latin), .group__count, .row__len:not(.latin) { letter-spacing: 0; font-family: var(--font-text); }
 @media (max-width: 599px) {
   .player__chapters { display: none; }
   .btn-row > .btn { flex: 1 1 auto; }
