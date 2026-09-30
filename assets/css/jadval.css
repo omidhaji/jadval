@@ -245,15 +245,12 @@ h1, h2, h3, h4, p { margin: 0; }
 .ptable .tile { padding: 10%; }
 
 /* ---------- Episode card ---------- */
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
-.card { display: flex; flex-direction: column; padding: 0 0 24px; border-inline-start: var(--rule) solid var(--color-divider); }
-.cards .card:first-child { border-inline-start: 0; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px var(--space-5); padding: 24px 0 8px; border-bottom: var(--rule) solid var(--color-rule); }
+.card { display: flex; flex-direction: column; padding: 0 0 24px; min-width: 0; }
 .card__cover { display: flex; aspect-ratio: 2/1; position: relative; margin-bottom: 18px; overflow: hidden; }
 .card__cover .tile { aspect-ratio: auto; height: 100%; flex: none; width: 50%; padding: 16px; }
 .card__cover .card__art { flex: 1; }
-.card__body { display: flex; flex-direction: column; gap: 10px; padding-inline: 22px; }
-.cards .card:first-child .card__body { padding-inline-start: 0; }
-.cards .card:last-child .card__body { padding-inline-end: 0; }
+.card__body { display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card h3 { font: 900 20px/1.5 var(--font-display); color: var(--color-text); }
 .card h3 a { color: inherit; }
 .card h3 a:hover { color: var(--color-burgundy); }
@@ -267,14 +264,11 @@ h1, h2, h3, h4, p { margin: 0; }
 .play-sm:hover .dot { background: var(--color-burgundy); }
 .play-sm .play-icon { border-block-width: 6px; border-inline-end-width: 9px; }
 @media (max-width: 899px) {
-  .cards { grid-template-columns: 1fr; }
-  .card { border-inline-start: 0; border-top: var(--rule) solid var(--color-divider); padding-top: 24px; }
-  .cards .card:first-child { border-top: 0; }
-  .card__body { padding-inline: 0 !important; }
+  .cards { grid-template-columns: 1fr; row-gap: 32px; }
 }
 @media (min-width: 600px) and (max-width: 899px) {
   .cards { grid-template-columns: 1fr 1fr; column-gap: var(--space-4); }
-  .cards .card:nth-child(2) { border-top: 0; }
+  .cards .card:nth-child(n+3) { display: none; }  /* two columns: show two latest, «همه» links to the rest */
 }
 
 /* Card art: abstract compositions that sit beside the tile */
