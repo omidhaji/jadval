@@ -247,7 +247,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .ptable .tile { padding: 10%; }
 
 /* ---------- Episode card ---------- */
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px var(--space-5); padding: 24px 0 8px; border-bottom: var(--rule) solid var(--color-rule); }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px var(--space-5); padding: 24px 0 32px; border-bottom: var(--rule) solid var(--color-rule); }
 .card { display: flex; flex-direction: column; padding: 0 0 24px; min-width: 0; }
 .card__cover { display: flex; aspect-ratio: 2/1; position: relative; margin-bottom: 18px; overflow: hidden; }
 .card__cover .tile { aspect-ratio: auto; height: 100%; flex: none; width: 50%; padding: 16px; }
@@ -548,7 +548,7 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 /* Hosts section */
-.hosts { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--rule) solid var(--color-rule); }
+.hosts { display: grid; grid-template-columns: 1fr 1fr; padding-bottom: 24px; border-bottom: var(--rule) solid var(--color-rule); }
 .host { display: grid; grid-template-columns: 148px 1fr; gap: 24px; padding: 32px 0; padding-inline-end: 32px; align-items: start; }
 .hosts .host + .host { border-inline-start: var(--rule) solid var(--color-divider); padding-inline: 32px 0; }
 .host__tile { width: 148px; padding: 12%; }
@@ -605,5 +605,20 @@ a.tile:focus-visible { box-shadow: inset 0 0 0 3px var(--tile-fg); }
 .miniplayer.is-error .pmain { background: var(--color-hover); }
 .pnext { background: none; border: 0; padding: 0 4px; cursor: pointer; color: var(--color-bg); font: 700 13px var(--font-text); text-decoration: underline; text-underline-offset: 4px; }
 .pnext:hover { opacity: .8; }
+/* Floating button (bottom-left) that opens the collapsed player */
+.player-fab {
+  position: fixed; left: 20px; bottom: 20px; z-index: 49;
+  width: 60px; height: 60px; border: 0; cursor: pointer;
+  display: grid; place-items: center;
+  background: var(--color-burgundy); color: var(--color-bg);
+  box-shadow: 0 0 0 2px var(--color-bg);   /* separator line, not a shadow */
+  transition: background-color .15s;
+}
+.player-fab:hover { background: #943344; }
+.player-fab:focus-visible { outline: 3px solid var(--color-navy); outline-offset: 3px; }
+.player-fab .play-icon { border-block-width: 10px; border-inline-end-width: 15px; margin-inline-start: 3px; }
+.player-fab__sym { position: absolute; top: 5px; right: 7px; font: 600 9px/1 var(--font-mono); opacity: .8; }
+.player-fab.is-hidden { display: none; }
+@media (max-width: 767px) { .player-fab { left: 16px; bottom: 16px; width: 56px; height: 56px; } }
 .play-sm.is-playing .dot { background: var(--color-burgundy); }
 .row__play.is-playing { background: var(--color-navy); color: var(--color-bg); }

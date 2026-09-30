@@ -199,7 +199,7 @@
     read: function () { try { return JSON.parse(localStorage.getItem('jadval-player') || '{}') || {}; } catch (e) { return {}; } },
     write: function (v) { try { localStorage.setItem('jadval-player', JSON.stringify(v)); } catch (e) {} }
   };
-  var saved = store.read();  // { last, open, rate, pos: { [episode]: seconds } }
+  var saved = store.read();  // { last, rate, pos: { [episode]: seconds } }
   if (!saved.pos || typeof saved.pos !== 'object') saved.pos = {};
 
   function segs(dark) {
@@ -222,8 +222,16 @@
       '<div class="miniplayer__bar"><div class="player__time"><span data-elapsed>00:00</span><span data-total>00:00</span></div>' + segs(true) + '</div>' +
       '<button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button></div>';
     document.body.appendChild(el);
+    // Collapsed state: a floating button, bottom-left, that opens the player.
+    fabEl = document.createElement('button');
+    fabEl.className = 'player-fab';
+    fabEl.setAttribute('data-open-player', '');
+    fabEl.setAttribute('aria-label', 'باز کردنِ پخش‌کننده');
+    fabEl.innerHTML = '<span class="play-icon"></span><span class="player-fab__sym latin" data-fab-sym></span>';
+    document.body.appendChild(fabEl);
     return el;
   }
+  var fabEl;
 
   /* ---- state helpers ---- */
   function audioUrl(e) { return e.audio || SAMPLE_AUDIO; }
@@ -260,9 +268,10 @@
   }
 
   /* ---- commands ---- */
-  function setEpisode(n) {
+  // quiet: load the episode without opening the player (page load, ?t= links).
+  function setEpisode(n, quiet) {
     var e = ep(n);
-    if (cur && cur.n === e.n) return;
+    if (cur && cur.n === e.n) { if (!quiet) openMini(); return; }
     if (cur) persist(true);
     cur = e;
     status = 'idle';
@@ -272,7 +281,9 @@
     miniEl.querySelector('[data-mini-tile]').innerHTML = tile(e, { name: false, cls: 'tile-sm' });
     miniEl.querySelector('[data-mini-title]').textContent = e.title;
     miniEl.querySelector('[data-mini-meta]').textContent = epNum(e.n) + ' — ' + e.date;
-    openMini();
+    fabEl.querySelector('[data-fab-sym]').textContent = e.sym;
+    fabEl.title = e.title;
+    if (!quiet) openMini();
     mediaSessionMeta();
     render();
   }
@@ -321,16 +332,24 @@
   }
   function fail(msg) { status = 'error'; errorMsg = msg; render(); }
 
+  // The player never opens by itself on page load; it opens on a play click or
+  // from the floating button, and closing it only collapses it back to that button.
   function openMini() {
     miniEl.classList.add('is-open');
+    fabEl.classList.add('is-hidden');
     document.documentElement.style.setProperty('--player-h', (window.innerWidth < 900 ? 68 : 72) + 'px');
-    saved.open = true; store.write(saved);
   }
   function closeMini() {
     pause(); persist(true);
     miniEl.classList.remove('is-open');
+    fabEl.classList.remove('is-hidden');
     document.documentElement.style.setProperty('--player-h', '0px');
-    saved.open = false; store.write(saved);
+  }
+  function openFromFab() {
+    if (!cur) setEpisode(LATEST.n, true);
+    openMini();
+    var b = miniEl.querySelector('.pmain');
+    if (b) b.focus();
   }
 
   function shareAt(btn) {
@@ -467,8 +486,9 @@
 
   function bindUI() {
     document.addEventListener('click', function (ev) {
-      var t = ev.target.closest('[data-play],[data-toggle],[data-skip],[data-rate],[data-close],[data-retry],[data-share-time]');
+      var t = ev.target.closest('[data-play],[data-toggle],[data-skip],[data-rate],[data-close],[data-retry],[data-share-time],[data-open-player]');
       if (!t) return;
+      if (t.hasAttribute('data-open-player')) return openFromFab();
       if (t.hasAttribute('data-play')) { ev.preventDefault(); return toggle(+t.getAttribute('data-play')); }
       if (!inPlayer(t)) return;
       if (t.hasAttribute('data-toggle')) { var own = ownerOf(t); return own !== null ? toggle(own) : toggle(); }
@@ -527,13 +547,14 @@
     });
   }
 
-  /* On load: show the last episode paused where it was left (never auto-plays).
+  /* On load the player stays collapsed to the floating button, with the last
+     episode cued where it was left (never auto-plays, never auto-opens).
      ?t=SECONDS on an episode page cues that episode at that time instead. */
   function restore() {
     var full = document.querySelector('[data-fullplayer]');
     var m = /[?&]t=(\d+)/.exec(location.search);
-    if (full && m) { setEpisode(+full.getAttribute('data-fullplayer')); pendingSeek = +m[1]; render(); return; }
-    if (saved.last && saved.open) setEpisode(saved.last);
+    if (full && m) { setEpisode(+full.getAttribute('data-fullplayer'), true); pendingSeek = +m[1]; render(); return; }
+    if (saved.last) setEpisode(saved.last, true);
   }
 
   function fullPlayers() {
