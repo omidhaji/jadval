@@ -38,11 +38,11 @@
 
   // Where to listen. Fidibo has no public icon set; its mark is a placeholder until the official asset is supplied.
   var PLATFORMS = [
-    { id: 'applepodcasts', name: 'اپل پادکست', latin: 'APPLE PODCASTS', href: '#' },
-    { id: 'castbox',       name: 'کست‌باکس',  latin: 'CASTBOX',        href: '#' },
-    { id: 'fidibo',        name: 'فیدیبو',    latin: 'FIDIBO',         href: '#' },
-    { id: 'spotify',       name: 'اسپاتیفای', latin: 'SPOTIFY',        href: '#' },
-    { id: 'youtube',       name: 'یوتیوب',    latin: 'YOUTUBE',        href: '#' }
+    { id: 'applepodcasts', name: 'اپل پادکست', en: 'Apple Podcasts', href: '#' },
+    { id: 'castbox',       name: 'کست‌باکس',  en: 'Castbox',        href: '#' },
+    { id: 'fidibo',        name: 'فیدیبو',    en: 'Fidibo',         href: '#' },
+    { id: 'spotify',       name: 'اسپاتیفای', en: 'Spotify',        href: '#' },
+    { id: 'youtube',       name: 'یوتیوب',    en: 'YouTube',        href: '#' }
   ];
   // Social accounts (footer only). Handles are placeholders until the real ones are supplied.
   var SOCIALS = [
@@ -156,7 +156,7 @@
       '<div class="stack gap-3">' + logo(true) +
       '<p style="max-width:34ch;font-size:15px;line-height:1.9;opacity:.75">شیمیِ چیزهایی که هر روز باهاشون زندگی می‌کنیم.</p></div>' +
       '<nav aria-label="پادکست"><h4>پادکست</h4><a href="' + BASE + 'pages/episodes.html">اپیزودها</a><a href="' + BASE + 'pages/about.html">دربارهٔ ما</a><a href="' + BASE + 'pages/contact.html">تماس</a></nav>' +
-      '<nav aria-label="شنیدن"><h4>شنیدن</h4>' + PLATFORMS.map(function (p) { return '<a href="' + p.href + '" class="flink">' + picon(p.id, 16) + p.name + '</a>'; }).join('') + '<a href="#" class="flink latin">RSS</a></nav>' +
+      '<nav aria-label="شنیدن"><h4>شنیدن</h4>' + PLATFORMS.map(function (p) { return '<a href="' + p.href + '" class="flink">' + picon(p.id, 16) + '<span class="latin">' + p.en + '</span></a>'; }).join('') + '<a href="#" class="flink latin">RSS</a></nav>' +
       '<nav aria-label="دنبال کنید"><h4>دنبال کنید</h4>' + SOCIALS.map(function (x) { return '<a href="' + x.href + '" class="flink" aria-label="' + x.name + ' ' + x.handle + '">' + picon(x.id, 16) + '<span class="flink__handle latin">' + x.handle + '</span></a>'; }).join('') + '</nav>' +
       '</div><div class="site-footer__bar"><div class="wrap"><span>© ۱۴۰۵ جدول. همهٔ حقوق محفوظ است.</span><span>ساخته‌شده با کنجکاویِ یک بچه‌شیطون</span></div></div></footer>';
   }
