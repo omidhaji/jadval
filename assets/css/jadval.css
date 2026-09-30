@@ -132,10 +132,12 @@ h1, h2, h3, h4, p { margin: 0; }
 .nav a { font-size: 16px; font-weight: 500; color: var(--color-text); padding-block: 6px; border-bottom: 2px solid transparent; }
 .nav a:hover { color: var(--color-burgundy); }
 .nav a[aria-current="page"] { border-bottom-color: var(--color-burgundy); color: var(--color-navy); }
-.header-cta { display: flex; align-items: center; gap: 0; }
-.burger { display: none; width: 52px; height: 52px; border: 0; background: var(--color-navy); cursor: pointer; position: relative; }
+.header-cta { display: flex; align-items: stretch; gap: 2px; height: 48px; }
+.header-cta .btn { height: 100%; padding-block: 0; }
+.burger { display: none; width: 48px; height: 100%; border: 0; background: var(--color-navy); cursor: pointer; position: relative; flex: none; }
+.burger:hover { background: var(--color-pressed); }
 .burger span, .burger span::before, .burger span::after { position: absolute; left: 15px; right: 15px; height: 2px; background: var(--color-bg); content: ''; transition: transform .2s, top .2s, opacity .2s; }
-.burger span { top: 25px; }
+.burger span { top: 23px; }
 .burger span::before { left: 0; right: 0; top: -8px; }
 .burger span::after { left: 0; right: 0; top: 8px; }
 .menu-open .burger span { background: transparent; }
@@ -150,7 +152,7 @@ h1, h2, h3, h4, p { margin: 0; }
   .logo__word { font-size: 26px; }
 }
 @media (max-width: 479px) {
-  .header-cta .btn { padding: 0 16px; height: 52px; font-size: 14px; }
+  .header-cta .btn { padding-inline: 16px; font-size: 14px; }
   .cta-long { display: none; }
   .cta-short { display: inline; }
 }
