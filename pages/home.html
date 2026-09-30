@@ -100,10 +100,10 @@
     <div class="wrap featured">
       <div class="featured__txt">
         <span class="kicker" style="color:var(--color-bg);opacity:.7">اپیزودِ برگزیده — پرشنیده‌ترین تا امروز</span>
-        <h2 id="feat-h" style="font:900 clamp(22px,2.4vw,32px)/1.35 var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</h2>
+        <h2 id="feat-h" style="font:900 clamp(22px,2.4vw,32px)/1.35 var(--font-display)">اشک پیاز</h2>
         <p style="max-width:46ch;font-size:16px;line-height:1.95;opacity:.86">یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.</p>
         <div class="btn-row">
-          <button class="btn btn--light" data-play="1"><span class="play-icon"></span> <span data-play-label="پخشِ اپیزود">پخشِ اپیزود</span></button>
+          <button class="btn btn--light" data-play="8"><span class="play-icon"></span> <span data-play-label="پخشِ اپیزود">پخشِ اپیزود</span></button>
           <a class="btn btn--ghost-light" href="episode.html">صفحه و متنِ اپیزود</a>
         </div>
       </div>
@@ -120,7 +120,7 @@
       </div>
       <div class="stack gap-3" style="padding-block:var(--section-gap)">
         <h2 class="h3">دربارهٔ پادکست</h2>
-        <p style="font-size:16px;line-height:2">جدول سراغِ چیزهایی می‌رود که هر روز از کنارشان می‌گذریم: یک فنجان قهوه، بوی باران، یک قرص، یک برگ. هر اپیزود یکی از این‌ها را برمی‌دارد و داستانِ شیمیایی‌اش را تعریف می‌کند؛ دقیق، اما بدون کلاسِ درس.</p>
+        <p style="font-size:16px;line-height:2">جدول سراغِ چیزهایی می‌رود که هر روز از کنارشان می‌گذریم: آسیابِ قهوه، بوی باران، پیاز، یک برگ. هر اپیزود یکی از این‌ها را برمی‌دارد و داستانِ شیمیایی‌اش را تعریف می‌کند؛ دقیق، اما بدون کلاسِ درس.</p>
         <dl class="facts" style="margin:0">
           <div><dt>انتشار</dt><dd>هر هفته، سه‌شنبه</dd></div>
           <div><dt>میانگینِ زمان</dt><dd>۲۷ دقیقه</dd></div>
@@ -172,14 +172,14 @@
   }).join('');
 
   // Featured tile
-  document.getElementById('feat-art').innerHTML = J.tile(J.ep(1), { variant: 'tile--ghost-light' });
+  document.getElementById('feat-art').innerHTML = J.tile(J.ep(8), { variant: 'tile--ghost-light' });
 
   document.getElementById('hosts').innerHTML = J.hostsHTML();
   document.getElementById('listen').innerHTML = J.listenHTML();
   document.getElementById('sub-icons').innerHTML = J.platformLinks(22);
 
   // Popular
-  document.getElementById('popular').innerHTML = [1, 2, 3, 6, 9].map(function (n) {
+  document.getElementById('popular').innerHTML = [8, 9, 7, 6, 4].map(function (n) {
     var e = J.ep(n);
     return '<div class="row"><span class="row__num latin">' + J.epNum(n) + '</span><a class="row__title" href="episode.html" style="color:inherit">' + e.title + '</a>' +
       '<span class="row__len latin">' + e.len + '</span><button class="row__play" data-play="' + n + '" aria-label="پخشِ ' + e.title + '"><span class="play-icon"></span></button></div>';

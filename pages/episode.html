@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>پیاز چرا اشکمون رو درمیاره؟ — جدول</title>
-<meta name="description" content="اپیزود ۰۱ جدول: یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.">
+<title>اشک پیاز — جدول</title>
+<meta name="description" content="اپیزود ۰۸ جدول: یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,24 +54,24 @@
   <nav class="crumbs" aria-label="مسیر">
     <a href="home.html">خانه</a><span aria-hidden="true">/</span>
     <a href="episodes.html">اپیزودها</a><span aria-hidden="true">/</span>
-    <span aria-current="page">اپیزود ۰۱</span>
+    <span aria-current="page">اپیزود ۰۸</span>
   </nav>
 
   <!-- EPISODE HEADER -->
   <section class="split split--wide rule-b">
     <div class="ep-head">
       <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-        <span class="kicker latin">EP 01</span>
-        <span class="meta" style="color:var(--color-navy)">۲۶ دقیقه — سه‌شنبه ۱۳ مرداد ۱۴۰۵</span>
+        <span class="kicker latin">EP 08</span>
+        <span class="meta" style="color:var(--color-navy)">۲۶ دقیقه — سه‌شنبه ۳۱ شهریور ۱۴۰۵</span>
       </div>
-      <h1 class="h1" style="text-wrap:pretty">پیاز چرا اشکمون رو درمیاره؟</h1>
+      <h1 class="h1" style="text-wrap:pretty">اشک پیاز</h1>
       <p class="subtitle" style="max-width:48ch">یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.</p>
 
       <!-- FULL PLAYER -->
-      <div class="player" data-fullplayer="1">
+      <div class="player" data-fullplayer="8">
         <div class="player__main">
           <div class="player__row">
-            <span class="player__title">اپیزود ۰۱ — پیاز</span>
+            <span class="player__title">اپیزود ۰۸ — پیاز</span>
             <span class="player__time"><span data-elapsed>00:00</span> / <span data-total>26:04</span></span>
           </div>
           <div data-segs></div>
@@ -159,8 +159,8 @@
   </section>
 
   <nav class="prevnext" aria-label="اپیزودهای مجاور">
-    <a href="#" class="is-disabled" aria-disabled="true" style="opacity:.45"><span class="meta">→ اپیزودِ قبلی</span><strong>این اولین اپیزود است</strong></a>
-    <a href="episode.html"><span class="meta">اپیزودِ بعدی ←</span><strong>شیمیِ یک فنجان قهوه</strong></a>
+    <a href="episode.html"><span class="meta">→ اپیزودِ قبلی</span><strong>بوی نم‌نم بارون</strong></a>
+    <a href="episode.html"><span class="meta">اپیزودِ بعدی ←</span><strong>سایز آسیاب قهوه</strong></a>
   </nav>
 </main>
 
@@ -170,8 +170,8 @@
 (function () {
   var J = window.Jadval;
   document.getElementById('ep-icons').innerHTML = J.platformLinks(26);
-  document.getElementById('cover').innerHTML = J.tile(J.ep(1));
-  document.getElementById('related').innerHTML = [3, 6, 9].map(function (n) {
+  document.getElementById('cover').innerHTML = J.tile(J.ep(8));
+  document.getElementById('related').innerHTML = [7, 9, 4].map(function (n) {
     var e = J.ep(n);
     return '<a href="episode.html">' + J.tile(e, { name: false }) + '<strong>' + e.title + '</strong></a>';
   }).join('');
@@ -179,7 +179,7 @@
   // Note: Acast mid-roll ads are stitched into the file, so real chapter
   // times must be checked against the delivered audio.
   document.querySelectorAll('[data-chap]').forEach(function (b) {
-    b.addEventListener('click', function () { J.player.cue(1, +b.getAttribute('data-chap'), true); });
+    b.addEventListener('click', function () { J.player.cue(8, +b.getAttribute('data-chap'), true); });
   });
 })();
 </script>
