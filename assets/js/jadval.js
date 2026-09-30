@@ -186,7 +186,7 @@
     miniEl.querySelector('[data-mini-meta]').textContent = epNum(e.n) + ' — ' + GROUPS[e.g].name;
     miniEl.querySelector('[data-total]').textContent = e.len;
     miniEl.classList.add('is-open');
-    document.documentElement.style.setProperty('--player-h', (window.innerWidth < 900 ? 68 : 84) + 'px');
+    document.documentElement.style.setProperty('--player-h', (window.innerWidth < 900 ? 68 : 72) + 'px');
   }
 
   function tick() {

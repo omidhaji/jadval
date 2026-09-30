@@ -15,7 +15,7 @@
   .bg-cover__sym { display: grid; place-items: center; padding: 48px 0; }
   .bg-cover__sym .symbol { --s: clamp(110px, 14vw, 190px); gap: 12px; }
   @media (max-width: 899px) { .bg-cover { grid-template-columns: 1fr; min-height: 0; } .bg-cover__txt { border: 0; padding-inline-end: 0; } }
-  .sh { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 64px 0 18px; border-bottom: var(--rule) solid var(--color-rule); }
+  .sh { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 48px 0 14px; border-bottom: var(--rule) solid var(--color-rule); }
   .sh h2 { font: 800 clamp(28px, 3vw, 40px)/1.2 var(--font-display); }
   .cols { display: grid; grid-template-columns: repeat(3, 1fr); }
   .cols > * { padding: 28px; border-inline-start: var(--rule) solid var(--color-divider); }
@@ -163,20 +163,20 @@
   <!-- 05 TYPE -->
   <div class="sh"><h2>تایپوگرافی</h2><span class="meta latin">05 — TYPOGRAPHY — UNCHANGED</span></div>
   <div class="split split--even" style="padding-top:32px">
-    <div class="stack gap-3"><span class="label latin">DISPLAY — ESTEDAD 800/900</span><p style="font:900 64px/1.15 var(--font-display);color:var(--color-navy)">شیمیِ زندگیِ روزمره</p><p style="font:800 18px/2 var(--font-display);color:var(--color-navy)">آ ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ه ی ۰۱۲۳۴۵۶۷۸۹</p></div>
+    <div class="stack gap-3"><span class="label latin">DISPLAY — ESTEDAD 800/900</span><p style="font:900 52px/1.2 var(--font-display);color:var(--color-navy)">شیمیِ زندگیِ روزمره</p><p style="font:800 18px/2 var(--font-display);color:var(--color-navy)">آ ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ه ی ۰۱۲۳۴۵۶۷۸۹</p></div>
     <div class="stack gap-3"><span class="label latin">TEXT — VAZIRMATN 300/400/500/700</span><p class="body">وقتی پیاز را می‌بُری، سلول‌ها پاره می‌شوند و آنزیمی آزاد می‌شود که ترکیبی فرّار می‌سازد؛ همان چیزی که چند ثانیه بعد به چشم می‌رسد و اشک را راه می‌اندازد.</p><span class="label latin">MONO — IBM PLEX MONO 500/600 (LATIN ONLY)</span><p style="font:600 28px var(--font-mono);direction:ltr;text-align:right">EP 01 — On — 26:04</p></div>
   </div>
   <div class="scroll-x" style="padding-top:24px"><table class="tok">
     <thead><tr><th>توکن</th><th>نمونه</th><th>فونت / وزن</th><th>دسکتاپ</th><th>موبایل</th></tr></thead>
     <tbody>
-      <tr><td><code>display</code></td><td style="font:900 32px var(--font-display);color:var(--color-navy)">جدول</td><td>Estedad 900</td><td><code>96 / 1.05</code></td><td><code>48 / 1.1</code></td></tr>
-      <tr><td><code>h1</code></td><td style="font:900 24px var(--font-display)">تیترِ اصلی صفحه</td><td>Estedad 900</td><td><code>64 / 1.2</code></td><td><code>36 / 1.25</code></td></tr>
-      <tr><td><code>h2</code></td><td style="font:800 20px var(--font-display)">عنوانِ بخش</td><td>Estedad 800</td><td><code>44 / 1.25</code></td><td><code>28 / 1.3</code></td></tr>
-      <tr><td><code>episode-title</code></td><td style="font:900 18px var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</td><td>Estedad 900</td><td><code>32 / 1.35</code></td><td><code>22 / 1.4</code></td></tr>
-      <tr><td><code>body</code></td><td>متنِ اصلی، خوانا در طول‌های بلند.</td><td>Vazirmatn 400</td><td><code>18 / 1.9</code></td><td><code>16 / 1.85</code></td></tr>
+      <tr><td><code>display</code></td><td style="font:900 32px var(--font-display);color:var(--color-navy)">جدول</td><td>Estedad 900</td><td><code>76 / 1.05</code></td><td><code>40 / 1.1</code></td></tr>
+      <tr><td><code>h1</code></td><td style="font:900 24px var(--font-display)">تیترِ اصلی صفحه</td><td>Estedad 900</td><td><code>50 / 1.25</code></td><td><code>30 / 1.3</code></td></tr>
+      <tr><td><code>h2</code></td><td style="font:800 20px var(--font-display)">عنوانِ بخش</td><td>Estedad 800</td><td><code>36 / 1.3</code></td><td><code>24 / 1.35</code></td></tr>
+      <tr><td><code>episode-title</code></td><td style="font:900 18px var(--font-display)">پیاز چرا اشکمون رو درمیاره؟</td><td>Estedad 900</td><td><code>26 / 1.4</code></td><td><code>20 / 1.45</code></td></tr>
+      <tr><td><code>body</code></td><td>متنِ اصلی، خوانا در طول‌های بلند.</td><td>Vazirmatn 400</td><td><code>17 / 1.9</code></td><td><code>16 / 1.85</code></td></tr>
       <tr><td><code>tile-symbol</code></td><td style="font:700 22px var(--font-mono)">On</td><td>IBM Plex Mono 700</td><td><code>34% of tile</code></td><td><code>34% of tile</code></td></tr>
       <tr><td><code>meta</code></td><td><span class="meta latin">EP 04 — 28′</span></td><td>IBM Plex Mono 500</td><td><code>12 / .14em</code></td><td><code>11 / .14em</code></td></tr>
-      <tr><td><code>button</code></td><td style="font-weight:700">اپیزودها را ببین</td><td>Vazirmatn 700</td><td><code>16 / 1</code></td><td><code>16 / 1</code></td></tr>
+      <tr><td><code>button</code></td><td style="font-weight:700">اپیزودها را ببین</td><td>Vazirmatn 700</td><td><code>15 / 1</code></td><td><code>15 / 1</code></td></tr>
     </tbody></table></div>
 
   <!-- 06 GRID -->

@@ -11,9 +11,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;800;900&family=Vazirmatn:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../assets/css/jadval.css">
 <style>
-  .ep-head { padding-block: 56px; display: flex; flex-direction: column; gap: 24px; }
-  .ep-side { padding-block: 56px; display: flex; flex-direction: column; gap: 18px; }
-  .ep-side .tile { padding: 9%; }
+  .ep-head { padding-block: 44px; display: flex; flex-direction: column; gap: 24px; }
+  .ep-side { padding-block: 44px; display: flex; flex-direction: column; gap: 18px; }
+  .ep-side .tile { padding: 9%; max-width: 320px; }
+  .ep-side .btn-row { max-width: 320px; }
   .chapters .chap { display: grid; grid-template-columns: 74px 1fr auto; gap: 18px; align-items: baseline; padding: 14px 0; border-top: var(--rule) solid var(--color-divider); background: none; border-inline: 0; border-bottom: 0; width: 100%; text-align: right; cursor: pointer; }
   .chapters .chap:hover { background: var(--color-bg-2); }
   .chapters .chap span:first-child { font: 500 13px var(--font-mono); color: var(--color-burgundy); direction: ltr; text-align: right; }
@@ -102,7 +103,7 @@
 
   <!-- BODY + SIDEBAR -->
   <section class="split split--wide rule-b">
-    <div class="stack gap-4" style="padding-block:56px">
+    <div class="stack gap-4" style="padding-block:44px">
       <span class="kicker">دربارهٔ این اپیزود</span>
       <div class="prose">
         <p>پیاز تا وقتی سالم است، بی‌آزار است. مشکل از لحظه‌ای شروع می‌شود که چاقو سلول‌ها را پاره می‌کند: دو مادهٔ جدا‌افتاده به هم می‌رسند و واکنشی شکل می‌گیرد که محصولش در پیازِ سالم اصلاً وجود ندارد.</p>
@@ -131,7 +132,7 @@
       </details>
     </div>
 
-    <aside class="stack gap-5" style="padding-block:56px">
+    <aside class="stack gap-5" style="padding-block:44px">
       <div class="stack gap-3">
         <span class="kicker">مفاهیمِ علمی</span>
         <div style="display:flex;flex-wrap:wrap;gap:10px">
