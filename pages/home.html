@@ -49,7 +49,7 @@
     .featured__txt { padding-bottom: 32px; }
   }
   #listen .listen { border-bottom: 0; }
-  .card__cover .card__art { display: flex; align-items: flex-end; padding: 16px; }
+  .card__photo { flex: 1; min-width: 0; height: 100%; object-fit: cover; }
 </style>
 </head>
 <body>
@@ -162,10 +162,9 @@
   document.getElementById('hero-table').innerHTML = h;
 
   // Latest three
-  var arts = ['art--grid field-grid', 'art--navy-lines', 'art--photo'];
   document.getElementById('latest').innerHTML = E.slice(-3).reverse().map(function (e, i) {
     return '<article class="card">' +
-      '<div class="card__cover">' + J.tile(e) + '<div class="card__art art ' + arts[i] + '">' + (i === 2 ? '<span>APPLE — MACRO<br>PHOTO</span>' : '') + '</div></div>' +
+      '<div class="card__cover">' + J.tile(e) + '<img class="card__photo" src="../' + e.photo + '" alt="" loading="lazy" width="600" height="600"></div>' +
       '<div class="card__body"><span class="meta latin">' + J.epNum(e.n) + '</span>' +
       '<h3><a href="episode.html">' + e.title + '</a></h3><p>' + e.desc + '</p>' +
       '<div class="card__foot"><span class="meta" style="color:var(--color-navy)">' + J.mins(e.len) + ' — ' + e.date + '</span>' +
