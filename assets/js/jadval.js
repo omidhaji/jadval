@@ -1,4 +1,4 @@
-/* عنصر۱۱۹ — design prototype behaviour.
+/* عنصر ۱۱۹ — design prototype behaviour.
    Renders the shared chrome (header, mobile menu, footer, mini player) and a
    real HTML5 audio player. In the real build, audio + metadata come from the
    Acast RSS feed; in this prototype every episode plays one short sample. */
@@ -124,9 +124,9 @@
   var LATEST = EPISODES[EPISODES.length - 1];
 
   function logo(light) {
-    return '<a class="logo' + (light ? ' logo--light' : '') + '" href="' + BASE + 'pages/home.html" aria-label="عنصر۱۱۹ — خانه">' +
+    return '<a class="logo' + (light ? ' logo--light' : '') + '" href="' + BASE + 'pages/home.html" aria-label="عنصر ۱۱۹ — خانه">' +
       '<span class="symbol' + (light ? ' symbol--light' : '') + '"><i></i><i></i></span>' +
-      '<span class="logo__word">عنصر۱۱۹</span></a>';
+      '<span class="logo__word">عنصر ۱۱۹</span></a>';
   }
 
   function header() {
@@ -158,7 +158,7 @@
       '<nav aria-label="پادکست"><h4>پادکست</h4><a href="' + BASE + 'pages/episodes.html">اپیزودها</a><a href="' + BASE + 'pages/about.html">دربارهٔ ما</a><a href="' + BASE + 'pages/contact.html">تماس</a></nav>' +
       '<nav aria-label="شنیدن"><h4>شنیدن</h4>' + PLATFORMS.map(function (p) { return '<a href="' + p.href + '" class="flink">' + picon(p.id, 16) + '<span class="latin">' + p.en + '</span></a>'; }).join('') + '<a href="#" class="flink latin">RSS</a></nav>' +
       '<nav aria-label="دنبال کنید"><h4>دنبال کنید</h4>' + SOCIALS.map(function (x) { return '<a href="' + x.href + '" class="flink" aria-label="' + x.name + ' ' + x.handle + '">' + picon(x.id, 16) + '<span class="flink__handle latin">' + x.handle + '</span></a>'; }).join('') + '</nav>' +
-      '</div><div class="site-footer__bar"><div class="wrap"><span>© ۱۴۰۵ عنصر۱۱۹. همهٔ حقوق محفوظ است.</span><span>ساخته‌شده با کنجکاویِ یک بچه‌شیطون</span></div></div></footer>';
+      '</div><div class="site-footer__bar"><div class="wrap"><span>© ۱۴۰۵ عنصر ۱۱۹. همهٔ حقوق محفوظ است.</span><span>ساخته‌شده با کنجکاویِ یک بچه‌شیطون</span></div></div></footer>';
   }
 
   function menu() {
@@ -384,7 +384,7 @@
     if (!('mediaSession' in navigator) || !cur) return;
     try {
       navigator.mediaSession.metadata = new window.MediaMetadata({
-        title: cur.title, artist: 'عنصر۱۱۹', album: 'پادکستِ عنصر۱۱۹',
+        title: cur.title, artist: 'عنصر ۱۱۹', album: 'پادکستِ عنصر ۱۱۹',
         artwork: [{ src: new URL(BASE + 'assets/img/favicon.svg', location.href).href, sizes: '512x512', type: 'image/svg+xml' }]
       });
     } catch (e) {}

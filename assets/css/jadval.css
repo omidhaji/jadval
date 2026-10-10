@@ -1,5 +1,5 @@
 /* ==========================================================================
-   عنصر۱۱۹ — design system (brand guidelines v2.0)
+   عنصر ۱۱۹ — design system (brand guidelines v2.0)
    Palette, type, grid and spacing are carried over from the Asidbazi v1.0
    guidelines unchanged; only the identity layer (name, symbol, graphic
    language) is new.
@@ -156,6 +156,14 @@ h1, h2, h3, h4, p { margin: 0; }
   .header-cta .btn { padding-inline: 16px; font-size: 14px; }
   .cta-long { display: none; }
   .cta-short { display: inline; }
+  /* «عنصر ۱۱۹» is wider than the old wordmark: tighten the header so logo + CTA fit 360px. */
+  .site-header__in { gap: 12px; }
+  .site-header .logo { gap: 10px; }
+  .site-header .logo__word { font-size: 20px; }
+  .header-cta .btn { padding-inline: 12px; }
+}
+@media (max-width: 359px) {
+  .header-cta .btn { display: none; }  /* the menu and the floating player button still cover it */
 }
 
 /* Mobile menu */
