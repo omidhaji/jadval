@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>اشک پیاز — عنصر ۱۱۹</title>
-<meta name="description" content="اپیزود ۰۸ عنصر ۱۱۹: یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.">
+<title>نم‌نم بارون — عنصر ۱۱۹</title>
+<meta name="description" content="اپیزود ۰۱ عنصر ۱۱۹: این بو واقعاً بوی خاکه؟ پتریکور، ژئوسمین و دنیای عجیبی که زیرِ پامون جریان داره.">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,26 +15,17 @@
   .ep-side { padding-block: 44px; display: flex; flex-direction: column; gap: 18px; }
   .ep-side .tile { padding: 9%; max-width: 320px; }
   .ep-side .btn-row { max-width: 320px; }
-  .chapters .chap { display: grid; grid-template-columns: 74px 1fr auto; gap: 18px; align-items: baseline; padding: 14px 0; border-top: var(--rule) solid var(--color-divider); background: none; border-inline: 0; border-bottom: 0; width: 100%; text-align: right; cursor: pointer; }
-  .chapters .chap:hover { background: var(--color-bg-2); }
-  .chapters .chap span:first-child { font: 500 13px var(--font-mono); color: var(--color-burgundy); direction: ltr; text-align: right; }
-  .chapters .chap span:nth-child(2) { font-size: 16px; line-height: 1.75; }
-  .chapters .chap span:last-child { font: 500 12px var(--font-text); color: var(--color-navy); opacity: .6; }
+  .questions { list-style: none; margin: 0; padding: 0; }
+  .questions li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: baseline; padding: 14px 0; border-top: var(--rule) solid var(--color-divider); font-size: 16px; line-height: 1.75; }
+  .questions li span { font: 500 13px var(--font-mono); color: var(--color-burgundy); }
+  .voices li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: var(--rule) solid var(--color-divider); font-size: 15px; }
+  .voices li span { font-size: 13px; color: var(--color-navy); opacity: .65; }
   .glance { background: var(--color-bg-2); padding: 26px; display: flex; flex-direction: column; gap: 16px; }
   .glance__row { display: flex; align-items: center; }
   .glance__row .line { flex: 1; height: 2px; background: var(--color-navy); }
   .glance__row .full { width: 44px; height: 44px; background: var(--color-burgundy); }
   .glance__row .mid { width: 24px; height: 24px; background: var(--color-navy); }
   .glance__row .open { width: 44px; height: 44px; box-shadow: inset 0 0 0 2px var(--color-navy); }
-  details.transcript { border-top: var(--rule) solid var(--color-rule); }
-  details.transcript summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 22px 0; font: 800 22px var(--font-display); }
-  details.transcript summary::-webkit-details-marker { display: none; }
-  details.transcript summary::after { content: '+'; font: 400 28px var(--font-mono); color: var(--color-burgundy); }
-  details.transcript[open] summary::after { content: '−'; }
-  .transcript__body { padding-bottom: 32px; }
-  .transcript__body p { display: grid; grid-template-columns: 74px 1fr; gap: 18px; font-size: 17px; line-height: 2; max-width: 70ch; }
-  .transcript__body p + p { margin-top: 14px; }
-  .transcript__body b { font: 500 12px var(--font-mono); color: var(--color-burgundy); padding-top: 6px; direction: ltr; text-align: right; }
   .share { display: flex; }
   .share a { flex: 1; text-align: center; font: 600 11px var(--font-mono); letter-spacing: .14em; color: var(--color-navy); box-shadow: inset 0 0 0 2px var(--color-navy); padding: 14px 0; margin-inline-start: -2px; }
   .share a:hover { background: var(--color-bg-2); }
@@ -54,28 +45,27 @@
   <nav class="crumbs" aria-label="مسیر">
     <a href="home.html">خانه</a><span aria-hidden="true">/</span>
     <a href="episodes.html">اپیزودها</a><span aria-hidden="true">/</span>
-    <span aria-current="page">اپیزود ۰۸</span>
+    <span aria-current="page">اپیزود ۰۱</span>
   </nav>
 
   <!-- EPISODE HEADER -->
   <section class="split split--wide rule-b">
     <div class="ep-head">
       <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-        <span class="kicker latin">EP 08</span>
-        <span class="meta" style="color:var(--color-navy)">۲۶ دقیقه — سه‌شنبه ۳۱ شهریور ۱۴۰۵</span>
+        <span class="kicker latin">EP 01</span>
+        <span class="meta" style="color:var(--color-navy)">۳۲ دقیقه — سه‌شنبه ۱۴ مهر ۱۴۰۵</span>
       </div>
-      <h1 class="h1" style="text-wrap:pretty">اشک پیاز</h1>
-      <p class="subtitle" style="max-width:48ch">یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.</p>
+      <h1 class="h1" style="text-wrap:pretty">نم‌نم بارون</h1>
+      <p class="subtitle" style="max-width:48ch">این بو واقعاً بوی خاکه؟ از اولین قطره‌ای که به خاک می‌خوره تا دنیای عجیبِ زیرِ پامون.</p>
 
       <!-- FULL PLAYER -->
-      <div class="player" data-fullplayer="8">
+      <div class="player" data-fullplayer="1">
         <div class="player__main">
           <div class="player__row">
-            <span class="player__title">اپیزود ۰۸ — پیاز</span>
-            <span class="player__time"><span data-elapsed>00:00</span> / <span data-total>26:04</span></span>
+            <span class="player__title">اپیزود ۰۱ — باران</span>
+            <span class="player__time"><span data-elapsed>00:00</span> / <span data-total>32:10</span></span>
           </div>
           <div data-segs></div>
-          <div class="player__chapters" aria-hidden="true"><span style="flex:4">مقدمه</span><span style="flex:10">بُرش</span><span style="flex:14">چشم</span><span style="flex:20">ترفندها</span></div>
           <div class="player__ctrls">
             <span class="player__ctrls" dir="ltr">
               <button class="pbtn" data-skip="-15" aria-label="۱۵ ثانیه عقب">−۱۵</button>
@@ -89,7 +79,7 @@
         </div>
         <button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button>
       </div>
-      <p class="caption">صدا و اطلاعاتِ اپیزود مستقیم از فیدِ Acast خوانده می‌شود.</p>
+      <p class="caption">صدا مستقیم از فیدِ پادکست در ربط پخش می‌شود.</p>
     </div>
 
     <aside class="ep-side">
@@ -106,48 +96,50 @@
     <div class="stack gap-4" style="padding-block:44px">
       <span class="kicker">دربارهٔ این اپیزود</span>
       <div class="prose">
-        <p>پیاز تا وقتی سالم است، بی‌آزار است. مشکل از لحظه‌ای شروع می‌شود که چاقو سلول‌ها را پاره می‌کند: دو مادهٔ جدا‌افتاده به هم می‌رسند و واکنشی شکل می‌گیرد که محصولش در پیازِ سالم اصلاً وجود ندارد.</p>
-        <p>آن محصول فرّار است، در هوا پخش می‌شود و مسیرش را به سطحِ چشم پیدا می‌کند. آنجا با لایهٔ نازکِ آبِ چشم ترکیب می‌شود و اسیدی ملایم می‌سازد. چشم این را تهدید می‌فهمد و اشک را راه می‌اندازد.</p>
+        <p>از ساده‌ترین اتفاق‌های روزمره، مثلِ طعم‌دار کردنِ جوجه، تا استرپتومایسس‌ها و دنیای عجیبی که زیرِ پامون، توی خاک، جریان داره صحبت کردیم. دورِ یه میز نشستیم برای گپ‌وگفت دربارهٔ رازهای پنهانِ شیمی.</p>
+        <p>در اولین قسمتِ «عنصر ۱۱۹» رفتیم سراغِ یکی از آشناترین بوهای دنیا: بوی نم‌نم بارون.</p>
       </div>
-      <div class="pull"><p>اشکِ پیاز واکنشِ بدن به یک اسید است، نه به بو.</p></div>
-      <div class="prose"><p>همین توضیح می‌دهد که چرا پیازِ سرد کم‌آزارتر است، چرا بریدنش زیر آب کار می‌کند، و چرا هواکش بیشتر از عینکِ شنا کمک می‌کند.</p></div>
+      <div class="pull"><p>پشتِ یک بوی ساده و آشنا، داستانِ عجیبی از مولکول‌ها، باکتری‌ها و موجوداتِ ریز پنهان شده.</p></div>
+      <div class="prose"><p>از اولین قطره‌ای که به خاک می‌خوره، کم‌کم می‌ریم به دنیای زیرِ خاک؛ جایی که می‌بینیم این بو از کجا میاد و چرا این‌قدر برامون آشناست.</p></div>
 
       <div class="stack gap-3 rule-t" style="padding-top:26px;margin-top:8px">
-        <span class="kicker">بخش‌های اپیزود — روی هر کدام بزنی از همان‌جا پخش می‌شود</span>
-        <div class="chapters">
-          <button class="chap" data-chap="0"><span>00:00</span><span>مقدمه: آشپزخانه، چاقو، اشک</span><span>۲ دقیقه</span></button>
-          <button class="chap" data-chap="130"><span>02:10</span><span>سلول‌ها پاره می‌شوند؛ آنزیم آزاد می‌شود</span><span>۵ دقیقه</span></button>
-          <button class="chap" data-chap="455"><span>07:35</span><span>ترکیبِ فرّار چطور به چشم می‌رسد؟</span><span>۷ دقیقه</span></button>
-          <button class="chap" data-chap="890"><span>14:50</span><span>سرما، آب، هواکش: کدام ترفند واقعاً کار می‌کند؟</span><span>۱۱ دقیقه</span></button>
-        </div>
+        <span class="kicker">سؤال‌هایی که در این اپیزود جواب می‌دیم</span>
+        <ol class="questions">
+          <li><span class="latin">01</span>این بو واقعاً بوی خاکه؟</li>
+          <li><span class="latin">02</span>«پتریکور» چیه و «ژئوسمین» از کجا میاد؟</li>
+          <li><span class="latin">03</span>باکتری‌های خاک چه نقشی توی این بو دارن؟</li>
+          <li><span class="latin">04</span>چرا بوی بارون جاهای مختلف فرق می‌کنه؟</li>
+          <li><span class="latin">05</span>موجوداتِ ریزی مثلِ دم‌فنری‌ها وسطِ این داستان چه کار می‌کنن؟</li>
+        </ol>
       </div>
-
-      <details class="transcript">
-        <summary>متنِ کاملِ اپیزود</summary>
-        <div class="transcript__body">
-          <p><b>00:00</b><span>سلام، به عنصر ۱۱۹ خوش آمدید. امروز می‌خواهیم دربارهٔ چیزی حرف بزنیم که تقریباً همه تجربه‌اش کرده‌ایم: ایستادن کنارِ تخته‌ای که رویش پیاز است و چشم‌هایی که بی‌دلیل خیس می‌شوند.</span></p>
-          <p><b>00:24</b><span>اما دلیل دارد. و آن دلیل، یک واکنشِ شیمیاییِ خیلی سریع است که درست زیرِ لبهٔ چاقوی شما اتفاق می‌افتد.</span></p>
-          <p><b>02:10</b><span>بیایید از داخلِ یک سلولِ پیاز شروع کنیم…</span></p>
-        </div>
-      </details>
     </div>
 
     <aside class="stack gap-5" style="padding-block:44px">
       <div class="stack gap-3">
         <span class="kicker">مفاهیمِ علمی</span>
         <div style="display:flex;flex-wrap:wrap;gap:10px">
-          <a class="chip" href="episodes.html">آنزیم</a><a class="chip" href="episodes.html">ترکیبِ فرّار</a><a class="chip" href="episodes.html">اسیدِ ملایم</a><a class="chip" href="episodes.html">واکنشِ دفاعی</a>
+          <a class="chip" href="episodes.html">پتریکور</a><a class="chip" href="episodes.html">ژئوسمین</a><a class="chip" href="episodes.html">استرپتومایسس</a><a class="chip" href="episodes.html">دم‌فنری‌ها</a>
         </div>
       </div>
 
       <div class="glance">
         <span class="kicker">در یک نگاه</span>
         <div class="glance__row"><div class="full"></div><div class="line"></div><div class="mid"></div><div class="line"></div><div class="open"></div></div>
-        <div style="display:flex;justify-content:space-between" class="caption"><span>پیازِ سالم</span><span>بُرش</span><span>اشک</span></div>
+        <div style="display:flex;justify-content:space-between" class="caption"><span>قطرهٔ باران</span><span>خاک</span><span>بو</span></div>
       </div>
 
       <div class="stack gap-3">
-        <span class="kicker">اپیزودهای مرتبط</span>
+        <span class="kicker">گوینده‌ها</span>
+        <ul class="voices" style="list-style:none;margin:0;padding:0">
+          <li>افسانه رشیدی‌زاده<span>میزبان</span></li>
+          <li>امید حاجی‌شکری<span>میزبان</span></li>
+          <li>سیاوش صفاریان‌پور</li>
+          <li>فائزه حسینی</li>
+        </ul>
+      </div>
+
+      <div class="stack gap-3">
+        <span class="kicker">اپیزودهای بعدی</span>
         <div class="related" id="related"></div>
       </div>
 
@@ -159,8 +151,8 @@
   </section>
 
   <nav class="prevnext" aria-label="اپیزودهای مجاور">
-    <a href="episode.html"><span class="meta">→ اپیزودِ قبلی</span><strong>بوی نم‌نم بارون</strong></a>
-    <a href="episode.html"><span class="meta">اپیزودِ بعدی ←</span><strong>سایز آسیاب قهوه</strong></a>
+    <span></span>
+    <a href="episode.html"><span class="meta">اپیزودِ بعدی ←</span><strong>اشک پیاز</strong></a>
   </nav>
 </main>
 
@@ -170,17 +162,11 @@
 (function () {
   var J = window.Jadval;
   document.getElementById('ep-icons').innerHTML = J.platformLinks(26);
-  document.getElementById('cover').innerHTML = J.tile(J.ep(8));
-  document.getElementById('related').innerHTML = [7, 9, 4].map(function (n) {
+  document.getElementById('cover').innerHTML = J.tile(J.ep(1));
+  document.getElementById('related').innerHTML = [2, 3, 4].map(function (n) {
     var e = J.ep(n);
     return '<a href="episode.html">' + J.tile(e, { name: false }) + '<strong>' + e.title + '</strong></a>';
   }).join('');
-  // Chapters jump to their time and play (a click, so not autoplay).
-  // Note: Acast mid-roll ads are stitched into the file, so real chapter
-  // times must be checked against the delivered audio.
-  document.querySelectorAll('[data-chap]').forEach(function (b) {
-    b.addEventListener('click', function () { J.player.cue(8, +b.getAttribute('data-chap'), true); });
-  });
 })();
 </script>
 </body>

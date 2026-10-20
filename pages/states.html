@@ -143,16 +143,16 @@
     b.innerHTML = h;
   });
   var t = [
-    [J.tile(J.ep(7)), 'سرمه‌ای'],
-    [J.tile(J.ep(9)), 'کرم'],
-    [J.tile(J.ep(8)), 'زرشکی'],
-    [J.tile(J.ep(5)), 'مشکی'],
+    [J.tile(J.ep(1)), 'سرمه‌ای'],
+    [J.tile(J.ep(3)), 'کرم'],
+    [J.tile(J.ep(2)), 'زرشکی'],
+    [J.tile(J.ep(8)), 'مشکی'],
     [J.emptyTile(10), 'خالی — اپیزودِ بعدی'],
     ['<div class="tile tile--dashed"><div class="tile__top"><span>01</span><span></span></div><div class="tile__sym">Ef</div><div class="tile__name">قرص</div></div>', 'خط‌چین — فیلترشده']
   ];
   document.getElementById('tiles').innerHTML = t.map(function (x) { return '<figure>' + x[0] + '<figcaption>' + x[1] + '</figcaption></figure>'; }).join('');
   document.getElementById('mm-icons').innerHTML = J.platformLinks(24);
-  document.getElementById('mini-tile').innerHTML = J.tile(J.ep(8), { name: false, cls: 'tile-sm' });
+  document.getElementById('mini-tile').innerHTML = J.tile(J.ep(2), { name: false, cls: 'tile-sm' });
 })();
 </script>
 </body>

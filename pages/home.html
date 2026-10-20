@@ -103,7 +103,7 @@
         <h2 id="feat-h" style="font:900 clamp(22px,2.4vw,32px)/1.35 var(--font-display)">اشک پیاز</h2>
         <p style="max-width:46ch;font-size:16px;line-height:1.95;opacity:.86">یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.</p>
         <div class="btn-row">
-          <button class="btn btn--light" data-play="8"><span class="play-icon"></span> <span data-play-label="پخشِ اپیزود">پخشِ اپیزود</span></button>
+          <button class="btn btn--light" data-play="2"><span class="play-icon"></span> <span data-play-label="پخشِ اپیزود">پخشِ اپیزود</span></button>
           <a class="btn btn--ghost-light" href="episode.html">صفحه و متنِ اپیزود</a>
         </div>
       </div>
@@ -172,14 +172,14 @@
   }).join('');
 
   // Featured tile
-  document.getElementById('feat-art').innerHTML = J.tile(J.ep(8), { variant: 'tile--ghost-light' });
+  document.getElementById('feat-art').innerHTML = J.tile(J.ep(2), { variant: 'tile--ghost-light' });
 
   document.getElementById('hosts').innerHTML = J.hostsHTML();
   document.getElementById('listen').innerHTML = J.listenHTML();
   document.getElementById('sub-icons').innerHTML = J.platformLinks(22);
 
   // Popular
-  document.getElementById('popular').innerHTML = [8, 9, 7, 6, 4].map(function (n) {
+  document.getElementById('popular').innerHTML = [1, 2, 3, 9, 7].map(function (n) {
     var e = J.ep(n);
     return '<div class="row"><span class="row__num latin">' + J.epNum(n) + '</span><a class="row__title" href="episode.html" style="color:inherit">' + e.title + '</a>' +
       '<span class="row__len latin">' + e.len + '</span><button class="row__play" data-play="' + n + '" aria-label="پخشِ ' + e.title + '"><span class="play-icon"></span></button></div>';
