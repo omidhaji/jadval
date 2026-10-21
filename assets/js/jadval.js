@@ -119,7 +119,7 @@
       '<div><div class="tile__name">' + (label !== undefined ? label : 'به‌زودی') + '</div><div class="tile__mass">—</div></div></div>';
   }
 
-  window.Jadval = { MONTHS: MONTHS, EPISODES: EPISODES, GROUPS: GROUPS, PLATFORMS: PLATFORMS, HOSTS: HOSTS, ep: ep, tile: tile, emptyTile: emptyTile, fa: fa, pad: pad, epNum: epNum, mins: mins, picon: picon, hostsHTML: hostsHTML, listenHTML: listenHTML, platformLinks: platformLinks };
+  window.Jadval = { MONTHS: MONTHS, EPISODES: EPISODES, GROUPS: GROUPS, PLATFORMS: PLATFORMS, SOCIALS: SOCIALS, FEED_URL: FEED_URL, HOSTS: HOSTS, ep: ep, tile: tile, emptyTile: emptyTile, fa: fa, pad: pad, epNum: epNum, mins: mins, picon: picon, hostsHTML: hostsHTML, listenHTML: listenHTML, platformLinks: platformLinks };
 
   /* ---------------- Shared chrome ---------------- */
   var NAV = [
