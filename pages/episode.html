@@ -79,13 +79,13 @@
         </div>
         <button class="pmain" data-toggle aria-label="پخش"><span class="play-icon"></span></button>
       </div>
-      <p class="caption">صدا مستقیم از فیدِ پادکست در ربط پخش می‌شود.</p>
+      <p class="caption">صدا مستقیم از فیدِ پادکست در ربط پخش می‌شود. <a href="#video">ویدیوی این اپیزود ↓</a></p>
     </div>
 
     <aside class="ep-side">
       <div id="cover"></div>
       <div class="stack gap-2" style="max-width:320px">
-        <span class="kicker">این اپیزود را در این‌ها هم بشنو</span>
+        <span class="kicker">این اپیزود را در این‌ها هم ببین و بشنو</span>
         <div class="picons" id="ep-icons" style="padding-block:6px"></div>
       </div>
     </aside>
@@ -94,6 +94,12 @@
   <!-- BODY + SIDEBAR -->
   <section class="split split--wide rule-b">
     <div class="stack gap-4" style="padding-block:44px">
+      <div class="stack gap-3 rule-b" id="video" style="padding-bottom:32px;margin-bottom:12px;scroll-margin-top:24px">
+        <span class="kicker">ویدیوی این اپیزود</span>
+        <div id="ep-video"></div>
+        <a class="video-link" id="ep-video-link" href="#">دیدن در یوتیوب ←</a>
+      </div>
+
       <span class="kicker">دربارهٔ این اپیزود</span>
       <div class="prose">
         <p>از ساده‌ترین اتفاق‌های روزمره، مثلِ طعم‌دار کردنِ جوجه، تا استرپتومایسس‌ها و دنیای عجیبی که زیرِ پامون، توی خاک، جریان داره صحبت کردیم. دورِ یه میز نشستیم برای گپ‌وگفت دربارهٔ رازهای پنهانِ شیمی.</p>
@@ -163,6 +169,10 @@
   var J = window.Jadval;
   document.getElementById('ep-icons').innerHTML = J.platformLinks(26);
   document.getElementById('cover').innerHTML = J.tile(J.ep(1));
+  document.getElementById('ep-video').innerHTML = J.videoHTML(J.ep(1));
+  var vl = document.getElementById('ep-video-link');
+  vl.href = J.videoUrl(J.ep(1));
+  if (!J.ep(1).video) vl.textContent = 'کانالِ یوتیوب ←';
   document.getElementById('related').innerHTML = [2, 3, 4].map(function (n) {
     var e = J.ep(n);
     return '<a href="episode.html">' + J.tile(e, { name: false }) + '<strong>' + e.title + '</strong></a>';

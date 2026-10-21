@@ -83,6 +83,15 @@
     <div class="cards" id="latest"></div>
   </section>
 
+  <!-- VIDEO -->
+  <section class="wrap" aria-labelledby="video-h">
+    <div class="section-head section-head--plain"><h2 id="video-h">ویدیو</h2><a href="#" id="yt-channel">کانالِ یوتیوب ←</a></div>
+    <div class="vfeature">
+      <div id="home-video"></div>
+      <div class="vfeature__txt" id="home-video-txt"></div>
+    </div>
+  </section>
+
   <!-- HOSTS -->
   <section class="wrap" aria-labelledby="hosts-h">
     <div class="section-head section-head--plain"><h2 id="hosts-h">میزبان‌ها</h2><a href="about.html">دربارهٔ ما ←</a></div>
@@ -91,7 +100,7 @@
 
   <!-- LISTEN -->
   <section class="wrap" aria-labelledby="listen-h" style="padding-bottom:var(--section-gap)">
-    <div class="section-head section-head--plain"><h2 id="listen-h">کجا بشنویم؟</h2><span class="meta">اپیزودِ تازه: هر سه‌شنبه</span></div>
+    <div class="section-head section-head--plain"><h2 id="listen-h">کجا ببینیم و بشنویم؟</h2><span class="meta">اپیزودِ تازه: هر سه‌شنبه</span></div>
     <div id="listen"></div>
   </section>
 
@@ -170,6 +179,19 @@
       '<div class="card__foot"><span class="meta" style="color:var(--color-navy)">' + J.mins(e.len) + ' — ' + e.date + '</span>' +
       '<button class="play-sm" data-play="' + e.n + '"><span class="dot"><span class="play-icon"></span></span><span data-play-label="پخش">پخش</span></button></div></div></article>';
   }).join('');
+
+  // Video: the newest episode that has one (its YouTube id may still be pending)
+  var v = E.filter(function (e) { return 'video' in e; }).pop();
+  if (v) {
+    document.getElementById('home-video').innerHTML = J.videoHTML(v);
+    document.getElementById('home-video-txt').innerHTML =
+      '<span class="kicker latin">EP ' + J.pad(v.n) + '</span>' +
+      '<h3>' + v.title + '</h3><p>' + v.desc + '</p>' +
+      '<div class="btn-row"><button class="btn btn--navy" data-play="' + v.n + '"><span class="play-icon"></span> <span data-play-label="فقط صدا">فقط صدا</span></button>' +
+      '<a class="btn btn--ghost" href="episode.html">صفحهٔ اپیزود</a></div>' +
+      '<a class="video-link" href="' + J.videoUrl(v) + '">' + (v.video ? 'دیدن در یوتیوب ←' : 'کانالِ یوتیوب ←') + '</a>';
+  }
+  document.getElementById('yt-channel').href = J.ytChannel;
 
   // Featured tile
   document.getElementById('feat-art').innerHTML = J.tile(J.ep(2), { variant: 'tile--ghost-light' });
