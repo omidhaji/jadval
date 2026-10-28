@@ -23,13 +23,18 @@
     pharma: { name: 'گروه دارو',   col: 5, icon: 'pair',  tile: 'navy' }
   };
 
-  // Episode 1 is real: its audio is the <enclosure url> of the Rabt feed, used
-  // as-is (no proxy, no cache) so Rabt counts the listen. Episodes 2-9 are samples.
+  // Episode 1 is real. Rabt serves every episode from two places, both listed in
+  // its feeds and both counted as listens: play.rabt.host (Iranian servers, for
+  // listeners in Iran) and player.rabt.space (Cloudflare, for everyone else; often
+  // blocked inside Iran). `audio` lists them in that order; the player falls back
+  // to the next one by itself. URLs are used as-is (no proxy, no cache).
+  // Episodes 2-9 are samples.
   var FEED_URL = 'https://player.rabt.space/p/70f8b309-1f6a-47b0-90d9-70d80b940ebe.xml';
   var EPISODES = [
     { n: 1, sym: 'Rn', obj: 'باران', tone: 'navy', photo: 'assets/img/episodes/ep07.jpg', g: 'life', month: 'mehr', len: '32:10', date: 'سه‌شنبه ۱۴ مهر ۱۴۰۵', title: 'نم‌نم بارون', desc: 'این بو واقعاً بوی خاکه؟ پتریکور، ژئوسمین و دنیای عجیبی که زیرِ پامون جریان داره.',
       video: '',  // YouTube video id (the part after youtu.be/), pending
-      audio: 'https://player.rabt.space/podcast/70f8b309-1f6a-47b0-90d9-70d80b940ebe/episode/8ec7f620-0472-429c-ab36-d7b5581ed956/play.mp3' },
+      audio: ['https://play.rabt.host/podcast/70f8b309-1f6a-47b0-90d9-70d80b940ebe/episode/8ec7f620-0472-429c-ab36-d7b5581ed956/play.mp3',
+              'https://player.rabt.space/podcast/70f8b309-1f6a-47b0-90d9-70d80b940ebe/episode/8ec7f620-0472-429c-ab36-d7b5581ed956/play.mp3'] },
     { n: 2, sym: 'On', obj: 'پیاز', tone: '', photo: 'assets/img/episodes/ep08.jpg', g: 'body', month: 'mehr', len: '26:04', date: 'سه‌شنبه ۲۱ مهر ۱۴۰۵', title: 'اشک پیاز', desc: 'یک آنزیم، سی ثانیه فرصت، و ترکیبی که تا لحظه‌ای پیش وجود نداشت.' },
     { n: 3, sym: 'Cf', obj: 'قهوه', tone: 'cream', photo: 'assets/img/episodes/ep09.jpg', g: 'food', month: 'mehr', len: '33:12', date: 'سه‌شنبه ۲۸ مهر ۱۴۰۵', title: 'سایز آسیاب قهوه', desc: 'چرا ریز و درشتیِ آسیاب، طعمِ فنجان را از ترش به تلخ می‌برد؟' },
     { n: 4, sym: 'Ef', obj: 'قرص', tone: '', photo: 'assets/img/episodes/ep01.jpg', g: 'pharma', month: 'aban', len: '22:30', date: 'سه‌شنبه ۵ آبان ۱۴۰۵', title: 'قرصِ جوشان چرا جوش می‌آید؟', desc: 'یک لیوان آب، دو پودرِ خشک، و گازی که تا لحظه‌ای پیش در کار نبود.' },
@@ -198,6 +203,10 @@
   var status = 'idle';      // idle | loading | playing | paused | ended | error
   var errorMsg = '';
   var pendingSeek = null;   // seconds to apply once metadata is known
+  var srcIdx = 0;           // which of the episode's audio sources is in use
+  var srcOk = false;        // has the current source delivered metadata yet?
+  var stallTimer = null;
+  var SOURCE_WAIT = 8000;   // ms to wait for an untried source before trying the next
   var scrub = null;         // { bar, sec } while a progress bar is dragged
   var lastSave = 0;
   var statusKey = '';
@@ -207,7 +216,7 @@
     read: function () { try { return JSON.parse(localStorage.getItem('jadval-player') || '{}') || {}; } catch (e) { return {}; } },
     write: function (v) { try { localStorage.setItem('jadval-player', JSON.stringify(v)); } catch (e) {} }
   };
-  var saved = store.read();  // { last, rate, pos: { [episode]: seconds } }
+  var saved = store.read();  // { last, rate, pos: { [episode]: seconds }, host: last audio host that worked }
   if (!saved.pos || typeof saved.pos !== 'object') saved.pos = {};
 
   function segs(dark) {
@@ -242,7 +251,28 @@
   var fabEl;
 
   /* ---- state helpers ---- */
-  function audioUrl(e) { return e.audio || SAMPLE_AUDIO; }
+  // Audio sources in the order to try: the host that worked last for this
+  // listener first, then the feed order (Iran first).
+  function sources(e) {
+    var list = !e.audio ? [SAMPLE_AUDIO] : (typeof e.audio === 'string' ? [e.audio] : e.audio.slice());
+    if (saved.host) list.sort(function (a, b) { return (hostOf(b) === saved.host) - (hostOf(a) === saved.host); });
+    return list;
+  }
+  function hostOf(url) { try { return new URL(url, location.href).host; } catch (err) { return ''; } }
+  function audioUrl(e) { return sources(e)[e === cur ? srcIdx : 0] || sources(e)[0]; }
+  function clearStall() { if (stallTimer) { clearTimeout(stallTimer); stallTimer = null; } }
+  // Move to the next source at the same position, keeping the intent to play.
+  function nextSource() {
+    clearStall();
+    if (!cur || srcIdx + 1 >= sources(cur).length) return false;
+    var p = position();
+    srcIdx++;
+    srcOk = false;
+    audio.src = audioUrl(cur);
+    pendingSeek = p || null;
+    play();
+    return true;
+  }
   function duration() {
     if (!cur) return 0;
     return isFinite(audio.duration) && audio.duration > 0 ? audio.duration : secs(cur.len);
@@ -283,6 +313,7 @@
     if (cur) persist(true);
     cur = e;
     status = 'idle';
+    srcIdx = 0; srcOk = false; clearStall();
     audio.src = audioUrl(e);   // preload="none": nothing is fetched until play()
     audio.playbackRate = audio.defaultPlaybackRate = saved.rate || 1;
     pendingSeek = saved.pos[e.n] || null;
@@ -302,13 +333,18 @@
     if (status === 'ended') seek(0);
     status = 'loading';
     render();
+    // An untried source gets a few seconds; a blocked host (e.g. Cloudflare in
+    // Iran, Iranian servers abroad) often hangs instead of failing outright.
+    clearStall();
+    if (!srcOk) stallTimer = setTimeout(function () { if (!srcOk && status === 'loading') nextSource(); }, SOURCE_WAIT);
     var p = audio.play();
     if (p && p.catch) p.catch(function (err) {
       if (err && err.name === 'AbortError') return;   // superseded by a newer play/pause/src
-      fail(err && err.name === 'NotAllowedError' ? 'مرورگر اجازهٔ پخش نداد؛ دوباره بزن.' : 'فایلِ صوتی بارگذاری نشد.');
+      if (err && err.name === 'NotAllowedError') { clearStall(); return fail('مرورگر اجازهٔ پخش نداد؛ دوباره بزن.'); }
+      if (!nextSource()) { clearStall(); fail('فایلِ صوتی بارگذاری نشد.'); }
     });
   }
-  function pause() { if (cur && !audio.paused) audio.pause(); }
+  function pause() { clearStall(); if (cur && !audio.paused) audio.pause(); }
   function toggle(n) {
     if (n !== undefined && (!cur || cur.n !== +n)) return play(n);
     if (!cur) return;
@@ -334,6 +370,7 @@
   function retry() {
     var p = position();
     errorMsg = '';
+    srcIdx = 0; srcOk = false;
     audio.src = audioUrl(cur);
     pendingSeek = p || null;
     play();
@@ -476,6 +513,10 @@
   /* ---- audio element events ---- */
   function bindAudio() {
     audio.addEventListener('loadedmetadata', function () {
+      // This source works: remember its host so the next play starts there.
+      srcOk = true; clearStall();
+      // (audio.src is the feed URL we asked for, not where it redirected.)
+      if (cur && cur.audio) { var h = hostOf(audio.src); if (h && saved.host !== h) { saved.host = h; store.write(saved); refreshDownloads(); } }
       if (pendingSeek !== null) {
         var t = pendingSeek;
         // Prototype only: the sample is shorter than the episode, so map
@@ -493,7 +534,12 @@
     audio.addEventListener('ended', function () { status = 'ended'; persist(true); render(); });
     audio.addEventListener('timeupdate', function () { persist(false); render(); });
     audio.addEventListener('ratechange', render);
-    audio.addEventListener('error', function () { if (audio.getAttribute('src')) fail('فایلِ صوتی بارگذاری نشد.'); });
+    audio.addEventListener('error', function () {
+      if (!audio.getAttribute('src')) return;
+      if (!srcOk && nextSource()) return;   // try the other host before giving up
+      clearStall();
+      fail('فایلِ صوتی بارگذاری نشد.');
+    });
     window.addEventListener('pagehide', function () { persist(true); });
     document.addEventListener('visibilitychange', function () { if (document.hidden) persist(true); });
   }
@@ -583,8 +629,12 @@
 
   function fullPlayers() {
     document.querySelectorAll('[data-segs]').forEach(function (x) { x.outerHTML = segs(false); });
+    refreshDownloads();
+  }
+  // Download links follow the host that works for this listener.
+  function refreshDownloads() {
     document.querySelectorAll('[data-fullplayer] [data-download]').forEach(function (a) {
-      a.href = audioUrl(ep(ownerOf(a)));
+      a.href = sources(ep(ownerOf(a)))[0];
       a.setAttribute('download', '');
     });
   }

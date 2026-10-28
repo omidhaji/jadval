@@ -5,6 +5,7 @@ const ok=(c,m)=>console.log((c?'PASS ':'FAIL ')+m);
   const b = await chromium.launch({args:['--host-resolver-rules=MAP site.test 127.0.0.1']});
   const ctx = await b.newContext({viewport:{width:1440,height:900}});
   // keep the real Rabt file out of this test: point it at the local long sample
+  await ctx.route('https://play.rabt.host/**',r=>r.abort('connectionrefused'));  // behave like a listener abroad
   await ctx.route('https://player.rabt.space/**',r=>r.fulfill({status:302,headers:{location:'http://site.test:8767/.testaudio/long.mp3'}}));
   let yt=0; await ctx.route(/youtube/,r=>{yt++; r.fulfill({status:200,contentType:'text/html',body:'<html><body>yt stub</body></html>'});});
   const p = await ctx.newPage(); const errs=[]; p.on('pageerror',e=>errs.push(e.message));

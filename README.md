@@ -16,7 +16,7 @@
 
 بدونِ اینترنت: فونت‌ها (Google Fonts) و صدای اپیزودِ ۱ (از ربط) نمی‌آیند؛ بقیه کار می‌کند.
 
-**اپیزودِ تازه:** یک خط در آرایهٔ `EPISODES` در `assets/js/jadval.js`. فیلدِ `audio` = دقیقاً `enclosure url` همان اپیزود در [فیدِ ربط](https://player.rabt.space/p/70f8b309-1f6a-47b0-90d9-70d80b940ebe.xml) (لینکِ `play.mp3`)، تا ربط شنیدن را بشمارد. `tone`: `''` زرشکی، `'navy'`، `'cream'`، `'black'`. فیلدِ `video`: شناسهٔ ویدیو در یوتیوب (بعد از `youtu.be/`)؛ نشانیِ کانال در `YT_CHANNEL`.
+**اپیزودِ تازه:** یک خط در آرایهٔ `EPISODES` در `assets/js/jadval.js`. فیلدِ `audio` = دو نشانیِ `enclosure url` همان اپیزود، به این ترتیب: اول از فیدِ ایرانی (`https://api.rabt.host/podcasts/70f8b309-1f6a-47b0-90d9-70d80b940ebe/rss`، نشانیِ `play.rabt.host/...`)، بعد از [فیدِ Cloudflare](https://player.rabt.space/p/70f8b309-1f6a-47b0-90d9-70d80b940ebe.xml) (نشانیِ `player.rabt.space/...`). دقیقاً همان لینک‌های `play.mp3`، تا ربط شنیدن را بشمارد. دو نشانی فقط در دامنه فرق دارند. `tone`: `''` زرشکی، `'navy'`، `'cream'`، `'black'`. فیلدِ `video`: شناسهٔ ویدیو در یوتیوب (بعد از `youtu.be/`)؛ نشانیِ کانال در `YT_CHANNEL`.
 
 ## تست‌ها (`tools/`)
 
@@ -28,5 +28,6 @@ node tools/make-test-audio.js   # یک بار؛ فایلِ صوتیِ بلندِ
 node tools/ptest.js             # ۴۰ سناریوی پلیر (لینکِ ربط به فایلِ محلی هدایت می‌شود تا آمار دست نخورد)
 node tools/fabt.js              # ۱۴ تستِ دکمهٔ شناور
 node tools/vtest.js             # ۱۷ تستِ ویدیو (یوتیوب شبیه‌سازی می‌شود)
+node tools/srctest.js           # ۱۵ تستِ جابه‌جاییِ نشانیِ صدا (ایران / خارج؛ ربط شبیه‌سازی می‌شود)
 node tools/realplay2.js         # پخشِ واقعی از ربط (اینترنت لازم؛ یک شنیدن در آمار ثبت می‌شود)
 ```

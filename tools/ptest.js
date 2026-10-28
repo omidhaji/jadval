@@ -8,6 +8,7 @@ const ctx=await b.newContext({ignoreHTTPSErrors:true,viewport:{width:1440,height
 // flaky sandbox network and out of the podcast's listen stats). The real
 // network path is covered by realplay2.js.
 let rabtHits=0;
+await ctx.route('https://play.rabt.host/**',r=>r.abort('connectionrefused'));  // behave like a listener abroad
 await ctx.route('https://player.rabt.space/**',r=>{rabtHits++;r.fulfill({status:302,headers:{location:'http://site.test:8767/.testaudio/long.mp3','access-control-allow-origin':'*'}});});
 // Needs .testaudio/long.mp3: run  node tools/make-test-audio.js  once.
 const p=await ctx.newPage();
