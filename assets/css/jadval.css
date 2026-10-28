@@ -530,7 +530,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .site-footer .flink__handle { font: 500 13px/28px var(--font-mono); }  /* same row height as the text links */
 
 /* Listen section */
-.listen { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
+.listen { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: var(--rule) solid var(--color-rule); }
 .listen__item {
   display: flex; align-items: center; gap: 14px; padding: 24px 18px;
   border-inline-start: var(--rule) solid var(--color-divider); color: var(--color-navy);

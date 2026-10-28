@@ -48,9 +48,10 @@ const ok=(c,m)=>console.log((c?'PASS ':'FAIL ')+m);
   ok(await p.isVisible('#home-video .video'),'8 home shows the video block');
   ok((await p.textContent('#listen-h'))==='کجا ببینیم و بشنویم؟','9 heading renamed');
   const names=await p.$$eval('#listen .listen__item strong',a=>a.map(x=>x.textContent));
-  ok(names.join(',')==='یوتیوب,اپل پادکست,کست‌باکس,فیدیبو','10 platforms: '+names.join('، '));
+  ok(names.join(',')==='یوتیوب,اسپاتیفای,اپل پادکست,کست‌باکس,فیدیبو','10 platforms: '+names.join('، '));
   const fnames=await p.$$eval('.site-footer .flink',a=>a.map(x=>x.textContent.trim()));
-  ok(!fnames.includes('Spotify')&&fnames.includes('YouTube'),'11 footer: '+fnames.join(', '));
+  ok(fnames.includes('Spotify')&&fnames.includes('YouTube'),'11 footer: '+fnames.join(', '));
+  ok(await p.getAttribute('#listen .listen__item:nth-child(2)','href')==='https://open.spotify.com/show/6nDitoTOxK6xNQ3phc6gcu','11b Spotify links to the show');
   for (const w of [390,768]) { await p.setViewportSize({width:w,height:800}); await p.waitForTimeout(300); ok(await p.evaluate(()=>document.documentElement.scrollWidth)===w,'12 no horizontal scroll at '+w); }
   console.log('errors', JSON.stringify(errs));
   await b.close();
